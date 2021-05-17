@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
+import React, { useState } from "react";
+import { ScrollView, FlatList, SafeAreaView, StatusBar, StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import Navheader from "../component/Navheader"
 
 const dataChallenge = [
@@ -54,12 +54,19 @@ export default function Ranking(props) {
       dataChallenge.map((u, i) => {
       
         return (
-          <View style={{flexDirection:"row",}}>
+          <View 
+          style={{
+            flexDirection: "row",
+            flexWrap: "wrap",
+            width: 150, 
+            height: 150
+
+          }}>
               <View style={{alignItems:"center"}}>
-                  <Text>{u.name}</Text>
                   <Image 
                     style={{ width: 100, height: 100, margin:10}}
                     source={u.picto}/>
+                  <Text>{u.name}</Text>
               </View>
           </View>
             );
