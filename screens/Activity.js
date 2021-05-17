@@ -55,13 +55,22 @@ export default function Activity(props) {
                       <Text h1>{u.name}</Text>
                       <Text>Distance : {u.distance}</Text>
                       <Text>Date : {u.date}</Text>
-                      <Text>New Exploration : 
-                          <Badge status="warning"
-                          value={
+                      <Text>New routes discovered :</Text>
+                      <Badge 
+                        status="warning"
+                         value={
+                            <Text 
+                            >5.5 km
+                            </Text>} 
+                      />
+                         <Badge 
+                        status="warning"
+                         value={
                             <Text 
                             >{u.newexploration}
-                            </Text>} />
-                      </Text>
+                            </Text>} 
+                      />
+                      
                   </View>
                   <View>
                       <Image
