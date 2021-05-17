@@ -1,112 +1,101 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Image, SafeAreaView, ScrollView } from 'react-native';
-import { Card, ListItem, Button, Icon } from 'react-native-elements'
+import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
+import Navheader from "../component/Navheader"
 
-export default function Ranking() {
+const dataChallenge = [
+  {
+    name: "Et de 15 !",
+    picto: require("../assets/Badge/15km.jpg"),
+  },
+  {
+    name: "30 de plus !",
+    picto: require("../assets/Badge/30km.jpg"),
+  },
+  {
+    name: " être connecté",
+    picto: require("../assets/Badge/Connect.jpg"),
+  },
+  {
+    name: " Contre la montre",
+    picto: require("../assets/Badge/Time.jpg"),
+  },
+]
+
+const dataTrophee = [
+  {
+    name: "Et de 15 !",
+    picto: require("../assets/Badge/15km.jpg"),
+  },
+  {
+    name: "30 de plus !",
+    picto: require("../assets/Badge/30km.jpg"),
+  },
+  {
+    name: " être connecté",
+    picto: require("../assets/Badge/Connect.jpg"),
+  },
+  {
+    name: " Contre la montre",
+    picto: require("../assets/Badge/Time.jpg"),
+  },
+]
+export default function Ranking(props) {
   return (
+    <View>
+         
+    <Navheader/>
 
-    
-
-    <SafeAreaView>
     <ScrollView>
-
-      <Card style={styles.container}>
-        <Card.Title>Mes challenges</Card.Title>
-        <Card.Divider style={{ backgroundColor: '#ed420c' }}/>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: 'space-around',
-            marginBottom: 30,
-          }}>
-          <Image 
-            style={{ width: 100, height: 100}}
-            source={require('../assets/Badge/15km.jpg')}></Image>
-          <Image 
-            style={{ width: 100, height: 100}}
-            source={require('../assets/Badge/15km.jpg')}></Image>
-          <Image 
-            style={{ width: 100, height: 100}}
-            source={require('../assets/Badge/15km.jpg')}></Image>
-        </View>   
-
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: 'space-around',
-            marginBottom: 30,
-          }}>  
-          <Image 
-            style={{ width: 100, height: 100}}
-            source={require('../assets/Badge/15km.jpg')}></Image>
-          <Image 
-            style={{ width: 100, height: 100}}
-            source={require('../assets/Badge/15km.jpg')}></Image>
-          <Image 
-            style={{ width: 100, height: 100}}
-            source={require('../assets/Badge/15km.jpg')}></Image>
-        </View> 
-
-        <Button 
-        buttonStyle={{borderRadius: 5, backgroundColor:"#ed420c"}}
-        title="Créer un challenge"
-         />
       
-      </Card>
+    <Text style={styles.titre}>Mes challenges</Text>
 
-
-      <Card style={styles.container}>
-        <Card.Title>Mes trophées</Card.Title>
-        <Card.Divider style={{ backgroundColor: '#ed420c' }}/>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: 'space-around',
-            marginBottom: 30,
-          }}>
-          <Image 
-            style={{ width: 100, height: 100}}
-            source={require('../assets/Badge/15km.jpg')}></Image>
-          <Image 
-            style={{ width: 100, height: 100}}
-            source={require('../assets/Badge/15km.jpg')}></Image>
-          <Image 
-            style={{ width: 100, height: 100}}
-            source={require('../assets/Badge/15km.jpg')}></Image>
-        </View>   
-
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: 'space-around',
-            marginBottom: 30,
-          }}>  
-          <Image 
-            style={{ width: 100, height: 100}}
-            source={require('../assets/Badge/15km.jpg')}></Image>
-          <Image 
-            style={{ width: 100, height: 100}}
-            source={require('../assets/Badge/15km.jpg')}></Image>
-          <Image 
-            style={{ width: 100, height: 100}}
-            source={require('../assets/Badge/15km.jpg')}></Image>
-        </View> 
+        
+      {
+      dataChallenge.map((u, i) => {
       
-      </Card>
-
+        return (
+          <View style={{flexDirection:"row",}}>
+              <View style={{alignItems:"center"}}>
+                  <Text>{u.name}</Text>
+                  <Image 
+                    style={{ width: 100, height: 100, margin:10}}
+                    source={u.picto}/>
+              </View>
+          </View>
+            );
+          })
+        }
     
-    </ScrollView>   
-    </SafeAreaView>
-  );
+    <Text style={styles.titre}>Mes trophées</Text>
+      {
+      dataTrophee.map((u, i) => {
+      
+        return (
+          <View style={{flexDirection:"row"}}>
+              <View style={{alignItems:"center"}}>
+                  <Text>{u.name}</Text>
+                  <Image 
+                    style={{ width: 100, height: 100, margin:10}}
+                    source={u.picto}/>
+              </View>
+          </View>
+            );
+          })
+        }
+    
+  </ScrollView>
+
+</View>
+);
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    borderRadius: 130,
-    backgroundColor: '#fff',
+  titre: {
+    fontSize: 18,
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: 20,
+    marginTop: 20,
+    fontWeight: "bold",
   },
 });
