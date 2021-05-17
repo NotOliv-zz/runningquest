@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 
-import {Avatar,Card, ListItem, Button, Icon, Header} from 'react-native-elements'
+import {Avatar,Card, ListItem, Button, Icon, Header, Badge} from 'react-native-elements'
 import Navheader from "../component/Navheader"
 
 const activites = [
@@ -52,10 +52,16 @@ export default function Activity(props) {
                <Card.Divider/>
                
                     <View >
-                      <Text>{u.name}</Text>
+                      <Text h1>{u.name}</Text>
                       <Text>Distance : {u.distance}</Text>
                       <Text>Date : {u.date}</Text>
-                      <Text>New Exploration : {u.newexploration}</Text>
+                      <Text>New Exploration : 
+                          <Badge status="warning"
+                          value={
+                            <Text 
+                            >{u.newexploration}
+                            </Text>} />
+                      </Text>
                   </View>
                   <View>
                       <Image

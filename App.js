@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Platform, PlatformColor } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 import Activity from './screens/Activity';
 import API from './screens/API'
@@ -23,7 +23,7 @@ const Tab = createBottomTabNavigator();
 
 const BottomNavigator = () => {
   return (
-    <Tab.Navigator 
+    <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ color }) => {
           let iconName;
@@ -38,10 +38,10 @@ const BottomNavigator = () => {
         },
         })}
       tabBarOptions={{
-        activeTintColor: '#009788',
-        inactiveTintColor: '#FFFFFF',
+        activeTintColor: '#ED590C',
+        inactiveTintColor: '#808080',
         style: {
-          backgroundColor: '#111224',
+          backgroundColor: '#FFFFFF',
         }
       }}
     >
