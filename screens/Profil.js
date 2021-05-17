@@ -5,7 +5,7 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function Profil() {
   return (
     <View style={styles.container}>
-      <Text>Profil</Text>
+      <Text>Profil test</Text>
       <StatusBar style="auto" />
     </View>
   );
