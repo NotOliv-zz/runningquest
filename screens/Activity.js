@@ -2,7 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 
-import { Card, ListItem, Button, Icon, Header} from 'react-native-elements'
+import {Avatar,Card, ListItem, Button, Icon, Header} from 'react-native-elements'
+import Navheader from "../component/Navheader"
 
 const activites = [
   {
@@ -31,32 +32,23 @@ const activites = [
 
 export default function Activity(props) {
   return (
+  
     <View style={styles.container}>
-
-        <Header 
-     
-          leftComponent={{ icon: 'menu', color: '#FFA500' }}
-          centerComponent={{ Image: require("../assets/Logo.png"), style: { width: 50, height: 50}}}
-          rightComponent={{ icon: 'home', color: '#FFA500' }}
-          containerStyle={{
-            backgroundColor: '#FFFFFF',
-            justifyContent: 'space-bewteen',
-          }}
-        />
+         
+        <Navheader/>
 
         <Text>My Last Activities</Text>
 
-
       <ScrollView>
 
-          <Card >
+        
             
           {
           activites.map((u, i) => {
-            
+          
             return (
-              
-              <View key={i} style={styles.cards}>
+              <Card key={i} >
+              <View style={styles.cards}>
                <Card.Divider/>
                
                     <View >
@@ -73,11 +65,11 @@ export default function Activity(props) {
                     </View>
 
               </View>
-       
+              </Card>
                 );
               })
             }
-          </Card>
+         
 
       </ScrollView>
     </View>

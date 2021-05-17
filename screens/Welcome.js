@@ -9,7 +9,7 @@ export default function Welcome(props) {
   return (
     <View style={styles.container}>
       <View style={progress.container}>
-        <Image source={require('./assets')}></Image>
+        {/* <Image source={require('./assets')}></Image> */}
         <Text>Welcome test</Text>
         <LinearProgress style={{trackColor: "#ED590C"}}/>
       </View>
