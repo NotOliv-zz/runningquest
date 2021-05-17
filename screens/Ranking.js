@@ -1,7 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Image, SafeAreaView, ScrollView } from 'react-native';
-import { Card, ListItem, Button, Icon, Header, Divider } from 'react-native-elements';
+import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 import Navheader from "../component/Navheader"
 
 const dataChallenge = [
