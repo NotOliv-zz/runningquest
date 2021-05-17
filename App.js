@@ -21,6 +21,7 @@ import { Ionicons } from '@expo/vector-icons';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
+
 const BottomNavigator = () => {
   return (
     <Tab.Navigator
@@ -28,13 +29,17 @@ const BottomNavigator = () => {
         tabBarIcon: ({ color }) => {
           let iconName;
 
-          if (route.name == 'Snap') {
-            iconName = 'ios-camera';
-          } else if (route.name == 'Gallery') {
-            iconName = 'ios-images';
+          if (route.name == 'Home') {
+            iconName = 'home-outline';
+          } else if (route.name == 'Activity') {
+            iconName = 'trending-up-outline';
+          } else if (route.name == 'Ranking') {
+            iconName = "stats-chart-outline";
+          } else if (route.name == 'Challenge') {
+            iconName = 'trophy-outline';
           }
   
-          return <Ionicons name={iconName} size={25} color={color} />;
+          return <Ionicons name={iconName} size={30} color={color} />;
         },
         })}
       tabBarOptions={{

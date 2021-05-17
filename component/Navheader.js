@@ -10,6 +10,7 @@ export default function Navheader(props) {
     <View >
 
         <Header 
+       
          leftComponent={
             <Avatar
               rounded
