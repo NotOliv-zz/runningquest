@@ -9,8 +9,12 @@ export default function Welcome(props) {
   return (
     <View style={styles.container}>
       <View style={progress.container}>
-        <Image source={require('./assets')}></Image>
-        <Text>Welcome test</Text>
+        <Text>Bienvenue sur </Text>
+        <Image 
+          style={{ width: 100, height: 100}}
+          source={require("../assets/Logo.png")}></Image>
+        <Text>Vous êtes nouveau ici ?</Text>
+        <Text>Rejoignez nous et commencez plus attendre !</Text>
         <LinearProgress style={{trackColor: "#ED590C"}}/>
       </View>
       <StatusBar style="auto" />
@@ -46,7 +50,6 @@ const styles = StyleSheet.create({
 
 const progress = StyleSheet.create({
   container:{
-  borderWidth: 20
   }
 
 })
