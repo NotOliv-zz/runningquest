@@ -47,7 +47,7 @@ export default function Inscription(props) {
          title="Inscription"
          type="solid"
          buttonStyle={{backgroundColor: "#ED590C"}}
-         onPress={() => props.navigation.navigate('BottomNavigator', {screen: 'Home'})}
+         onPress={() => props.navigation.navigate('API')}
      />    
           </View>
         );
