@@ -54,7 +54,7 @@ export default function Ranking(props) {
       dataChallenge.map((u, i) => {
       
         return (
-          <View style={{flexDirection:"row",}}>
+          <View key={i} style={{flexDirection:"row",}}>
               <View style={{alignItems:"center"}}>
                   <Text>{u.name}</Text>
                   <Image 
@@ -71,7 +71,7 @@ export default function Ranking(props) {
       dataTrophee.map((u, i) => {
       
         return (
-          <View style={{flexDirection:"row"}}>
+          <View key={i} style={{flexDirection:"row"}}>
               <View style={{alignItems:"center"}}>
                   <Text>{u.name}</Text>
                   <Image 

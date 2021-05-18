@@ -31,7 +31,7 @@ export default function Navheader(props) {
           
           rightComponent={
             <Image
-              style={{ width: 30, height: 30,}}
+              style={{ width: 30, height: 30}}
               source={require("../assets/Parametre.png")}
               onPress={() => console.log("Clic on params button")}
             />
@@ -39,9 +39,8 @@ export default function Navheader(props) {
 
           containerStyle={{
             backgroundColor: '#FFFFFF',
-            justifyContent: 'space-bewteen',
-            alignItems:"center",
-            justifyContent: 'center',
+     
+            
           }}  
           />
 </View>
