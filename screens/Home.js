@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Image, Picker, ScrollView, SafeAreaView } from 
 import Navheader from "../component/Navheader";
 
 
-export default function Home() {
+export default function Home(props) {
 
   const [selectedValue, setSelectedValue]=useState("Paris");
 console.log(selectedValue)
@@ -20,7 +20,10 @@ console.log(selectedValue)
         
     <View style={styles.container}>
 
-      <Navheader/>
+        <Navheader
+          attribut = {props.navigation.navigate}
+        />
+
       <Text>Home</Text>
       
       <ScrollView>

@@ -35,7 +35,9 @@ export default function Activity(props) {
   
     <View style={styles.container}>
          
-        <Navheader/>
+        <Navheader
+          attribut = {props.navigation.navigate}
+        />
 
         <Text>My Last Activities</Text>
 
