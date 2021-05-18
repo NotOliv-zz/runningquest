@@ -16,11 +16,10 @@ export default function Navheader(props) {
         <Header 
        
          leftComponent={
-            <Avatar
+          <Avatar
               rounded
               size="medium"
               title="Avatar"
-              activeOpacity={0}
               source={require("../assets/bolt.jpg")}
               containerStyle={{marginTop: 5, marginLeft: 10}}
               onPress={() => props.attribut("Profil")}
@@ -36,13 +35,15 @@ export default function Navheader(props) {
           }
           
           rightComponent={
-            <Image
-              title="Params"
-              style={{ width: 30, height: 30, marginTop: 15, marginRight: 10}}
-              source={require("../assets/Parametre.png")}
-              onPress={() => console.log("Clic on params button")}
-            />
-          }
+            <Avatar
+            rounded
+            size="small"
+            title="Params"
+            source={require("../assets/Parametre.png")}
+            containerStyle={{marginTop: 10, marginLeft: 10}}
+            onPress={() => props.attribut("Params")}
+          />
+        }
 
           containerStyle={{
             backgroundColor: '#FFFFFF',

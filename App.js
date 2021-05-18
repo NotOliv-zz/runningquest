@@ -11,6 +11,7 @@ import Login from './screens/Login';
 import Profil from './screens/Profil';
 import Ranking from './screens/Ranking';
 import Welcome from './screens/Welcome';
+import Params from './screens/Params';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -68,6 +69,7 @@ export default function App() {
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="API" component={API} />
       <Stack.Screen name="Profil" component={Profil} />
+      <Stack.Screen name="Params" component={Params} />
       <Stack.Screen name="BottomNavigator" component={BottomNavigator} />
     </Stack.Navigator>
   </NavigationContainer>
