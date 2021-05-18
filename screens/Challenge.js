@@ -46,7 +46,7 @@ const dataTrophee = [
 export default function Ranking(props) {
   return (
     
-<View>
+<View style={styles.container}>
          
   <Navheader/>
 
@@ -54,7 +54,7 @@ export default function Ranking(props) {
 
   <Card containerStyle={styles.card}>
     <Card.Title>Mes challenges</Card.Title>
-    <Card.Divider style={{backgroundColor:"#ED590C"}}/>
+    <Card.Divider style={styles.divider}/>
     <ScrollView horizontal={true}>
     <View  style={{ flexDirection: "row"}}>
       {
@@ -82,7 +82,7 @@ export default function Ranking(props) {
 
   <Card containerStyle={styles.card}>
     <Card.Title>Mes trophées</Card.Title>
-    <Card.Divider style={{backgroundColor:"#ED590C"}}/>
+    <Card.Divider style={styles.divider}/>
     <ScrollView horizontal={true}>
     <View  style={{ flexDirection: "row"}}>
       {
@@ -113,6 +113,14 @@ export default function Ranking(props) {
 
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  divider: {
+    borderWidth: 1, 
+    borderColor:"#ED590C"
+  },
   button: {
     borderRadius: 10, 
     marginTop: "auto", 
@@ -126,7 +134,9 @@ const styles = StyleSheet.create({
     display: "flex",
     borderRadius: 10,
     marginTop: 30,
-    marginBottom: 30
+    marginBottom: 30,
+    borderWidth: 0,
+    borderColor: "#ffffff"
 },
   image: {
     width: 100, 

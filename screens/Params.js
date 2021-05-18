@@ -7,40 +7,26 @@ import {Avatar,Card, ListItem, Button, Icon, Header, Text} from 'react-native-el
 
 const list = [
   {
-    title: "Changer d'adresse email",
+    title: "Unités de mesures",
     icon: 'av-timer'
   },  
   {
-    title: 'Modifier photo de profil',
+    title: "Integrations des app partenaires",
     icon: 'flight-takeoff'
   },  
   {
-    title: 'Modifier pseudo',
+    title: 'Notifications',
     icon: 'flight-takeoff'
   }
 ]
 
 
-export default function Profil(props) {
+export default function Params(props) {
   return (
 
     
     <View style={styles.container}>
-      <View style={styles.profilheader} >
 
-        <Avatar
-          rounded
-          size="large"
-          title="Avatar"
-          activeOpacity={0}
-          source={require("../assets/bolt.jpg")}
-          containerStyle={{marginTop:100, marginBottom:20}}
-          onPress={() => props.attribut("Profil")}
-        />
-        
-      <Text style={styles.text} >Olivier Bouvet</Text>
-
-      </View>
       {
     list.map((item, i) => (
       <ListItem key={i} bottomDivider>
