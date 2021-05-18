@@ -17,26 +17,6 @@ const list = [
   {
     title: 'Modifier pseudo',
     icon: 'flight-takeoff'
-  },
-  {
-    title: 'Mes Amis',
-    icon: 'flight-takeoff'
-  },
-  {
-    title: 'Paramètres App',
-    icon: 'flight-takeoff'
-  },
-  {
-    title: 'Unités de mesure',
-    icon: 'flight-takeoff'
-  },
-  {
-    title: "Integration partenaires",
-    icon: 'flight-takeoff'
-  },
-  {
-    title: "Notifications",
-    icon: 'flight-takeoff'
   }
 ]
 

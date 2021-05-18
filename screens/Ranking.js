@@ -13,7 +13,9 @@ export default function Challenge (props) {
 
     return (
         <View style={styles.container}>
-            <Navheader/>
+            <Navheader
+              attribut = {props.navigation.navigate}
+            />
             <ScrollView>
 
             <View>
