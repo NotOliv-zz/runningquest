@@ -35,11 +35,7 @@ export default function Navheader(props) {
           
           rightComponent={
             <Image
-<<<<<<< HEAD
-              style={{ width: 30, height: 30}}
-=======
               style={{ width: 30, height: 30, marginTop: 15, marginRight: 10}}
->>>>>>> 094e19a60d2319663ce5959493891ad3be17f734
               source={require("../assets/Parametre.png")}
               onPress={() => console.log("Clic on params button")}
             />
