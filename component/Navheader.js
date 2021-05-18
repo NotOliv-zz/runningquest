@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 
 import {Avatar,Card, ListItem, Button, Icon, Header} from 'react-native-elements'
 
+
 export default function Navheader(props) {
   return (
 
@@ -18,16 +19,17 @@ export default function Navheader(props) {
             <Avatar
               rounded
               size="medium"
-              title="BP"
-              onPress={() => console.log("Clic on profil picture")}
+              title="Avatar"
               activeOpacity={0}
               source={require("../assets/bolt.jpg")}
               containerStyle={{marginTop: 5, marginLeft: 10}}
+              onPress={() => props.attribut("Profil")}
             />
           }
     
           centerComponent={
             <Image
+              title="Logo"
               style={{ width: 140, height: 60}}
               source={require("../assets/Logo.png")}
             />
@@ -35,6 +37,7 @@ export default function Navheader(props) {
           
           rightComponent={
             <Image
+              title="Params"
               style={{ width: 30, height: 30, marginTop: 15, marginRight: 10}}
               source={require("../assets/Parametre.png")}
               onPress={() => console.log("Clic on params button")}
