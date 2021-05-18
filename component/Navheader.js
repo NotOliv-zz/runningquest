@@ -7,7 +7,10 @@ import {Avatar,Card, ListItem, Button, Icon, Header} from 'react-native-elements
 export default function Navheader(props) {
   return (
 
-    <View >
+    <View style={{
+      textAlign: "center",
+      alignSelf: "center"
+    }}>
 
         <Header 
        
@@ -19,19 +22,24 @@ export default function Navheader(props) {
               onPress={() => console.log("Clic on profil picture")}
               activeOpacity={0}
               source={require("../assets/bolt.jpg")}
+              containerStyle={{marginTop: 5, marginLeft: 10}}
             />
           }
     
           centerComponent={
             <Image
-              style={{ width: 140, height: 70}}
+              style={{ width: 140, height: 60}}
               source={require("../assets/Logo.png")}
             />
           }
           
           rightComponent={
             <Image
+<<<<<<< HEAD
               style={{ width: 30, height: 30}}
+=======
+              style={{ width: 30, height: 30, marginTop: 15, marginRight: 10}}
+>>>>>>> 094e19a60d2319663ce5959493891ad3be17f734
               source={require("../assets/Parametre.png")}
               onPress={() => console.log("Clic on params button")}
             />
