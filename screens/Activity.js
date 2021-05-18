@@ -8,21 +8,21 @@ import Navheader from "../component/Navheader"
 const activites = [
   {
     name: 'Running du soir',
-    map: "./assets/Map.Levallois.jpg",
+    carte: require("../assets/RunMap/Run1.png"),
     distance: '12 km',
     date: "22 mai 2021",
     newexploration: "+25%"
   },
   {
     name: 'Run du matin',
-    map: "./assets/Map.Levallois.jpg",
+    carte: require("../assets/RunMap/Run2.png"),
     distance: '6 km',
     date: "13 mai 2021",
     newexploration: "+1,2%"
   },
   {
     name: 'Run test',
-    map: "./assets/Map.Levallois.jpg",
+    carte: require("../assets/RunMap/Run3.png"),
     distance: '6 km',
     date: "13 mai 2021",
     newexploration: "+1,2%"
@@ -35,7 +35,9 @@ export default function Activity(props) {
   
     <View style={styles.container}>
          
-        <Navheader/>
+        <Navheader
+          attribut = {props.navigation.navigate}
+        />
 
         <Text>My Last Activities</Text>
 
@@ -75,7 +77,7 @@ export default function Activity(props) {
                   <View>
                       <Image
                         style={{ width: 150, height: 150, margin:10}}
-                        source={require("../assets/Map-Levallois.jpg")}
+                        source={u.carte}
                       />
                     </View>
 

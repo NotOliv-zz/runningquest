@@ -43,7 +43,9 @@ export default function Ranking(props) {
   return (
     <View>
          
-    <Navheader/>
+    <Navheader
+      attribut = {props.navigation.navigate}
+    />
 
     <ScrollView>
       
