@@ -6,7 +6,7 @@ import Navheader from "../component/Navheader";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
-export default function Home() {
+export default function Home(props) {
 
  
 
@@ -23,7 +23,10 @@ export default function Home() {
         
     <View style={styles.container}>
 
-      <Navheader/>
+        <Navheader
+          attribut = {props.navigation.navigate}
+        />
+
       <Text>Home</Text>
       <View style={{flexDirection: 'row', height:50, padding:5, alignItems : 'center'}}>
          <Icon name="search" color="orange" />

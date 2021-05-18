@@ -67,6 +67,7 @@ export default function App() {
       <Stack.Screen name="Inscription" component={Inscription} />
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="API" component={API} />
+      <Stack.Screen name="Profil" component={Profil} />
       <Stack.Screen name="BottomNavigator" component={BottomNavigator} />
     </Stack.Navigator>
   </NavigationContainer>
