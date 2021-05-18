@@ -1,8 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, Image, Pressable, Modal, Alert, TextInput, ScrollView, Button } from 'react-native';
+import { StyleSheet, Text, View, Image, Pressable, Modal, Alert, TextInput, ScrollView,  } from 'react-native';
 
-import {Card} from 'react-native-elements'
+import {Card, Button} from 'react-native-elements'
 import Navheader from "../component/Navheader"
 
 import { Ionicons } from '@expo/vector-icons';
@@ -13,41 +13,48 @@ export default function Challenge (props) {
 
     return (
         <View style={styles.container}>
-            <Navheader/>
+            <Navheader
+              attribut = {props.navigation.navigate}
+            />
             <ScrollView>
 
-            <View>
-                <Card>
+            <View style={styles.cardView}>
+                <View style={styles.view} >
                     <View>
                     <Image
                         style={{ width: 150, height: 150, margin:10}}
                         source={require("../assets/Map-Levallois.jpg")}
                         />
+                    <Text
+                      style={{
+                      fontSize: 20,
+                      textAlign: "center",
+                        }}>Levallois-Perret</Text>
                     </View>
-                </Card>
-                <Card>
-                    <View>
+                </View>
+                <View  >
+                    <View style={styles.view}>
                       <Text>My Challenge Name</Text>
                       <Text>date</Text>
                     </View>
-                </Card>
-                <Card>
-                    <View>
+                </View>
+                <View  >
+                    <View style={styles.view}>
                         <Text>Mon avancement</Text>
                         <Text>42 Km</Text>
                         <Text>30 %</Text>
                     </View>
-                </Card>
-                <Card>
-                    <View>
+                </View>
+                <View  >
+                    <View style={styles.view}>
                         <Text>Ranking</Text>
                         <Text>1er - Adeline - 42 Km</Text>
                         <Text>2ème - Florent - 31 Km</Text>
                         <Text>1er - Jean Luc - 27 Km</Text>
                         <Text>1er - Olivier - 23 Km</Text>
                     </View>
-                </Card>
-                <Card>
+                </View>
+                <View style={styles.view} >
                 <View style={styles.centeredView}>
                     <Modal
                         animationType="slide"
@@ -60,23 +67,32 @@ export default function Challenge (props) {
                     >
                         <View style={styles.centeredView}>
                         <View style={styles.modalView}>
-                          <Text>Invitez vos amis</Text>
+                          <Text
+                          style={{
+                            fontSize: 20,
+                            margin: 10,
+                            width: 150,
+                            color: '#ED590C',
+                          }}>Invitez vos amis</Text>
                             <TextInput
                                 style={{
                                   height: 40,
-                                  borderWidth: 1
+                                  width : 250,
+                                  borderWidth: 1,
                                 }}
-                                defaultValue="Ajoutez un email"
+                                defaultValue=" Ajoutez un email"
                             />
-                          <Button
-                            title="Envoyer"
-                            onPress={() => Alert.alert('Simple Button pressed')}
-                          />                            
+                          <Pressable
+                            style={[styles.button, styles.buttonSend]}
+                            onPress={() => Alert.alert('Invitation envoyée')}
+                            >
+                            <Text style={styles.textStyle}>Envoyer</Text>
+                            </Pressable>                            
                           <Pressable
                             style={[styles.button, styles.buttonClose]}
                             onPress={() => setModalVisible(!modalVisible)}
                             >
-                            <Text style={styles.textStyle}>Hide Modal</Text>
+                            <Text style={styles.textStyle}>Fermer</Text>
                             </Pressable>
                         </View>
                         </View>
@@ -85,11 +101,25 @@ export default function Challenge (props) {
                         style={[styles.button, styles.buttonOpen]}
                         onPress={() => setModalVisible(true)}
                         >
-                        <Text style={styles.textStyle}>Show Modal</Text>
+                        <Text style={styles.textStyle}>Ajouter des amis</Text>
                     </Pressable>
                     </View>
-                </Card>
+                </View>
             </View>
+                    <View style={styles.row}  >
+                      <Button        
+                        title="Précédent"
+                        type="solid"
+                        buttonStyle={{backgroundColor: "#ED590C"}}
+                        onPress={() => Alert.alert('Challenge précédent')}
+                      />    
+                      <Button 
+                        title="Suivant"
+                        type="solid"
+                        buttonStyle={{backgroundColor: "#ED590C"}}
+                        onPress={() => Alert.alert('Challenge suivant')}
+                      /> 
+                    </View>
           </ScrollView>
         </View>
 
@@ -101,33 +131,60 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22
   },
   modalView: {
     margin: 20,
     backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
+    borderRadius: 10,
+    padding: 40,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5
+    shadowOpacity: 0.45,
+    shadowRadius: 8,
+    elevation: 10
+  },
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  view: {
+    textAlign:'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    borderColor: '#f0f0f0',
+    borderWidth: 1,
+    backgroundColor: '#fff',
+    margin: 2,
+    padding: 10,
+    width: 300,
+
   },
   button: {
-    borderRadius: 20,
+    borderRadius: 8,
     padding: 10,
-    elevation: 2
+    elevation: 2,
   },
+  row: {    
+    flexDirection: 'row',
+    alignItems: 'center',
+    textAlign:'center',
+    margin: 5,
+},
   buttonOpen: {
-    backgroundColor: "#F194FF",
+    backgroundColor: "#ED590C",
   },
   buttonClose: {
-    backgroundColor: "#2196F3",
+    backgroundColor: "#ED590C",
+  },
+  buttonSend: {
+    marginTop: 30,
+    marginBottom : 30,
+    backgroundColor: "#ED590C",
   },
   textStyle: {
     color: "white",
