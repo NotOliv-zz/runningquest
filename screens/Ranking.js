@@ -54,7 +54,7 @@ export default function Ranking(props) {
       dataChallenge.map((u, i) => {
       
         return (
-          <View 
+          <View  key={i}
           style={{
             flexDirection: "row",
             flexWrap: "wrap",

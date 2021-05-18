@@ -11,7 +11,7 @@ export default function Welcome(props) {
       <View style={progress.container}>
         <Text>Bienvenue sur </Text>
         <Image 
-          style={{ width: 100, height: 100}}
+          style={{ width: 165, height: 100}}
           source={require("../assets/Logo.png")}></Image>
         <Text>Vous êtes nouveau ici ?</Text>
         <Text>Rejoignez nous et commencez plus attendre !</Text>
