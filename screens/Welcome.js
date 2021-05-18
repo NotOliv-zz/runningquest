@@ -53,9 +53,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  ScrollView :{
-  },
-
   Swipe :{
     flexDirection: 'column',
     alignItems: 'center',

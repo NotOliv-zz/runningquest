@@ -42,9 +42,7 @@ export default function Activity(props) {
         <Text>My Last Activities</Text>
 
       <ScrollView>
-
-        
-            
+ 
           {
           activites.map((u, i) => {
           
@@ -52,8 +50,7 @@ export default function Activity(props) {
               <Card key={i} >
               <View style={styles.cards}>
                <Card.Divider/>
-               
-                    <View >
+                 <View >
                       <Text h1>{u.name}</Text>
                       <Text>Distance : {u.distance}</Text>
                       <Text>Date : {u.date}</Text>
@@ -75,6 +72,7 @@ export default function Activity(props) {
                       
                   </View>
                   <View>
+
                       <Image
                         style={{ width: 150, height: 150, margin:10}}
                         source={u.carte}
@@ -101,10 +99,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   cards: {
+    borderRadius: 10,
     width: 300,
     flexDirection:"row",
     justifyContent: 'center',
-    alignItems: "center"
+    alignItems: "center",
+    
   }
 });
 

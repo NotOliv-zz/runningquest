@@ -11,12 +11,18 @@ import Login from './screens/Login';
 import Profil from './screens/Profil';
 import Ranking from './screens/Ranking';
 import Welcome from './screens/Welcome';
+import Params from './screens/Params';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { Ionicons } from '@expo/vector-icons';
+
+import token from './reducers/token';
+import {Provider} from 'react-redux'
+import {createStore, combineReducers} from 'redux'
+const store = createStore(combineReducers({token}))
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -62,6 +68,7 @@ const BottomNavigator = () => {
 
 export default function App() {
   return (
+    <Provider store={store}>
     <NavigationContainer>
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="Welcome" component={Welcome} />
@@ -70,9 +77,11 @@ export default function App() {
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="API" component={API} />
       <Stack.Screen name="Profil" component={Profil} />
+      <Stack.Screen name="Params" component={Params} />
       <Stack.Screen name="BottomNavigator" component={BottomNavigator} />
     </Stack.Navigator>
   </NavigationContainer>
+  </Provider>
   );
 }
 
