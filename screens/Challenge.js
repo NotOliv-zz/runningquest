@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
-
+import React, {useState} from 'react';
+import { StyleSheet, Text, View, ScrollView, Image, Modal, TextInput, Pressable, Avatar, TouchableWithoutFeedback  } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {Button, Card} from 'react-native-elements'
 import Navheader from "../component/Navheader"
 
@@ -44,11 +44,15 @@ const dataTrophee = [
 ]
 
 export default function Ranking(props) {
+  const [modalVisible, setModalVisible] = useState(false);
+  const showModal = () => setModalVisible(true);
+  const hideModal = () => setModalVisible(false);
+  const containerStyle = {backgroundColor: 'white', padding: 20} ;
   return (
     
 <View style={styles.container}>
          
-  <Navheader/>
+  <Navheader attribut = {props.navigation.navigate}/>
 
   <View>
 
@@ -78,7 +82,52 @@ export default function Ranking(props) {
     </ScrollView>
   </Card>
 
-  <Button buttonStyle={styles.button} title='Créer un challenge !' />
+  <Modal visible={modalVisible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
+    <View style={styles.centeredView}>
+    <View style={styles.modalView}>
+      <Text>Nom du challenge</Text>
+        <TextInput
+            style={{
+              height: 40,
+              width: 200,
+              borderWidth: 1,
+              marginBottom: 10,
+              marginTop: 10
+            }}
+            defaultValue=""
+        />
+        <Text>Inviter des amis</Text>
+        <TextInput
+            style={{
+              height: 40,
+              width: 200,
+              borderWidth: 1,
+              marginBottom: 10,
+              marginTop: 10
+            }}
+            defaultValue=""
+        />
+
+      <Button
+        title="Créer un challenge"
+        buttonStyle={styles.button}
+        onPress={() => Alert.alert('Simple Button pressed')}
+      />                            
+      <Pressable
+        style={styles.buttonRetour}
+        onPress={() => setModalVisible(!modalVisible)}
+        >
+        <Text style={styles.textStyleRetour}>Retour</Text>
+        </Pressable>
+    </View>
+    </View>
+</Modal>
+
+<Pressable 
+  style={[styles.button, styles.buttonOpen]}
+  onPress={() => setModalVisible(true)}>
+  <Text style={styles.textStyle}>Créer un challenge !</Text>
+</Pressable>
 
   <Card containerStyle={styles.card}>
     <Card.Title>Mes trophées</Card.Title>
@@ -128,20 +177,66 @@ const styles = StyleSheet.create({
     marginLeft:"auto" , 
     marginRight:"auto" , 
     backgroundColor: "#ED590C", 
-    width:300 
+    width:"auto" 
   },
+  buttonRetour: {
+    borderRadius: 10, 
+    marginTop: 30,  
+    backgroundColor: "#ED590C", 
+    width:"auto" 
+  },
+  
   card: {
     display: "flex",
     borderRadius: 10,
     marginTop: 30,
     marginBottom: 30,
-    borderWidth: 0,
-    borderColor: "#ffffff"
-},
+    borderBottomWidth: 2,
+    borderRightWidth: 2,
+    borderTopColor:"#ffffff",
+    borderLeftColor:"#ffffff"
+  },
   image: {
     width: 100, 
     height: 100, 
     marginBottom: 5
-  }
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+    margin:10
+
+  },
+
+  textStyleRetour: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+    fontSize:10,
+    margin:10
+
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
 
 })

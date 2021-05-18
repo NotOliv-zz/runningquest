@@ -46,6 +46,8 @@ const BottomNavigator = () => {
         activeTintColor: '#ED590C',
         inactiveTintColor: '#808080',
         style: {
+          borderTopWidth: 1,
+          borderTopColor: "#ED590C",
           backgroundColor: '#FFFFFF',
         }
       }}
