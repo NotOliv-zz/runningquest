@@ -1,9 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useLayoutEffectn, useState } from 'react';
-import { StyleSheet, Text, View, Image, Picker, ScrollView, SafeAreaView,TextInput} from 'react-native';
+import { StyleSheet, Text, View, Image, Picker, ScrollView, SafeAreaView,TextInput, Dimensions} from 'react-native';
 import {Card,CardItem} from 'react-native-elements'
 import Navheader from "../component/Navheader";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import MapView from 'react-native-maps';
 
 
 export default function Home(props) {
@@ -27,31 +28,40 @@ export default function Home(props) {
           attribut = {props.navigation.navigate}
         />
 
-      <Text>Home</Text>
       <View style={{flexDirection: 'row', height:50, padding:5, alignItems : 'center'}}>
          <Icon name="search" color="orange" />
          <TextInput 
-         style={{marginLeft:15, width:'80%', borderRadius: 10,height:30,fontSize :15,marginLeft:15,
+         style={{width:'80%', borderRadius: 10,height:30,fontSize :15,marginLeft:15,
          borderColor: '#f0f0f0',
          borderWidth: 1}}
-         placeholder="Search"/>
+         placeholder="Ville"/>
       </View>
 
       <ScrollView>
         <View style={styles.container}>
           <Card containerStyle={{backgroundColor: "#ED590C"}}>
-              <Image style={styles.img}
+              {/* <Image style={styles.img}
                   source={require('../assets/Map-Levallois.jpg')}
-              />
+              /> */}
+              <MapView 
+              style={styles.map} 
+              provider="google"
+              initialRegion={{
+                latitude: 48.9,
+                longitude: 2.2833,
+                latitudeDelta: 0.0322,
+                longitudeDelta: 0.0221,
+              }}
+              />      
 
               <View style={{flexDirection:'row',justifyContent: 'center', height:50,alignItems: 'center'}}>
                 <View style={styles.box}>
-                      <Text>nb km</Text>
-                      <Text>15</Text>
+                      <Text>Distance</Text>
+                      <Text>15 km</Text>
                 </View>
           
                 <View style={styles.box}>
-                      <Text>Superficie</Text>
+                      <Text>Exploration</Text>
                       <Text>15%</Text>
                 
                 </View>
@@ -63,7 +73,7 @@ export default function Home(props) {
                 </View>
 
                 <View style={styles.box}>
-                      <Text>Classement</Text>
+                      <Text>Rang</Text>
                       <Text>6eme</Text>
                 
                 </View>
@@ -154,14 +164,16 @@ const styles = StyleSheet.create({
   box:{
     borderWidth: 1,
     borderRadius: 10,
-  
     borderColor : '#fff',
-    height:40,
+    height:50,
     margin :5,
     alignItems: 'center',
     backgroundColor: '#fff',
-    padding : 1
-
-
+    padding : 4
+  }, 
+  map: {
+    width: "100%",
+    height:200,
+    marginBottom:20
   }
 });
