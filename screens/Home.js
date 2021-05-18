@@ -39,7 +39,7 @@ export default function Home(props) {
 
       <ScrollView>
         <View style={styles.container}>
-          <Card >
+          <Card containerStyle={{backgroundColor: "#ED590C"}}>
               <Image style={styles.img}
                   source={require('../assets/Map-Levallois.jpg')}
               />
