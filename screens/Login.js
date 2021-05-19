@@ -26,7 +26,6 @@ function LoginPage(props) {
 
     const body = await data.json()
 
-    console.log("from body",body.user.activities)
     
     if(body.result == true){
       props.addToken(body.token)

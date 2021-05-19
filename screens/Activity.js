@@ -57,7 +57,7 @@ import polyline from '@mapbox/polyline';
 
 
 function Activity(props) {
-  console.log(props.Activites)
+
   return (
   
     <View style={styles.container}>
@@ -77,7 +77,10 @@ function Activity(props) {
            
           
             let coordstab = polyline.decode(u.polyline)
-
+          
+            console.log(coordstab)
+            console.log("hello",coordstab[0][0])
+            console.log("hello2",coordstab[0][1])
             let coords= coordstab.map((poly,i)=>{
 
 
@@ -85,7 +88,7 @@ function Activity(props) {
               return ({latitude : poly[0], longitude : poly[1]})
               })
         
-              let latitude = u.start_lat
+              let latitude = coordstab[0]
               let longitude = u.start_long
 
             return (
@@ -113,8 +116,8 @@ function Activity(props) {
                           style={styles.map} 
                           provider="google"
                           initialRegion={{
-                            latitude: 49.259009,
-                            longitude: 4.009277,
+                            latitude: coordstab[0][0],
+                            longitude: coordstab[0][1],
                             latitudeDelta: 0.0322,
                             longitudeDelta: 0.0221,
                           }}>
@@ -124,7 +127,7 @@ function Activity(props) {
                           
                           strokeColor="red"
                           
-                          strokeWidth={5}
+                          strokeWidth={2}
                           />
                             </MapView> 
                     </View>
@@ -198,7 +201,6 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  console.log("state", state.ActivitiesList)
 
   return {Activites:state.ActivitiesList}
  }
