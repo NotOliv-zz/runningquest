@@ -30,7 +30,7 @@ function LoginPage(props) {
     if(body.result == true){
       props.addToken(body.token)
       props.addActivities(body.user.activities)
-      props.navigation.navigate('API')
+      props.navigation.navigate('BottomNavigator', {screen: 'Home'})
     }  
      
   }

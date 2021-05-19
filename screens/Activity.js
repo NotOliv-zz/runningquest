@@ -74,15 +74,10 @@ function Activity(props) {
  
           {
           props.Activites.map((u, i) => {
-           
           
             let coordstab = polyline.decode(u.polyline)
           
-            console.log(coordstab)
-            console.log("hello",coordstab[0][0])
-            console.log("hello2",coordstab[0][1])
             let coords= coordstab.map((poly,i)=>{
-
 
 
               return ({latitude : poly[0], longitude : poly[1]})
@@ -115,6 +110,7 @@ function Activity(props) {
                       <MapView
                           style={styles.map} 
                           provider="google"
+                          scrollEnabled="false"
                           initialRegion={{
                             latitude: coordstab[0][0],
                             longitude: coordstab[0][1],
