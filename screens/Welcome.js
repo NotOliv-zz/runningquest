@@ -30,13 +30,13 @@ export default function Welcome(props) {
         <Button        
             title="Login"
             type="solid"
-            buttonStyle={{backgroundColor: "#ED590C"}}
+            buttonStyle={{backgroundColor: "#ED590C", marginRight:50, width:100}}
             onPress={() => props.navigation.navigate('Login')}
         />    
             <Button 
             title="Inscription"
             type="solid"
-            buttonStyle={{backgroundColor: "#ED590C"}}
+            buttonStyle={{backgroundColor: "#ED590C", width:100}}
             onPress={() => props.navigation.navigate('Inscription')}
         />  
       </View>

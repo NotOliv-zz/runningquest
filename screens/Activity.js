@@ -50,23 +50,31 @@ export default function Activity(props) {
               <Card key={i} >
               <View style={styles.cards}>
                <Card.Divider/>
-                 <View >
+                 <View style={styles.card}>
                       <Text h1>{u.name}</Text>
                       <Text>Distance : {u.distance}</Text>
                       <Text>Date : {u.date}</Text>
                       <Text>New routes discovered :</Text>
                       <Badge 
-                        status="warning"
+                         badgeStyle={{
+                          margin:10,
+                          backgroundColor: "#ED420C",
+                          width:100,
+                       }}
                          value={
                             <Text 
-                            >5.5 km
+                            > +5.5 new km  
                             </Text>} 
                       />
                          <Badge 
-                        status="warning"
+                          badgeStyle={{
+                            margin:10,
+                            backgroundColor: "#ED420C",
+                            width:100,
+                         }}
                          value={
                             <Text 
-                            >{u.newexploration}
+                            >{u.newexploration} exploration
                             </Text>} 
                       />
                       
@@ -103,8 +111,11 @@ const styles = StyleSheet.create({
     width: 300,
     flexDirection:"row",
     justifyContent: 'center',
-    alignItems: "center",
-    
+    alignItems: "center"
+  }, 
+  card: {
+    justifyContent: 'center',
+
   }
 });
 

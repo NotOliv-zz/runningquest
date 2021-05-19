@@ -10,7 +10,10 @@ export default function Navheader(props) {
 
     <View style={{
       textAlign: "center",
-      alignSelf: "center"
+      alignSelf: "center",
+      elevation: 1, //  shadow on Android
+      shadowOpacity: 1, //  shadow on iOS
+
     }}>
 
         <Header 
@@ -47,6 +50,7 @@ export default function Navheader(props) {
 
           containerStyle={{
             backgroundColor: '#FFFFFF',
+          
      
             
           }}  
