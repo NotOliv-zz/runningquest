@@ -65,7 +65,7 @@ export default function Ranking(props) {
 
             <View key={i}>
 
-              <View style={{ alignItems: "center", marginRight: 10, marginBottom: 20}}>
+              <View style={{ alignItems: "center", marginTop: 15, marginRight: 10, marginBottom: 16}}>
 
                 <Image style={styles.image} source={u.picto}/>
                 <Text>{u.name}</Text>
@@ -146,7 +146,7 @@ export default function Ranking(props) {
 
             <View key={i}>
 
-              <View style={{ alignItems: "center", marginRight: 10, marginBottom: 20}}>
+              <View style={{ alignItems: "center", justifyContent:"center", marginTop: 15, marginRight: 10, marginBottom: 16}}>
 
                 <Image style={styles.image} source={u.picto}/>
                 <Text>{u.name}</Text>

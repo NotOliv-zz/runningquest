@@ -54,7 +54,7 @@ const activites = [
 export default function Activity(props) {
   return (
   
-    <View style={styles.container}>
+<View style={styles.container}>
          
   <Navheader attribut = {props.navigation.navigate}/>
 
@@ -98,9 +98,6 @@ export default function Activity(props) {
                 </View>
               </Card>
               
-
-
-
                 );
               })
             }

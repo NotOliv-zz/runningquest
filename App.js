@@ -52,8 +52,9 @@ const BottomNavigator = () => {
         activeTintColor: '#ED590C',
         inactiveTintColor: '#808080',
         style: {
-          borderTopWidth: 1,
-          borderTopColor: "#ED590C",
+          paddingTop: 10,
+          elevation: 0.25, //  shadow on Android
+          shadowOpacity: 0.10, //  shadow on iOS
           backgroundColor: '#FFFFFF',
         }
       }}
