@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, ScrollView, Image, Modal, TextInput, Pressable, Avatar, TouchableWithoutFeedback  } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image, Modal, TextInput, Pressable, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Button, Card} from 'react-native-elements'
 import Navheader from "../component/Navheader"
@@ -82,7 +82,15 @@ export default function Ranking(props) {
     </ScrollView>
   </Card>
 
-  <Modal visible={modalVisible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
+  <Modal 
+      animationType="slide"
+      transparent={true}
+      visible={modalVisible}
+      onRequestClose={() => {
+      Alert.alert("Modal has been closed.");
+      setModalVisible(!modalVisible);
+    }}
+    >
     <View style={styles.centeredView}>
     <View style={styles.modalView}>
       <Text>Nom du challenge</Text>
@@ -111,7 +119,7 @@ export default function Ranking(props) {
       <Button
         title="Créer un challenge"
         buttonStyle={styles.button}
-        onPress={() => Alert.alert('Simple Button pressed')}
+        onPress={() => Alert.alert('Création du challenge')}
       />                            
       <Pressable
         style={styles.buttonRetour}
