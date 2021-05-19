@@ -1,23 +1,40 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useLayoutEffectn, useState } from 'react';
+import React, { useEffect, useLayoutEffectn, useState } from 'react';
 import { StyleSheet, Text, View, Image, Picker, ScrollView, SafeAreaView,TextInput, Dimensions} from 'react-native';
 import {Card,CardItem} from 'react-native-elements'
 import Navheader from "../component/Navheader";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MapView, { Polyline } from 'react-native-maps';
 import polyline from '@mapbox/polyline';
+import {connect} from 'react-redux'
 
 
 
-export default function Home(props) {
+function Home(props) {
 
-  let polylines=polyline.decode("k{skH_`nWx@sAdAiCdCiEhAaChBeDfAgCt@wAVm@lA{B^g@r@{A^a@v@qA^e@Zk@dAgCPs@\\e@Xk@Vo@`@a@Zg@N_@Rq@Vk@z@uAt@qAhAgCr@qATk@x@oAVg@l@}A`A_Az@gA\\g@t@qA\\e@x@mAv@qA`@]Zc@pAaCv@gAhBgDfAeCtA{BXk@jByC^_@Tq@Lw@d@eBVm@p@yA\\e@jA{BvAwBXi@Xq@\\c@`BqA^]^c@x@kA^WzAsBvAsBTm@\\_@dAo@^]`@YbB_Bz@mAvB_C`@W|AkB~A_B^g@`@_@z@gA|@{@vBsC^_@Xm@Ro@h@Yh@O^YtAsBb@Y~B{BzBiFPs@\\oBRq@n@}Cp@kEj@{CFw@Lw@fB{Jt@}E`@cDPu@ZiBn@yC~@mGj@eDh@mDNs@ZoBRs@TiBz@sECEc@hBo@fDu@zEkArGe@hD{@vEaAvGa@hBSjBg@bD{@pESl@a@fBYlBm@`DQvA_@jBIv@i@bDUn@a@dBq@xAKx@o@~Au@pA_@f@gAdA[j@aBzA[b@a@^{@pA_Av@_B`BwAnB_@`@a@Z}@~@a@Zw@dA[f@}AjB}@`Aa@Z]\\Yd@c@ZcAfAeBxA_F~F_@X[d@]b@_@`@cAx@yApB_AdA[d@mBdDYn@{@pAu@rASn@[h@Ul@}@rCYj@e@j@Un@mBjDs@xAgCjEs@tAUj@qAxB]d@]^c@VqAtBYp@qBvCsAtB]^y@jAk@`B[j@]b@u@tA[b@iAhCYd@]\\Mv@mA|Bm@|A[f@]`@Sr@Uj@u@nAmAzB{@hAYr@aBlDsAzBWl@gBdDu@lAw@jAq@vAw@vAWj@kBlDq@xAw@xA")
-// console.log(polylines.length)
+// useEffect(() =>{
+
+//   async function fetchData() {
+
+//     const data = await fetch('http://192.168.1.30:3000/race-list', {
+//       method: 'POST',
+//       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+//       body: `token=${props.token}`
+//     })
+
+
+//   }
+//   fetchData()
+
+//  },[]);
+
+let polylines=polyline.decode("k{skH_`nWx@sAdAiCdCiEhAaChBeDfAgCt@wAVm@lA{B^g@r@{A^a@v@qA^e@Zk@dAgCPs@\\e@Xk@Vo@`@a@Zg@N_@Rq@Vk@z@uAt@qAhAgCr@qATk@x@oAVg@l@}A`A_Az@gA\\g@t@qA\\e@x@mAv@qA`@]Zc@pAaCv@gAhBgDfAeCtA{BXk@jByC^_@Tq@Lw@d@eBVm@p@yA\\e@jA{BvAwBXi@Xq@\\c@`BqA^]^c@x@kA^WzAsBvAsBTm@\\_@dAo@^]`@YbB_Bz@mAvB_C`@W|AkB~A_B^g@`@_@z@gA|@{@vBsC^_@Xm@Ro@h@Yh@O^YtAsBb@Y~B{BzBiFPs@\\oBRq@n@}Cp@kEj@{CFw@Lw@fB{Jt@}E`@cDPu@ZiBn@yC~@mGj@eDh@mDNs@ZoBRs@TiBz@sECEc@hBo@fDu@zEkArGe@hD{@vEaAvGa@hBSjBg@bD{@pESl@a@fBYlBm@`DQvA_@jBIv@i@bDUn@a@dBq@xAKx@o@~Au@pA_@f@gAdA[j@aBzA[b@a@^{@pA_Av@_B`BwAnB_@`@a@Z}@~@a@Zw@dA[f@}AjB}@`Aa@Z]\\Yd@c@ZcAfAeBxA_F~F_@X[d@]b@_@`@cAx@yApB_AdA[d@mBdDYn@{@pAu@rASn@[h@Ul@}@rCYj@e@j@Un@mBjDs@xAgCjEs@tAUj@qAxB]d@]^c@VqAtBYp@qBvCsAtB]^y@jAk@`B[j@]b@u@tA[b@iAhCYd@]\\Mv@mA|Bm@|A[f@]`@Sr@Uj@u@nAmAzB{@hAYr@aBlDsAzBWl@gBdDu@lAw@jAq@vAw@vAWj@kBlDq@xAw@xA")
+//let polylines=polyline.decode("mstkH{doWb@Dm@VDpBEx@?t@CFSDMCc@QACId@Ah@Qj@IJe@Ge@?e@Ka@?FoBBQTm@Xc@Lu@Ro@n@sAJu@Zc@\\sAVi@r@cABD@v@IbFIVATG?FBDI")
+console.log(polylines.length)
 
 let coords= polylines.map((poly,i)=>{
 
 return ({latitude : poly[0], longitude : poly[1]})
-
 
 })
 // console.log(coords)
@@ -190,3 +207,8 @@ const styles = StyleSheet.create({
 });
 
 
+function mapStateToProps(state){
+  return   {token: state.token}
+                  
+}
+export default connect(mapStateToProps,null)(Home)
