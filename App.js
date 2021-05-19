@@ -20,9 +20,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 
 import token from './reducers/token';
+import ActivitiesList from './reducers/activities';
 import {Provider} from 'react-redux'
 import {createStore, combineReducers} from 'redux'
-const store = createStore(combineReducers({token}))
+const store = createStore(combineReducers({token, ActivitiesList}))
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -52,9 +53,8 @@ const BottomNavigator = () => {
         activeTintColor: '#ED590C',
         inactiveTintColor: '#808080',
         style: {
-          borderTopWidth: 1,
-          borderTopColor: "#ED590C",
-          backgroundColor: '#FFFFFF',
+          shadowOpacity: 0.06, //  shadow on iOS
+          height: 90
         }
       }}
     >

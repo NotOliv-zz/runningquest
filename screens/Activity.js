@@ -5,53 +5,59 @@ import { StyleSheet, Text, View, Image, ScrollView, Pressable } from 'react-nati
 import {Avatar,Card, ListItem, Button, Icon, Header, Badge} from 'react-native-elements'
 import Navheader from "../component/Navheader"
 
-const activites = [
-  {
-    name: 'Running du soir',
-    carte: require("../assets/RunMap/Run1.png"),
-    distance: '12 km',
-    date: "22 mai 2021",
-    newexploration: "+25%"
-  },
-  {
-    name: 'Run du matin',
-    carte: require("../assets/RunMap/Run2.png"),
-    distance: '6 km',
-    date: "13 mai 2021",
-    newexploration: "+1,2%"
-  },
-  {
-    name: 'Run test',
-    carte: require("../assets/RunMap/Run3.png"),
-    distance: '6 km',
-    date: "13 mai 2021",
-    newexploration: "+1,2%"
-  },
-  {
-    name: 'Run test',
-    carte: require("../assets/RunMap/Run3.png"),
-    distance: '6 km',
-    date: "13 mai 2021",
-    newexploration: "+1,2%"
-  },
-  {
-    name: 'Run test',
-    carte: require("../assets/RunMap/Run3.png"),
-    distance: '6 km',
-    date: "13 mai 2021",
-    newexploration: "+1,2%"
-  },
-  {
-    name: 'Run test',
-    carte: require("../assets/RunMap/Run3.png"),
-    distance: '6 km',
-    date: "13 mai 2021",
-    newexploration: "+1,2%"
-  },
- ]
+import {connect} from 'react-redux';
+import MapView, { Polyline } from 'react-native-maps';
+import polyline from '@mapbox/polyline';
+
+// const activites = [
+//   {
+//     name: 'Running du soir',
+//     carte: require("../assets/RunMap/Run1.png"),
+//     distance: '12 km',
+//     date: "22 mai 2021",
+//     newexploration: "+25%"
+//   },
+//   {
+//     name: 'Run du matin',
+//     carte: require("../assets/RunMap/Run2.png"),
+//     distance: '6 km',
+//     date: "13 mai 2021",
+//     newexploration: "+1,2%"
+//   },
+//   {
+//     name: 'Run test',
+//     carte: require("../assets/RunMap/Run3.png"),
+//     distance: '6 km',
+//     date: "13 mai 2021",
+//     newexploration: "+1,2%"
+//   },
+//   {
+//     name: 'Run test',
+//     carte: require("../assets/RunMap/Run3.png"),
+//     distance: '6 km',
+//     date: "13 mai 2021",
+//     newexploration: "+1,2%"
+//   },
+//   {
+//     name: 'Run test',
+//     carte: require("../assets/RunMap/Run3.png"),
+//     distance: '6 km',
+//     date: "13 mai 2021",
+//     newexploration: "+1,2%"
+//   },
+//   {
+//     name: 'Run test',
+//     carte: require("../assets/RunMap/Run3.png"),
+//     distance: '6 km',
+//     date: "13 mai 2021",
+//     newexploration: "+1,2%"
+//   },
+//  ]
 
 
-export default function Activity(props) {
+
+function Activity(props) {
+  console.log(props.Activites)
   return (
   
     <View style={styles.container}>
@@ -67,35 +73,64 @@ export default function Activity(props) {
     <View style={{justifyContent: "center",}}>
  
           {
-          activites.map((u, i) => {
+          props.Activites.map((u, i) => {
+           
           
+            let coordstab = polyline.decode(u.polyline)
+
+            let coords= coordstab.map((poly,i)=>{
+
+
+
+              return ({latitude : poly[0], longitude : poly[1]})
+              })
+        
+              let latitude = u.start_lat
+              let longitude = u.start_long
+
             return (
               
               <Card key={i} containerStyle={styles.miniCard} >
                 <View style={{flexDirection:"row"}}>
                   <View style={{marginRight:10}}>
-                  <Text h1 style={{marginBottom:5, fontWeight:"bold" }}>{u.name}</Text>
-                  <Text>Distance : {u.distance}</Text>
-                  <Text>Date : {u.date}</Text>
-                  <Text >New routes discovered :</Text>
-                  <View style={{alignItems:"flex-start"}}>
-                    <Badge 
-                      badgeStyle={styles.badge}
-                      value={<Text style={{color:"#ffffff"}}>+5.5 new km</Text>}
-                    />
-                    <Badge 
-                      badgeStyle={styles.badge}
-                      value={<Text style={{color:"#ffffff"}}>{u.newexploration} exploration</Text>} 
-                    />  
-                  </View>
-                  </View>
-                  <View>
-                    <Image
-                      style={{ width: 115, height: 115,}}
-                      source={u.carte}
-                    />
-                  </View>
+                    <Text h1 style={{marginBottom:5, fontWeight:"bold" }}>{u.run_name}</Text>
+                    <Text>Distance : {u.distance} km</Text>
+                    <Text>Date : {u.date}</Text>
+                    <Text >New routes discovered :</Text>
+                    <View style={{alignItems:"flex-start"}}>
+                      <Badge 
+                        badgeStyle={styles.badge}
+                        value={<Text style={{color:"#ffffff"}}>+5.5 new km</Text>}
+                      />
+                      <Badge 
+                        badgeStyle={styles.badge}
+                        value={<Text style={{color:"#ffffff"}}>{u.newexploration} exploration</Text>} 
+                      />  
+                    </View>
+                    </View>
+                    <View>
+                      <MapView
+                          style={styles.map} 
+                          provider="google"
+                          initialRegion={{
+                            latitude: 49.259009,
+                            longitude: 4.009277,
+                            latitudeDelta: 0.0322,
+                            longitudeDelta: 0.0221,
+                          }}>
+                          <Polyline
+
+                          coordinates={coords}
+                          
+                          strokeColor="red"
+                          
+                          strokeWidth={5}
+                          />
+                            </MapView> 
+                    </View>
+                  
                 </View>
+ 
               </Card>
               
 
@@ -153,6 +188,22 @@ const styles = StyleSheet.create({
     marginTop: 8,
     backgroundColor: "#ED420C",
     width:125,
-  }
+  },
+    map: {
+      marginTop: 15,
+      width:100,
+      height:100,
+      marginBottom:20
+    }
 });
 
+function mapStateToProps(state) {
+  console.log("state", state.ActivitiesList)
+
+  return {Activites:state.ActivitiesList}
+ }
+
+export default connect(
+  mapStateToProps,
+  null
+ )(Activity);
