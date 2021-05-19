@@ -1,23 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useLayoutEffectn, useState } from 'react';
-import { StyleSheet, Text, View, Image, Picker, ScrollView, SafeAreaView,TextInput} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View, Image, ScrollView, SafeAreaView,TextInput} from 'react-native';
 import {Card,CardItem} from 'react-native-elements'
 import Navheader from "../component/Navheader";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
+
+
 export default function Home(props) {
 
- 
 
 
-  var runner = ["Adeline","Florent","Olivier","Jean-Luc"]
-
-  var ranking = runner.map((runner,i)=>{
-    return (<Text key={i}>{i+1} - {runner}</Text>)
-  }
-
-  )
 
   return (
         
@@ -28,8 +22,9 @@ export default function Home(props) {
         />
 
       <Text>Home</Text>
-      <View style={{flexDirection: 'row', height:50, padding:5, alignItems : 'center'}}>
-         <Icon name="search" color="orange" />
+     
+      <View style={{flexDirection: 'row', height:40, padding:5, alignItems : 'center'}}>
+      <Icon name="search" color="orange" />
          <TextInput 
          style={{marginLeft:15, width:'80%', borderRadius: 10,height:30,fontSize :15,marginLeft:15,
          borderColor: '#f0f0f0',
@@ -147,7 +142,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         width: '100%', 
         height: 200,
-        marginBottom: 10,
+        marginBottom: 2,
        
      
   },
@@ -163,5 +158,11 @@ const styles = StyleSheet.create({
     padding : 1
 
 
-  }
+  },
+ 
+    
+  
+  
 });
+
+
