@@ -4,43 +4,38 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import {Button, Input, Icon} from 'react-native-elements'
 
-export default function LoginPage(props) {
+import {connect} from 'react-redux';
+
+
+
+function LoginPage(props) {
 
   const [signInEmail, setSignInEmail] = useState('')
-  const [signInPassworsd, setSignInPassword] = useState('')
+  const [signInPassword, setSignInPassword] = useState('')
   const [setUserExists, userExists] = useState('')
 
   //____________________________________ FONCTION SIGN IN ________________________________________//
   
-  // var handleSubmitSignin = async () => {
+  var handleSubmitSignIn = async () => {
 
-  //   const data = await fetch('/sign-in', {
-  //     method: 'POST',
-  //     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-  //     body: `emailFromFront=${signInEmail}&passwordFromFront=${signInPassword}`
-  //   })
+    const data = await fetch('http://192.168.1.23:3000/sign-in', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: `emailFromFront=${signInEmail}&passwordFromFront=${signInPassword}`
+    })
 
-  //   const body = await data.json()
+    const body = await data.json()
 
-  //   if(body.result == true){
-  //     setUserExists(true)
-  //     props.addToken(body.token)
-  //   }  else {
-  //     setErrorsSignin(body.error)
-  //   }
-  // }
+    console.log(body)
+    
+    if(body.result == true){
+      props.addToken(body.token)
+      props.navigation.navigate('API')
+    }  
+     
+  }
 
-  // if(userExists){
-  //   return <Redirect to='/screenMyArticles' />
-  // }
 
-  // var tabErrorsSignin = listErrorsSignin.map((error,i) => {
-  //   return(<p>{error}</p>)
-  // })
-
-  // var tabErrorsSignup = listErrorsSignup.map((error,i) => {
-  //   return(<p>{error}</p>)
-  // })
 
 
   //____________________________________ DEBUT RETURN ________________________________________//
@@ -50,9 +45,9 @@ export default function LoginPage(props) {
 
       <View style={styles.Input}>
         <Input onChangeText={(value) => setSignInEmail(value)} value={signInEmail} placeholder='Email' leftIcon={<Icon name='at' type='font-awesome' size={24} color='black'/>}/>
-        <Input onChangeText={(value) => setSignInPassword(value)} value={signInPassworsd} placeholder='Password' secureTextEntry={true} leftIcon={<Icon name='unlock-alt' type='font-awesome' size={24} color='black'/>}/>
+        <Input onChangeText={(value) => setSignInPassword(value)} value={signInPassword} placeholder='Password' secureTextEntry={true} leftIcon={<Icon name='unlock-alt' type='font-awesome' size={24} color='black'/>}/>
       </View>
-        <Button title="Connexion" type="solid" buttonStyle={{backgroundColor: "#ED590C"}} onPress={() => props.navigation.navigate('API')} />    
+        <Button title="Connexion" type="solid" buttonStyle={{backgroundColor: "#ED590C"}} onPress={() =>handleSubmitSignIn() } />    
       </View>
         );
       }
@@ -68,3 +63,18 @@ const styles = StyleSheet.create({
     width:300
   }
 });
+
+
+
+function mapDispatchToProps(dispatch){
+  return {
+    addToken: function(token){
+      dispatch({type: 'addToken', token})
+    }
+  }
+  }
+
+export default connect(
+  null,
+  mapDispatchToProps
+  )(LoginPage)
