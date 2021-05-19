@@ -37,7 +37,7 @@ let coords= polylines.map((poly,i)=>{
 return ({latitude : poly[0], longitude : poly[1]})
 
 })
-console.log(coords)
+// console.log(coords)
 
   return (
         

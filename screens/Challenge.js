@@ -45,9 +45,7 @@ const dataTrophee = [
 
 export default function Ranking(props) {
   const [modalVisible, setModalVisible] = useState(false);
-  const showModal = () => setModalVisible(true);
-  const hideModal = () => setModalVisible(false);
-  const containerStyle = {backgroundColor: 'white', padding: 20} ;
+
   return (
     
 <View style={styles.container}>
@@ -172,7 +170,7 @@ export default function Ranking(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#F9F9F9',
   },
   divider: {
     borderWidth: 1, 
@@ -202,7 +200,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderRightWidth: 2,
     borderTopColor:"#ffffff",
-    borderLeftColor:"#ffffff"
+    borderLeftColor:"#ffffff",
+    borderRightColor:"#ED590C",
+    borderBottomColor: "#ED590C"
   },
   image: {
     width: 100, 
