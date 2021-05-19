@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, Pressable } from 'react-native';
 
 import {Avatar,Card, ListItem, Button, Icon, Header, Badge} from 'react-native-elements'
 import Navheader from "../component/Navheader"
@@ -26,7 +26,28 @@ const activites = [
     distance: '6 km',
     date: "13 mai 2021",
     newexploration: "+1,2%"
-  }
+  },
+  {
+    name: 'Run test',
+    carte: require("../assets/RunMap/Run3.png"),
+    distance: '6 km',
+    date: "13 mai 2021",
+    newexploration: "+1,2%"
+  },
+  {
+    name: 'Run test',
+    carte: require("../assets/RunMap/Run3.png"),
+    distance: '6 km',
+    date: "13 mai 2021",
+    newexploration: "+1,2%"
+  },
+  {
+    name: 'Run test',
+    carte: require("../assets/RunMap/Run3.png"),
+    distance: '6 km',
+    date: "13 mai 2021",
+    newexploration: "+1,2%"
+  },
  ]
 
 
@@ -35,87 +56,103 @@ export default function Activity(props) {
   
     <View style={styles.container}>
          
-        <Navheader
-          attribut = {props.navigation.navigate}
-        />
+  <Navheader attribut = {props.navigation.navigate}/>
 
-        <Text>My Last Activities</Text>
+  <View>
 
-      <ScrollView>
+  <Card containerStyle={styles.card}>
+    <Card.Title>Mes dernières activitées</Card.Title>
+    <Card.Divider style={styles.divider}/>
+    <ScrollView>
+    <View style={{justifyContent: "center",}}>
  
           {
           activites.map((u, i) => {
           
             return (
-              <Card key={i} >
-              <View style={styles.cards}>
-               <Card.Divider/>
-                 <View style={styles.card}>
-                      <Text h1>{u.name}</Text>
-                      <Text>Distance : {u.distance}</Text>
-                      <Text>Date : {u.date}</Text>
-                      <Text>New routes discovered :</Text>
-                      <Badge 
-                         badgeStyle={{
-                          margin:10,
-                          backgroundColor: "#ED420C",
-                          width:100,
-                       }}
-                         value={
-                            <Text 
-                            > +5.5 new km  
-                            </Text>} 
-                      />
-                         <Badge 
-                          badgeStyle={{
-                            margin:10,
-                            backgroundColor: "#ED420C",
-                            width:100,
-                         }}
-                         value={
-                            <Text 
-                            >{u.newexploration} exploration
-                            </Text>} 
-                      />
-                      
+              
+              <Card key={i} containerStyle={styles.miniCard} >
+                <View style={{flexDirection:"row"}}>
+                  <View style={{marginRight:10}}>
+                  <Text h1 style={{marginBottom:5, fontWeight:"bold" }}>{u.name}</Text>
+                  <Text>Distance : {u.distance}</Text>
+                  <Text>Date : {u.date}</Text>
+                  <Text >New routes discovered :</Text>
+                  <View style={{alignItems:"flex-start"}}>
+                    <Badge 
+                      badgeStyle={styles.badge}
+                      value={<Text style={{color:"#ffffff"}}>+5.5 new km</Text>}
+                    />
+                    <Badge 
+                      badgeStyle={styles.badge}
+                      value={<Text style={{color:"#ffffff"}}>{u.newexploration} exploration</Text>} 
+                    />  
+                  </View>
                   </View>
                   <View>
-
-                      <Image
-                        style={{ width: 150, height: 150, margin:10}}
-                        source={u.carte}
-                      />
-                    </View>
-
-              </View>
+                    <Image
+                      style={{ width: 115, height: 115,}}
+                      source={u.carte}
+                    />
+                  </View>
+                </View>
               </Card>
+              
+
+
+
                 );
               })
             }
          
 
-      </ScrollView>
     </View>
-  );
-}
+    </ScrollView>
+  </Card>
+
+  </View>
+</View>
+
+  )}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
+    backgroundColor: '#F9F9F9',
+  },
+  divider: {
+    borderWidth: 1, 
+    borderColor:"#ED590C"
+  },
+  card: {
+    display: "flex",
+    borderRadius: 10,
+    marginTop: 30,
+    paddingBottom:60,
+    height: "85%",
+    borderBottomWidth: 2,
+    borderRightWidth: 2,
+    borderTopColor:"#ffffff",
+    borderLeftColor:"#ffffff",
+    borderRightColor:"#ED590C",
+    borderBottomColor: "#ED590C"
+  },
+  miniCard: {
+    borderRadius: 10,
+    marginRight:"auto",
+    marginLeft:"auto",
+    marginTop: 5,
+    marginBottom: 5,
+    shadowRadius: 4,
+    shadowOpacity: 0.5
+  },
+  info: {
     justifyContent: 'center',
   },
-  cards: {
-    borderRadius: 10,
-    width: 300,
-    flexDirection:"row",
-    justifyContent: 'center',
-    alignItems: "center"
-  }, 
-  card: {
-    justifyContent: 'center',
-
+  badge: {
+    marginTop: 8,
+    backgroundColor: "#ED420C",
+    width:125,
   }
 });
 
