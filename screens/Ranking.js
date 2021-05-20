@@ -50,13 +50,6 @@ var ListRanking = user.map(function(u) {
 
 export default function Challenge (props) {
 
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    {label: 'Apple', value: 'apple'},
-    {label: 'Banana', value: 'banana'}
-  ]);
-   
     const [modalVisible, setModalVisible] = useState(false);
 
   return (
@@ -79,11 +72,11 @@ export default function Challenge (props) {
 
     <View style={{alignItems:"center"}}>
       <View style={{flexDirection:"row", justifyContent:"center", marginTop:10}}>
-        <Icon color= "#ED590C" type= 'font-awesome' name= 'search'/>
-        <View style={{marginLeft:10, marginTop:10, width:300}}>
+        <Icon size="20" color= "#ED590C" type= 'font-awesome' name= 'search'/>
+        <View style={{marginLeft:10, marginTop:5, width:300}}>
           <RNPickerSelect
             Style={styles.customPickerStyles}
-            placeholder={{ color:"#ED590C", label: "Selectionnez une ville", value: null}}
+            placeholder={{color:"#ED590C", label: "Selectionnez une ville", value: null}}
             useNativeAndroidPickerStyle={false} 
             onValueChange={(value) => console.log(value)}
             items={[
@@ -169,10 +162,58 @@ export default function Challenge (props) {
                 <View>{ListRanking}</View>
               </View>
             </View>
-          </View>
-        
+        </View>
+
+{/*---------------------- Modal -----------------------*/}
+
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+            setModalVisible(!modalVisible);
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+              <Text style={{fontWeight:"bold"}}>Inviter des amis</Text>
+                <TextInput
+                    style={{
+                      height: 40,
+                      width: 200,
+                      borderWidth: 1,
+                      marginBottom: 10,
+                      marginTop: 10
+                    }}
+                    defaultValue=""
+                />
+
+                  <Button
+                  title="Envoyer l'invation"
+                  buttonStyle={styles.button}
+                  onPress={() => Alert.alert('Invitation envoyée ')}
+                  />  
+
+                  <Pressable
+                    style={styles.buttonRetour}
+                    onPress={() => setModalVisible(!modalVisible)}
+                    >
+                  <Text style={styles.textStyleRetour}>Retour</Text>
+                </Pressable>
+              </View>
+            </View>
+          </Modal>
+
+          <Pressable
+              style={[styles.button]}
+              onPress={() => setModalVisible(true)}
+              >
+              <Text style={styles.textStyle}>Inviter des amis</Text>
+          </Pressable>
         
           </Card>
+          
         </View>    
         )
       })
@@ -223,12 +264,63 @@ const styles = StyleSheet.create({
     borderBottomColor: "#ED590C"
   },
   divider: {
-    borderWidth: 1, 
+    borderWidth: 0.5, 
     borderColor:"#ED590C",
     width:340,
     marginTop:10,
   },
-});
+  button: {
+    borderRadius: 10, 
+    marginTop: "auto", 
+    marginBottom: "auto", 
+    marginLeft:"auto" , 
+    marginRight:"auto" , 
+    backgroundColor: "#ED590C", 
+    width:"auto" 
+  },
+  buttonRetour: {
+    borderRadius: 10, 
+    marginTop: 30,  
+    backgroundColor: "#ED590C", 
+    width:"auto" 
+  },
+  textStyleRetour: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+    fontSize:10,
+    margin:10
+
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+    margin:10
+
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+})
 
 const customPickerStyles = StyleSheet.create({
   inputIOS: {
