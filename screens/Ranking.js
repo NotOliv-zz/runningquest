@@ -86,7 +86,7 @@ export default function Challenge (props) {
 
     <View style={{alignItems:"center"}}>
       <View style={{flexDirection:"row", justifyContent:"center", marginTop:10}}>
-        <Icon size="20" color= "#ED590C" type= 'font-awesome' name= 'search'/>
+        <Icon size={20} color= "#ED590C" type= 'font-awesome' name= 'search'/>
         <View style={{marginLeft:10, marginTop:5, width:300}}>
           <RNPickerSelect
             Style={styles.customPickerStyles}
@@ -173,7 +173,7 @@ export default function Challenge (props) {
                           <Text>{u.pseudo}</Text>
                         </View>                                      
                   })}*/}
-                <View>{noUser}{ListRanking}</View>
+                <View>{noUser}{listRanking}</View>
               </View>
             </View>
         </View>
