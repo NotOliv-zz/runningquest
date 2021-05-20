@@ -27,7 +27,7 @@ var handleSubmitSignUp = async () => {
   })
 
   const body = await data.json()
-  console.log(body)
+  //console.log(body)
 
     if(body.saveUser) {
     props.addToken(body.saveUser.token)
