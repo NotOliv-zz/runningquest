@@ -6,20 +6,28 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import MapView, { Polyline } from 'react-native-maps';
 import polyline from '@mapbox/polyline';
 import { LinearGradient } from 'expo-linear-gradient';
+import {connect} from 'react-redux';
 
-
-export default function Home(props) {
+function Home(props) {
   
+  var polylineEncode=[]
+  for (var i=0;i<props.Activites.length;i++){
+    polylineEncode.push(props.Activites[i].polyline.replace(/\\\\/g,'\\'))
+  }
 
-  let polylines=polyline.decode("k{skH_`nWx@sAdAiCdCiEhAaChBeDfAgCt@wAVm@lA{B^g@r@{A^a@v@qA^e@Zk@dAgCPs@\\e@Xk@Vo@`@a@Zg@N_@Rq@Vk@z@uAt@qAhAgCr@qATk@x@oAVg@l@}A`A_Az@gA\\g@t@qA\\e@x@mAv@qA`@]Zc@pAaCv@gAhBgDfAeCtA{BXk@jByC^_@Tq@Lw@d@eBVm@p@yA\\e@jA{BvAwBXi@Xq@\\c@`BqA^]^c@x@kA^WzAsBvAsBTm@\\_@dAo@^]`@YbB_Bz@mAvB_C`@W|AkB~A_B^g@`@_@z@gA|@{@vBsC^_@Xm@Ro@h@Yh@O^YtAsBb@Y~B{BzBiFPs@\\oBRq@n@}Cp@kEj@{CFw@Lw@fB{Jt@}E`@cDPu@ZiBn@yC~@mGj@eDh@mDNs@ZoBRs@TiBz@sECEc@hBo@fDu@zEkArGe@hD{@vEaAvGa@hBSjBg@bD{@pESl@a@fBYlBm@`DQvA_@jBIv@i@bDUn@a@dBq@xAKx@o@~Au@pA_@f@gAdA[j@aBzA[b@a@^{@pA_Av@_B`BwAnB_@`@a@Z}@~@a@Zw@dA[f@}AjB}@`Aa@Z]\\Yd@c@ZcAfAeBxA_F~F_@X[d@]b@_@`@cAx@yApB_AdA[d@mBdDYn@{@pAu@rASn@[h@Ul@}@rCYj@e@j@Un@mBjDs@xAgCjEs@tAUj@qAxB]d@]^c@VqAtBYp@qBvCsAtB]^y@jAk@`B[j@]b@u@tA[b@iAhCYd@]\\Mv@mA|Bm@|A[f@]`@Sr@Uj@u@nAmAzB{@hAYr@aBlDsAzBWl@gBdDu@lAw@jAq@vAw@vAWj@kBlDq@xAw@xA")
-console.log(polylines.length)
-
-let coords= polylines.map((poly,i)=>{
-
-return ({latitude : poly[0], longitude : poly[1]})
-
-})
-console.log(coords)
+    
+    var coords=polylineEncode.map((act,i)=>{
+       
+      var polyDecode=polyline.decode(act)
+  
+      var coords2= polyDecode.map((poly,i)=>{
+  
+        return ({latitude : poly[0], longitude : poly[1]})
+                        
+     })
+     
+     return (<Polyline key={i} coordinates={coords2} strokeColor="red" strokeWidth={2}  />)
+   })
 
 
   return (
@@ -35,7 +43,7 @@ console.log(coords)
         />   
       </View>
 
-    
+      <ScrollView>
         <View style={styles.container}>
         
           <Card containerStyle={styles.cardMap}>
@@ -52,13 +60,10 @@ console.log(coords)
                   latitudeDelta: 0.0322,
                   longitudeDelta: 0.0221,
                 }}>
-                  <Polyline
-                  coordinates={coords}
                   
-                  strokeColor="#ED590C"
+                  {coords}
                   
-                  strokeWidth={5}
-                  />
+
               </MapView>      
 
               <View style={{flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
@@ -129,13 +134,9 @@ console.log(coords)
                 </View>
                 
               </Card>
-             
-
-
-
-
-               
+                            
         </View>
+        </ScrollView>
         
     </View>
    
@@ -202,3 +203,9 @@ const styles = StyleSheet.create({
 });
 
 
+function mapStateToProps(state) {
+
+  return {Activites:state.ActivitiesList}
+ }
+
+export default connect(mapStateToProps,null)(Home)
