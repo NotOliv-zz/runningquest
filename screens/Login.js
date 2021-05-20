@@ -18,7 +18,7 @@ function LoginPage(props) {
   
   var handleSubmitSignIn = async () => {
 
-    const data = await fetch('http://192.168.1.18:3000/sign-in', {
+    const data = await fetch('http://192.168.1.23:3000/sign-in', {
       method: 'POST',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       body: `emailFromFront=${signInEmail}&passwordFromFront=${signInPassword}`
@@ -26,10 +26,11 @@ function LoginPage(props) {
 
     const body = await data.json()
 
-    
+
     if(body.result == true){
       props.addToken(body.token)
       props.addActivities(body.user.activities)
+      props.addProfil(body.user.profilpicfromstrava)
       props.navigation.navigate('BottomNavigator', {screen: 'Home'})
     }  
      
@@ -73,6 +74,10 @@ function mapDispatchToProps(dispatch){
     },
     addActivities: function(activites){
       dispatch({type: 'addActivities', activites})
+    },
+    addProfil: function(profil){
+      console.log(profil)
+      dispatch({type: 'addProfil', profil})
     }
   }
   }

@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, Image, Pressable, Modal, Alert, TextInput, ScrollView,  } from 'react-native';
 
 import {Card, Button, Input, Icon, Divider} from 'react-native-elements'
@@ -9,6 +9,10 @@ import DropDownPicker from 'react-native-dropdown-picker';
 
 import { Ionicons } from '@expo/vector-icons';
 import color from 'color';
+
+import {connect} from 'react-redux';
+
+
 
 
 
@@ -21,14 +25,6 @@ const dataChallenge = [
     nbrKm: 25,
     totalAccomplishment: 70,
   },
-  /*{
-    nameChallenge: "Tour de Levallois",
-    map: require("../assets/Map-Levallois.jpg"),
-    ciytLocation: 'Levallois',
-    challengeDate: '11/03/2021',
-    nbrKm: 30,
-    totalAccomplishment: 70,
-  }*/
 ]
 
 const user= [
@@ -39,18 +35,36 @@ const user= [
   {
     pseudo: "user2",
     nbrKm: 30
+  },
+  {
+    pseudo: "user3",
+    nbrKm: 40
   }
 ]
 
-var ListRanking = user.map(function(u) {
-  return <View>
-          <Text> {u.pseudo} - {u.nbrKm}Km</Text>
-         </View>  
-})
 
 export default function Challenge (props) {
 
     const [modalVisible, setModalVisible] = useState(false);
+    
+
+    
+    var noUser  
+      if (user.length === 0)
+      {noUser = <Text>Pas encore de Challenger !</Text>}
+
+      var listRanking = user.map(function(u) {
+      return <View>
+        <Text> {u.pseudo} - {u.nbrKm}Km</Text>
+      </View>  
+      })
+
+    const sortBykm = (map,compareFn) => (a,b) => compareFn(map(a),map(b));
+    const byValue = (a,b) => a - b;
+    const toKm = e => e.price;
+    const byKm = sortBykm(toKm,byValue);
+
+    console.log([...listRanking].sort(byKm)); 
 
   return (
     <View style={styles.container}>
@@ -159,7 +173,7 @@ export default function Challenge (props) {
                           <Text>{u.pseudo}</Text>
                         </View>                                      
                   })}*/}
-                <View>{ListRanking}</View>
+                <View>{noUser}{ListRanking}</View>
               </View>
             </View>
         </View>
