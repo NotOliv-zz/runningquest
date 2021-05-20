@@ -26,11 +26,11 @@ function LoginPage(props) {
 
     const body = await data.json()
 
+    console.log(body)
     
     if(body.result == true){
       props.addToken(body.token)
-      props.addActivities(body.user.activities)
-      props.navigation.navigate('BottomNavigator', {screen: 'Home'})
+      props.navigation.navigate('API')
     }  
      
   }
@@ -70,9 +70,6 @@ function mapDispatchToProps(dispatch){
   return {
     addToken: function(token){
       dispatch({type: 'addToken', token})
-    },
-    addActivities: function(activites){
-      dispatch({type: 'addActivities', activites})
     }
   }
   }

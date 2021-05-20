@@ -8,6 +8,8 @@ import Navheader from "../component/Navheader"
 import { Ionicons } from '@expo/vector-icons';
 import color from 'color';
 
+
+
 const dataChallenge = [
   {
     nameChallenge: "Tour de Levallois",
@@ -16,15 +18,33 @@ const dataChallenge = [
     challengeDate: '11/03/2021',
     nbrKm: 25,
     totalAccomplishment: 70,
+  },
+  {
+    nameChallenge: "Tour de Levallois",
+    map: require("../assets/Map-Levallois.jpg"),
+    ciytLocation: 'Levallois',
+    challengeDate: '11/03/2021',
+    nbrKm: 30,
+    totalAccomplishment: 70,
   }
 ]
 
-const ranking= [
+const user= [
   {
     pseudo: "user1",
-//    totalDistance: dataChallenge[0].nbrKm,
+    nbrKm: 45
+  },
+  {
+    pseudo: "user2",
+    nbrKm: 30
   }
 ]
+
+var ListRanking = user.map(function(u) {
+  return <View>
+  <Text> {u.pseudo} - {u.nbrKm}Km</Text>
+</View>  
+})
 
 export default function Challenge (props) {
    
@@ -41,6 +61,9 @@ export default function Challenge (props) {
                   return (
                     <View key={i}>
                       <View style={styles.cardView}>
+
+      {/*---------------------- Map + Citylocation -----------------------*/}
+
                           <View style={styles.view} >
                               <View>
                               <Image 
@@ -57,6 +80,9 @@ export default function Challenge (props) {
                                   }}>{u.ciytLocation}</Text>
                               </View>
                           </View>
+                          
+      {/*---------------------- Challenge Name + Date -----------------------*/}
+
                           <View  >
                               <View style={styles.view}>
                                 <Text style={{
@@ -74,6 +100,9 @@ export default function Challenge (props) {
                                   color: '#ED590C',
                                   fontSize: 20,
                                 }}>Mon avancement</Text>
+
+      {/*---------------------- Distance and Accomplishment -----------------------*/}
+
                                   <Text>{u.nbrKm} Km</Text>
                                   <Text>{u.totalAccomplishment} %</Text>
                               </View>
@@ -85,14 +114,22 @@ export default function Challenge (props) {
                                   color: '#ED590C',
                                   fontSize: 20,
                                 }}>Ranking</Text>
-                                  <Text>1 er - Adeline - 42 Km</Text>
-                                  <Text>2 ème - Florent - 31 Km</Text>
-                                  <Text>3 ème  - Jean Luc - 27 Km</Text>
-                                  <Text>4 ème - Olivier - 23 Km</Text>
+
+      {/*---------------------- Map ranking user and sort -----------------------*/}
+
+                                  {/*{user.map((u, i) => {
+                                        return <View key = {i}>
+                                            <Text>{u.pseudo}</Text>
+                                          </View>                                      
+                                    })}*/}
+                                    <View>{ListRanking}</View>
                               </View>
                           </View>
                           <View style={styles.view} >
                           <View style={styles.centeredView}>
+
+      {/*---------------------- Modal -----------------------*/}
+
                               <Modal
                                   animationType="slide"
                                   transparent={true}
