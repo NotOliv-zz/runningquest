@@ -32,7 +32,7 @@ function Activity(props) {
           props.Activites.map((u, i) => {
           
             let polylinefixed = u.polyline.replace(/\\\\/g,'\\')
-            console.log(polylinefixed)
+
             let coordstab = polyline.decode(polylinefixed)
           
             let coords= coordstab.map((poly,i)=>{

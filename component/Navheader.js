@@ -3,9 +3,9 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 
 import {Avatar,Card, ListItem, Button, Icon, Header} from 'react-native-elements'
+import {connect} from 'react-redux';
 
-
-export default function Navheader(props) {
+function Navheader(props) {
   return (
 
     <View style={{
@@ -23,7 +23,7 @@ export default function Navheader(props) {
               rounded
               size="medium"
               title="Avatar"
-              source={require("../assets/bolt.jpg")}
+              source={{ uri:props.photo }}
               containerStyle={{marginTop: 5, marginLeft: 10}}
               onPress={() => props.attribut("Profil")}
             />
@@ -59,3 +59,12 @@ export default function Navheader(props) {
   )
 }
 
+function mapStateToProps(state) {
+  console.log(state.ProfilStrava)
+  return {photo : state.ProfilStrava}
+ }
+
+export default connect(
+  mapStateToProps,
+  null
+ )(Navheader);
