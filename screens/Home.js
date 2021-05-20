@@ -68,30 +68,32 @@ function Home(props) {
 
               <View style={{flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
                 <View style={styles.box}>
-                      <Text style={{fontSize:13, marginBottom:5}}>Distance</Text>
+                      <Text style={{fontSize:13, marginBottom:5}}>Exploration</Text>
                       <View style={{flexDirection:"row", alignItems:"center"}}>
-                        <Text style={{fontWeight:"bold", color:"#ED590C" }}>15</Text>
+                        <Text style={{fontWeight:"bold", color:"#ED590C" }}>142</Text>
                         <Text style={{fontWeight:"bold"}}> km</Text>
                       </View>
                 </View>
           
                 <View style={styles.box}>
-                      <Text style={{fontSize:13, marginBottom:5}}>Exploration</Text>
+                      <Text style={{fontSize:13, marginBottom:5}}>Objectif</Text>
                       <View style={{flexDirection:"row", alignItems:"center"}}>
-                        <Text style={{fontWeight:"bold", color:"#ED590C" }}>15</Text>
+                        <Text style={{fontWeight:"bold", color:"#ED590C" }}>34</Text>
                         <Text style={{fontWeight:"bold"}}> %</Text>
                       </View>
                 
                 </View>
                 
                 <View style={styles.box}>
-                      <Text style={{fontSize:13, marginBottom:5}}>Nb de pas</Text>
-                      <Text style={{fontWeight:"bold", color:"#ED590C" }}>15888</Text>
-                
+                      <Text style={{fontSize:13, marginBottom:5}}>Vitesse</Text>
+                      <View style={{flexDirection:"row", alignItems:"center"}}>
+                        <Text style={{fontSize:13,fontWeight:"bold", color:"#ED590C" }}>9</Text>
+                        <Text style={{fontSize:13,fontWeight:"bold"}}> km/h</Text>
+                      </View>
                 </View>
 
                 <View style={styles.box}>
-                      <Text style={{fontSize:13, marginBottom:5}}>Rang</Text>
+                      <Text style={{fontSize:13, marginBottom:5}}>Rang Ville</Text>
                       <View style={{flexDirection:"row", alignItems:"center"}}>
                         <Text style={{fontWeight:"bold", color:"#ED590C" }}>6</Text>
                         <Text style={{fontWeight:"bold"}}> ème</Text>
@@ -110,7 +112,7 @@ function Home(props) {
                   />
                   <View>
                     <View>
-                      <Text style={{fontWeight:"bold"}}>30 km en 1 semaine</Text>
+                      <Text style={{fontWeight:"bold"}}>Explorez 30 nouveaux km</Text>
                       <View style={{flexDirection:"row", marginBottom:15}}>
                         <Text>Il reste </Text>
                         <Text style={{fontWeight:"bold", color:"#ED590C" }}>3 </Text>

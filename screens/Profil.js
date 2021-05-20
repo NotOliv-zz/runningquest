@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import Navheader from "../component/Navheader";
 import {Avatar,Card, ListItem, Button, Icon, Header, Text} from 'react-native-elements'
-
+import {connect} from 'react-redux';
 
 const list = [
   {
@@ -21,7 +21,7 @@ const list = [
 ]
 
 
-export default function Profil(props) {
+function Profil(props) {
   return (
 
     
@@ -33,7 +33,7 @@ export default function Profil(props) {
           size="large"
           title="Avatar"
           activeOpacity={0}
-          source={require("../assets/bolt.jpg")}
+          source={{ uri:props.photo }}
           containerStyle={{marginTop:100, marginBottom:20}}
           onPress={() => props.attribut("Profil")}
         />
@@ -80,3 +80,13 @@ const styles = StyleSheet.create({
     
   }
 });
+
+function mapStateToProps(state) {
+  console.log(state.ProfilStrava)
+  return {photo : state.ProfilStrava}
+ }
+
+export default connect(
+  mapStateToProps,
+  null
+ )(Profil);

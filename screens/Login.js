@@ -76,7 +76,6 @@ function mapDispatchToProps(dispatch){
       dispatch({type: 'addActivities', activites})
     },
     addProfil: function(profil){
-      console.log(profil)
       dispatch({type: 'addProfil', profil})
     }
   }

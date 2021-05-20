@@ -14,8 +14,8 @@ export default function Welcome(props) {
               <Image 
                 style={{ width: 165, height: 100}}
                 source={require("../assets/Logo.png")}></Image>
-              <Text style={{ fontSize : 15}}>Vous êtes nouveau ici ?</Text>
-              <Text style={{ fontSize : 15, textAlign: 'center'}}>Rejoignez nous et commencez sans plus attendre !</Text>
+              <Text style={{ fontSize : 15}}>Courez, explorez et collectionnez les trophées !</Text>
+              <Text style={{ fontSize : 15, textAlign: 'center'}}>Entrez dans la course :</Text>
               <Text> </Text>
               <LinearProgress 
               color = "#ED590C"
