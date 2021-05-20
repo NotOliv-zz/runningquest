@@ -9,50 +9,6 @@ import {connect} from 'react-redux';
 import MapView, { Polyline } from 'react-native-maps';
 import polyline from '@mapbox/polyline';
 
-// const activites = [
-//   {
-//     name: 'Running du soir',
-//     carte: require("../assets/RunMap/Run1.png"),
-//     distance: '12 km',
-//     date: "22 mai 2021",
-//     newexploration: "+25%"
-//   },
-//   {
-//     name: 'Run du matin',
-//     carte: require("../assets/RunMap/Run2.png"),
-//     distance: '6 km',
-//     date: "13 mai 2021",
-//     newexploration: "+1,2%"
-//   },
-//   {
-//     name: 'Run test',
-//     carte: require("../assets/RunMap/Run3.png"),
-//     distance: '6 km',
-//     date: "13 mai 2021",
-//     newexploration: "+1,2%"
-//   },
-//   {
-//     name: 'Run test',
-//     carte: require("../assets/RunMap/Run3.png"),
-//     distance: '6 km',
-//     date: "13 mai 2021",
-//     newexploration: "+1,2%"
-//   },
-//   {
-//     name: 'Run test',
-//     carte: require("../assets/RunMap/Run3.png"),
-//     distance: '6 km',
-//     date: "13 mai 2021",
-//     newexploration: "+1,2%"
-//   },
-//   {
-//     name: 'Run test',
-//     carte: require("../assets/RunMap/Run3.png"),
-//     distance: '6 km',
-//     date: "13 mai 2021",
-//     newexploration: "+1,2%"
-//   },
-//  ]
 
 
 
@@ -75,7 +31,9 @@ function Activity(props) {
           {
           props.Activites.map((u, i) => {
           
-            let coordstab = polyline.decode(u.polyline)
+            let polylinefixed = u.polyline.replace(/\\\\/g,'\\')
+            console.log(polylinefixed)
+            let coordstab = polyline.decode(polylinefixed)
           
             let coords= coordstab.map((poly,i)=>{
 
@@ -92,25 +50,23 @@ function Activity(props) {
                 <View style={{flexDirection:"row"}}>
                   <View style={{marginRight:10}}>
                     <Text h1 style={{marginBottom:5, fontWeight:"bold" }}>{u.run_name}</Text>
+                    <Text>Ville {u.city}</Text>
                     <Text>Distance : {u.distance} km</Text>
                     <Text>Date : {u.date}</Text>
-                    <Text >New routes discovered :</Text>
+                    <Text></Text>
+                    <Text >Nouvelles routes découvertes </Text>
                     <View style={{alignItems:"flex-start"}}>
                       <Badge 
                         badgeStyle={styles.badge}
-                        value={<Text style={{color:"#ffffff"}}>+5.5 new km</Text>}
+                        value={<Text style={{color:"#ffffff"}}>+{u.newkm} new km</Text>}
                       />
-                      <Badge 
-                        badgeStyle={styles.badge}
-                        value={<Text style={{color:"#ffffff"}}>{u.newexploration} exploration</Text>} 
-                      />  
+                
                     </View>
                     </View>
                     <View>
                       <MapView
                           style={styles.map} 
                           provider="google"
-                          scrollEnabled="false"
                           initialRegion={{
                             latitude: coordstab[0][0],
                             longitude: coordstab[0][1],
