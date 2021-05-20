@@ -117,18 +117,15 @@ export default function Challenge (props) {
 
       {/*---------------------- Map ranking user and sort -----------------------*/}
 
-                                  {/*{user.map((u, i) => {
-                                        return <View key = {i}>
-                                            <Text>{u.pseudo}</Text>
-                                          </View>                                      
-                                    })}*/}
+                                  {/*{if (dataUser == 0)
+                                  return <Text>Pas encore de Challenger</Text>}else{}*/}
                                     <View>{ListRanking}</View>
                               </View>
                           </View>
                           <View style={styles.view} >
                           <View style={styles.centeredView}>
 
-      {/*---------------------- Modal -----------------------*/}
+      {/*---------------------- Modal add friends -----------------------*/}
 
                               <Modal
                                   animationType="slide"
