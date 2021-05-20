@@ -180,7 +180,7 @@ export default function Challenge (props) {
                           <Text>{u.pseudo}</Text>
                         </View>                                      
                   })}*/}
-                <View>{noUser}{ListRanking}</View>
+                <View>{noUser}{listRanking}</View>
               </View>
             </View>
           </View>
