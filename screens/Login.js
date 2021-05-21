@@ -33,9 +33,10 @@ function LoginPage(props) {
       props.addProfil(body.user.profilpicfromstrava)
       props.navigation.navigate('BottomNavigator', {screen: 'Home'})
     }  
-     
-  }
+    
+     console.log(body)
 
+  }
 
 
 
