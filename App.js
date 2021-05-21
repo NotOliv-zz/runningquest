@@ -55,7 +55,8 @@ const BottomNavigator = () => {
         inactiveTintColor: '#808080',
         style: {
           shadowOpacity: 0.06, //  shadow on iOS
-          height: 90
+          height: 90,
+          padding:15
         }
       }}
     >

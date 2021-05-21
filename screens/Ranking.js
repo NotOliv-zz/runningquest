@@ -6,6 +6,7 @@ import {Card, Button, Input, Icon, Divider} from 'react-native-elements'
 import Navheader from "../component/Navheader"
 import RNPickerSelect from 'react-native-picker-select';
 import DropDownPicker from 'react-native-dropdown-picker';
+import MapView, { Polyline } from 'react-native-maps';
 
 import { Ionicons } from '@expo/vector-icons';
 import color from 'color';
@@ -18,13 +19,23 @@ import {connect} from 'react-redux';
 
 const dataChallenge = [
   {
-    nameChallenge: "Tour de Levallois",
-    map: require("../assets/Map-Levallois.jpg"),
-    ciytLocation: 'Levallois',
-    challengeDate: '11/03/2021',
+    nameChallenge: "Dernière sortie",
+    lat: 48.893217,
+    lon: 2.287864,
+    ciytLocation: 'Levallois-Perret',
+    challengeDate: '19/05/2021',
     nbrKm: 25,
-    totalAccomplishment: 70,
+    totalAccomplishment: 56,
   },
+  // {
+  //   nameChallenge: "Tour de Levallois",
+  //   lat: 49.23536,
+  //   lon: 4.04214,
+  //   ciytLocation: 'Reims',
+  //   challengeDate: '11/03/2021',
+  //   nbrKm: 31,
+  //   totalAccomplishment: 49,
+  // },
 ]
 
 const user= [
@@ -86,7 +97,7 @@ export default function Challenge (props) {
 
     <View style={{alignItems:"center"}}>
       <View style={{flexDirection:"row", justifyContent:"center", marginTop:10}}>
-        <Icon size="20" color= "#ED590C" type= 'font-awesome' name= 'search'/>
+        <Icon size={20} color= "#ED590C" type= 'font-awesome' name= 'search'/>
         <View style={{marginLeft:10, marginTop:5, width:300}}>
           <RNPickerSelect
             Style={styles.customPickerStyles}
@@ -94,12 +105,8 @@ export default function Challenge (props) {
             useNativeAndroidPickerStyle={false} 
             onValueChange={(value) => console.log(value)}
             items={[
-                { label: "JavaScript", value: "JavaScript" },
-                { label: "TypeStript", value: "TypeStript" },
-                { label: "Python", value: "Python" },
-                { label: "Java", value: "Java" },
-                { label: "C++", value: "C++" },
-                { label: "C", value: "C" },
+                { label: "Levallois-Perret", value: "Levallois-Peret" },
+                { label: "Reims", value: "Reims" },
             ]}
           />
         </View>
@@ -123,22 +130,29 @@ export default function Challenge (props) {
           <View style={styles.cardMap}>
               <View style={{alignItems:"center"}}>
                 <Text style={styles.titreVille} >{u.ciytLocation}</Text>
-                <Image 
-                  style={{ width:"100%", height: 180, borderRadius: 10,}}                                
-                  source={u.map}
-                />
+                <MapView
+                style={styles.map} 
+                provider="google"
+                initialRegion={{
+                  latitude: u.lat,
+                  longitude: u.lon,
+                  latitudeDelta: 0.0322,
+                  longitudeDelta: 0.0221,
+                }}>
+                </MapView>  
             </View>
           </View>
 
 {/* ---------------------- Challenge Name + Date -----------------------*/}
+        <ScrollView>
         <Card containerStyle={styles.card}>  
         <View style={{alignItems:"center"}}>
-          <View >
+          <View  >
               <View style={styles.view}>
                 <Text style={{
                   fontWeight: 'bold',
                   color: '#ED590C',
-                  fontSize: 20,
+                  fontSize: 15,
                 }}>{u.nameChallenge}</Text>
                 <Text>{u.challengeDate}</Text>
               </View>
@@ -148,12 +162,12 @@ export default function Challenge (props) {
                 <Text style={{
                 fontWeight: 'bold',
                 color: '#ED590C',
-                fontSize: 20,
+                fontSize: 15,
               }}>Mon avancement</Text>
 
 {/*---------------------- Distance and Accomplishment -----------------------*/}
 
-                <Text>{u.nbrKm} Km</Text>
+                <Text style={{alignItems:"center"}}>{u.nbrKm} Km</Text>
                 <Text>{u.totalAccomplishment} %</Text>
             </View>
           </View>
@@ -162,7 +176,7 @@ export default function Challenge (props) {
               <Text style={{
                 fontWeight: 'bold',
                 color: '#ED590C',
-                fontSize: 20,
+                fontSize: 15,
                 }}>Ranking
               </Text>
 
@@ -173,7 +187,7 @@ export default function Challenge (props) {
                           <Text>{u.pseudo}</Text>
                         </View>                                      
                   })}*/}
-                <View>{noUser}{ListRanking}</View>
+                <View>{noUser}{listRanking}</View>
               </View>
             </View>
         </View>
@@ -227,7 +241,7 @@ export default function Challenge (props) {
           </Pressable>
         
           </Card>
-          
+        </ScrollView>  
         </View>    
         )
       })
@@ -256,6 +270,11 @@ const styles = StyleSheet.create({
     borderRightColor:"#ED590C",
     borderBottomColor: "#ED590C"
   },
+  map: {
+    width: "100%",
+    borderRadius: 10,
+    height:250
+  },
   titreVille: {
     width:"100%",
     fontSize: 20,
@@ -275,7 +294,8 @@ const styles = StyleSheet.create({
     borderTopColor:"#ffffff",
     borderLeftColor:"#ffffff",
     borderRightColor:"#ED590C",
-    borderBottomColor: "#ED590C"
+    borderBottomColor: "#ED590C",
+    alignContent:"center"
   },
   divider: {
     borderWidth: 0.5, 
@@ -289,13 +309,13 @@ const styles = StyleSheet.create({
     marginBottom: "auto", 
     marginLeft:"auto" , 
     marginRight:"auto" , 
-    backgroundColor: "#ED590C", 
+    backgroundColor: "#ED420C", 
     width:"auto" 
   },
   buttonRetour: {
     borderRadius: 10, 
     marginTop: 30,  
-    backgroundColor: "#ED590C", 
+    backgroundColor: "#ED420C", 
     width:"auto" 
   },
   textStyleRetour: {
