@@ -7,12 +7,67 @@ import Navheader from "../component/Navheader"
 import RNPickerSelect from 'react-native-picker-select';
 import DropDownPicker from 'react-native-dropdown-picker';
 import MapView, { Polyline } from 'react-native-maps';
+import polyline from '@mapbox/polyline';
 
 import { Ionicons } from '@expo/vector-icons';
 import color from 'color';
 
 import {connect} from 'react-redux';
 
+function Ranking(props) {
+  
+  const [currentMessage, setCurrentMessage] = useState('Levallois Perret');
+  const [latitude, setLatitude] = useState(48.893217);
+  const [longitude, setLongitude] = useState(2.287864);
+  const [coordslist, setCoordslist] = useState([]);
+  const [initialreg,setInitialreg] = useState();
+  const [modalVisible, setModalVisible] = useState(false);
+  
+
+
+console.log(currentMessage)
+console.log(longitude)
+console.log(latitude)
+
+useEffect(() => {
+
+  //Je décode mes polyline
+  var polylineEncode=[]
+  for (var i=0;i<props.Activites.length;i++){
+    polylineEncode.push(props.Activites[i].polyline.replace(/\\\\/g,'\\'))
+  }
+    
+    var coords=polylineEncode.map((act,i)=>{
+       
+      var polyDecode=polyline.decode(act)
+  
+      var coords2= polyDecode.map((poly,i)=>{
+  
+        return ({latitude : poly[0], longitude : poly[1]})
+                        
+     })
+     
+     return (<Polyline key={i} coordinates={coords2} strokeColor="red" strokeWidth={2}  />)
+   })
+   setCoordslist(coords)
+
+
+},[])
+
+useEffect(() => {
+  if (currentMessage=='Reims'){
+    setLatitude(49.258329)
+    setLongitude(4.031696)
+  }else { 
+    if (currentMessage=='Levallois Perret'){
+    setLatitude(48.893217)
+    setLongitude(	2.287864)
+  }}
+  console.log(longitude)
+  console.log(latitude)
+
+
+},[currentMessage])
 
 
 const dataChallenge = [
@@ -87,15 +142,7 @@ const user= [
       const byKm = sortBykm(toKm,byValue);
       console.log([...user].sort(byKm));  */
     
-    
-export default function Challenge (props) {
-
-    const [modalVisible, setModalVisible] = useState(false);
-    
-
-
-
-
+ 
 
   return (
     <View style={styles.container}>
@@ -123,11 +170,12 @@ export default function Challenge (props) {
             Style={styles.customPickerStyles}
             placeholder={{color:"#ED590C", label: "Selectionnez une ville", value: null}}
             useNativeAndroidPickerStyle={false} 
-            onValueChange={(value) => console.log(value)}
+            onValueChange={(value) => setCurrentMessage(value)}
             items={[
                 { label: "Levallois-Perret", value: "Levallois-Peret" },
                 { label: "Reims", value: "Reims" },
             ]}
+            value={currentMessage}
           />
         </View>
       </View>
@@ -153,12 +201,13 @@ export default function Challenge (props) {
                 <MapView
                 style={styles.map} 
                 provider="google"
-                initialRegion={{
-                  latitude: u.lat,
-                  longitude: u.lon,
+                region={{
+                  latitude: latitude,
+                  longitude: longitude,
                   latitudeDelta: 0.0322,
                   longitudeDelta: 0.0221,
                 }}>
+                   {coordslist}
                 </MapView>  
             </View>
           </View>
@@ -401,3 +450,10 @@ const customPickerStyles = StyleSheet.create({
     paddingRight: 30, // to ensure the text is never behind the icon
   },
 });
+
+function mapStateToProps(state) {
+
+  return {Activites:state.ActivitiesList}
+ }
+
+export default connect(mapStateToProps,null)(Ranking)
