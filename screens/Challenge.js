@@ -44,6 +44,7 @@ const dataTrophee = [
 ]
 
 export default function Ranking(props) {
+
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
@@ -58,7 +59,7 @@ export default function Ranking(props) {
     <Card.Title>Mes challenges</Card.Title>
     <Card.Divider style={styles.divider}/>
     <ScrollView horizontal={true}>
-    <View  style={{ flexDirection: "row"}}>
+    <View style={{ flexDirection: "row"}}>
       {
         dataChallenge.map((u, i) => {
           return (
@@ -130,7 +131,7 @@ export default function Ranking(props) {
 </Modal>
 
 <Pressable 
-  style={[styles.button, styles.buttonOpen]}
+  style={[styles.button]}
   onPress={() => setModalVisible(true)}>
   <Text style={styles.textStyle}>Créer un challenge !</Text>
 </Pressable>
@@ -182,13 +183,13 @@ const styles = StyleSheet.create({
     marginBottom: "auto", 
     marginLeft:"auto" , 
     marginRight:"auto" , 
-    backgroundColor: "#ED590C", 
+    backgroundColor: "#ED420C", 
     width:"auto" 
   },
   buttonRetour: {
     borderRadius: 10, 
     marginTop: 30,  
-    backgroundColor: "#ED590C", 
+    backgroundColor: "#ED420C", 
     width:"auto" 
   },
   

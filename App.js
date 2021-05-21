@@ -21,9 +21,10 @@ import { Ionicons } from '@expo/vector-icons';
 
 import token from './reducers/token';
 import ActivitiesList from './reducers/activities';
+import ProfilStrava from './reducers/profil';
 import {Provider} from 'react-redux'
 import {createStore, combineReducers} from 'redux'
-const store = createStore(combineReducers({token, ActivitiesList}))
+const store = createStore(combineReducers({token, ActivitiesList, ProfilStrava}))
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -54,7 +55,8 @@ const BottomNavigator = () => {
         inactiveTintColor: '#808080',
         style: {
           shadowOpacity: 0.06, //  shadow on iOS
-          height: 90
+          height: 90,
+          padding:15
         }
       }}
     >

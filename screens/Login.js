@@ -26,10 +26,11 @@ function LoginPage(props) {
 
     const body = await data.json()
 
-    
+
     if(body.result == true){
       props.addToken(body.token)
       props.addActivities(body.user.activities)
+      props.addProfil(body.user.profilpicfromstrava)
       props.navigation.navigate('BottomNavigator', {screen: 'Home'})
     }  
     
@@ -74,6 +75,9 @@ function mapDispatchToProps(dispatch){
     },
     addActivities: function(activites){
       dispatch({type: 'addActivities', activites})
+    },
+    addProfil: function(profil){
+      dispatch({type: 'addProfil', profil})
     }
   }
   }

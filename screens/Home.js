@@ -1,20 +1,34 @@
-import React, { useLayoutEffectn, useState } from 'react';
+import React, { useLayoutEffectn, useState,useEffect } from 'react';
 import { StyleSheet, Text, View, Image, Picker, ScrollView, SafeAreaView,TextInput, Dimensions} from 'react-native';
-import {Card,CardItem, SearchBar, Input, LinearProgress} from 'react-native-elements'
+import {Card,CardItem, SearchBar, Input, LinearProgress,Icon, Divider} from 'react-native-elements'
 import Navheader from "../component/Navheader";
-import Icon from 'react-native-vector-icons/FontAwesome';
+//import Icon from 'react-native-vector-icons/FontAwesome';
 import MapView, { Polyline } from 'react-native-maps';
 import polyline from '@mapbox/polyline';
 import { LinearGradient } from 'expo-linear-gradient';
 import {connect} from 'react-redux';
+import RNPickerSelect from 'react-native-picker-select';
 
 function Home(props) {
   
+  const [currentMessage, setCurrentMessage] = useState('Levallois Perret');
+  const [latitude, setLatitude] = useState(48.893217);
+  const [longitude, setLongitude] = useState(2.287864);
+  const [coordslist, setCoordslist] = useState([]);
+  const [initialreg,setInitialreg] = useState()
+
+
+console.log(currentMessage)
+console.log(longitude)
+console.log(latitude)
+
+useEffect(() => {
+
+  //Je décode mes polyline
   var polylineEncode=[]
   for (var i=0;i<props.Activites.length;i++){
     polylineEncode.push(props.Activites[i].polyline.replace(/\\\\/g,'\\'))
   }
-
     
     var coords=polylineEncode.map((act,i)=>{
        
@@ -28,6 +42,27 @@ function Home(props) {
      
      return (<Polyline key={i} coordinates={coords2} strokeColor="red" strokeWidth={2}  />)
    })
+   setCoordslist(coords)
+
+
+},[])
+
+useEffect(() => {
+  if (currentMessage=='Reims'){
+    setLatitude(49.258329)
+    setLongitude(4.031696)
+  }else { 
+    if (currentMessage=='Levallois Perret'){
+    setLatitude(48.893217)
+    setLongitude(	2.287864)
+  }}
+  console.log(longitude)
+  console.log(latitude)
+
+
+},[currentMessage])
+
+
 
 
   return (
@@ -36,12 +71,28 @@ function Home(props) {
 
       <Navheader attribut = {props.navigation.navigate}/>
 
-      <View style={{marginLeft:10,marginRight:10, marginTop:10, height: 50}}>
-        <Input
-          placeholder='Ville'
-          leftIcon={{ color: "#ED590C", type: 'font-awesome', name: 'search' }}
-        />   
+      <View style={{alignItems:"center"}}>
+      <View style={{flexDirection:"row", justifyContent:"center", marginTop:10}}>
+        <Icon size={20} color= "#ED590C" type= 'font-awesome' name= 'search'/>
+        <View style={{marginLeft:10, marginTop:5, width:300}}>
+          <RNPickerSelect
+            Style={styles.customPickerStyles}
+            placeholder={{color:"#ED590C", label: "Selectionnez une ville"}}
+            useNativeAndroidPickerStyle={false} 
+            onValueChange={(value) => setCurrentMessage(value)}
+            items={[
+                
+                { label: "Reims", value: "Reims" },
+                { label: "Levallois Perret", value: "Levallois Perret" },
+
+            ]}
+            value={currentMessage}
+           
+          />
+        </View>
       </View>
+      <Divider style={styles.divider}/>
+    </View>
 
       <ScrollView>
         <View style={styles.container}>
@@ -54,44 +105,46 @@ function Home(props) {
               <MapView
                 style={styles.map} 
                 provider="google"
-                initialRegion={{
-                  latitude: 49.23536,
-                  longitude: 4.04214,
+                region={{
+                  latitude: latitude,
+                  longitude: longitude,
                   latitudeDelta: 0.0322,
                   longitudeDelta: 0.0221,
                 }}>
-                  
-                  {coords}
+
+                  {coordslist}
                   
 
               </MapView>      
 
               <View style={{flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
                 <View style={styles.box}>
-                      <Text style={{fontSize:13, marginBottom:5}}>Distance</Text>
+                      <Text style={{fontSize:13, marginBottom:5}}>Exploration</Text>
                       <View style={{flexDirection:"row", alignItems:"center"}}>
-                        <Text style={{fontWeight:"bold", color:"#ED590C" }}>15</Text>
+                        <Text style={{fontWeight:"bold", color:"#ED590C" }}>142</Text>
                         <Text style={{fontWeight:"bold"}}> km</Text>
                       </View>
                 </View>
           
                 <View style={styles.box}>
-                      <Text style={{fontSize:13, marginBottom:5}}>Exploration</Text>
+                      <Text style={{fontSize:13, marginBottom:5}}>Objectif</Text>
                       <View style={{flexDirection:"row", alignItems:"center"}}>
-                        <Text style={{fontWeight:"bold", color:"#ED590C" }}>15</Text>
+                        <Text style={{fontWeight:"bold", color:"#ED590C" }}>34</Text>
                         <Text style={{fontWeight:"bold"}}> %</Text>
                       </View>
                 
                 </View>
                 
                 <View style={styles.box}>
-                      <Text style={{fontSize:13, marginBottom:5}}>Nb de pas</Text>
-                      <Text style={{fontWeight:"bold", color:"#ED590C" }}>15888</Text>
-                
+                      <Text style={{fontSize:13, marginBottom:5}}>Vitesse</Text>
+                      <View style={{flexDirection:"row", alignItems:"center"}}>
+                        <Text style={{fontSize:13,fontWeight:"bold", color:"#ED590C" }}>9</Text>
+                        <Text style={{fontSize:13,fontWeight:"bold"}}> km/h</Text>
+                      </View>
                 </View>
 
                 <View style={styles.box}>
-                      <Text style={{fontSize:13, marginBottom:5}}>Rang</Text>
+                      <Text style={{fontSize:13, marginBottom:5}}>Rang Ville</Text>
                       <View style={{flexDirection:"row", alignItems:"center"}}>
                         <Text style={{fontWeight:"bold", color:"#ED590C" }}>6</Text>
                         <Text style={{fontWeight:"bold"}}> ème</Text>
@@ -110,7 +163,7 @@ function Home(props) {
                   />
                   <View>
                     <View>
-                      <Text style={{fontWeight:"bold"}}>30 km en 1 semaine</Text>
+                      <Text style={{fontWeight:"bold"}}>Explorez 30 nouveaux km</Text>
                       <View style={{flexDirection:"row", marginBottom:15}}>
                         <Text>Il reste </Text>
                         <Text style={{fontWeight:"bold", color:"#ED590C" }}>3 </Text>
@@ -201,6 +254,30 @@ const styles = StyleSheet.create({
     borderBottomColor: "#ED590C"
   },
 });
+
+const customPickerStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 14,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    borderWidth: 1,
+    borderColor: "#ED590C",
+    borderRadius: 10,
+    color: 'black',
+    paddingRight: 30, // to ensure the text is never behind the icon
+  },
+  inputAndroid: {
+    fontSize: 14,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderWidth: 1,
+    borderColor: "#ED590C",
+    borderRadius: 8,
+    color: 'black',
+    paddingRight: 30, // to ensure the text is never behind the icon
+  },
+});
+
 
 
 function mapStateToProps(state) {

@@ -6,6 +6,7 @@ import {Card, Button, Input, Icon, Divider} from 'react-native-elements'
 import Navheader from "../component/Navheader"
 import RNPickerSelect from 'react-native-picker-select';
 import DropDownPicker from 'react-native-dropdown-picker';
+import MapView, { Polyline } from 'react-native-maps';
 
 import { Ionicons } from '@expo/vector-icons';
 import color from 'color';
@@ -16,13 +17,23 @@ import {connect} from 'react-redux';
 
 const dataChallenge = [
   {
-    nameChallenge: "Tour de Levallois",
-    map: require("../assets/Map-Levallois.jpg"),
-    ciytLocation: 'Levallois',
-    challengeDate: '11/03/2021',
+    nameChallenge: "Dernière sortie",
+    lat: 48.893217,
+    lon: 2.287864,
+    ciytLocation: 'Levallois-Perret',
+    challengeDate: '19/05/2021',
     nbrKm: 25,
-    totalAccomplishment: 70,
+    totalAccomplishment: 56,
   },
+  // {
+  //   nameChallenge: "Tour de Levallois",
+  //   lat: 49.23536,
+  //   lon: 4.04214,
+  //   ciytLocation: 'Reims',
+  //   challengeDate: '11/03/2021',
+  //   nbrKm: 31,
+  //   totalAccomplishment: 49,
+  // },
 ]
 
 const user= [
@@ -79,16 +90,8 @@ const user= [
     
 export default function Challenge (props) {
 
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    {label: 'Apple', value: 'apple'},
-    {label: 'Banana', value: 'banana'}
-  ]);
-   
-    //const [modalVisible, setModalVisible] = useState(false);
-
-
+    const [modalVisible, setModalVisible] = useState(false);
+    
 
 
 
@@ -114,20 +117,16 @@ export default function Challenge (props) {
 
     <View style={{alignItems:"center"}}>
       <View style={{flexDirection:"row", justifyContent:"center", marginTop:10}}>
-        <Icon color= "#ED590C" type= 'font-awesome' name= 'search'/>
-        <View style={{marginLeft:10, marginTop:10, width:300}}>
+        <Icon size={20} color= "#ED590C" type= 'font-awesome' name= 'search'/>
+        <View style={{marginLeft:10, marginTop:5, width:300}}>
           <RNPickerSelect
             Style={styles.customPickerStyles}
-            placeholder={{ color:"#ED590C", label: "Selectionnez une ville", value: null}}
+            placeholder={{color:"#ED590C", label: "Selectionnez une ville", value: null}}
             useNativeAndroidPickerStyle={false} 
             onValueChange={(value) => console.log(value)}
             items={[
-                { label: "JavaScript", value: "JavaScript" },
-                { label: "TypeStript", value: "TypeStript" },
-                { label: "Python", value: "Python" },
-                { label: "Java", value: "Java" },
-                { label: "C++", value: "C++" },
-                { label: "C", value: "C" },
+                { label: "Levallois-Perret", value: "Levallois-Peret" },
+                { label: "Reims", value: "Reims" },
             ]}
           />
         </View>
@@ -151,46 +150,56 @@ export default function Challenge (props) {
           <View style={styles.cardMap}>
               <View style={{alignItems:"center"}}>
                 <Text style={styles.titreVille} >{u.ciytLocation}</Text>
-                <Image 
-                  style={{ width:"100%", height: 180, borderRadius: 10,}}                                
-                  source={u.map}
-                />
+                <MapView
+                style={styles.map} 
+                provider="google"
+                initialRegion={{
+                  latitude: u.lat,
+                  longitude: u.lon,
+                  latitudeDelta: 0.0322,
+                  longitudeDelta: 0.0221,
+                }}>
+                </MapView>  
             </View>
           </View>
 
 {/* ---------------------- Challenge Name + Date -----------------------*/}
+        <ScrollView>
         <Card containerStyle={styles.card}>  
         <View style={{alignItems:"center"}}>
-          <View >
-              <View style={styles.view}>
+          <View  >
+              <View style={{alignItems:"center"}}>
                 <Text style={{
                   fontWeight: 'bold',
                   color: '#ED590C',
-                  fontSize: 20,
+                  fontSize: 15,
+                  marginBottom: 5
                 }}>{u.nameChallenge}</Text>
-                <Text>{u.challengeDate}</Text>
+                <Text style={{marginBottom:10}} >{u.challengeDate}</Text>
               </View>
           </View>
           <View>
-            <View style={styles.view}>
+            <View style={{alignItems:"center"}}>
                 <Text style={{
                 fontWeight: 'bold',
                 color: '#ED590C',
-                fontSize: 20,
+                fontSize: 15,
+                marginBottom: 5
               }}>Mon avancement</Text>
 
 {/*---------------------- Distance and Accomplishment -----------------------*/}
 
-                <Text>{u.nbrKm} Km</Text>
-                <Text>{u.totalAccomplishment} %</Text>
+                <Text style={{alignItems:"center"}}>{u.nbrKm} Km</Text>
+                <Text style={{marginBottom:10}}>{u.totalAccomplishment} %</Text>
             </View>
           </View>
           <View>
-            <View style={styles.view}>
+            <View style={{alignItems:"center"}}>
               <Text style={{
                 fontWeight: 'bold',
                 color: '#ED590C',
-                fontSize: 20,
+                fontSize: 15,
+                marginBottom: 5
                 }}>Ranking
               </Text>
 
@@ -201,13 +210,61 @@ export default function Challenge (props) {
                           <Text>{u.pseudo}</Text>
                         </View>                                      
                   })}*/}
-                <View>{noUser}{listRanking}</View>
+                <View style={{marginBottom:10}}>{noUser}{listRanking}</View>
               </View>
             </View>
-          </View>
-        
+        </View>
+
+{/*---------------------- Modal -----------------------*/}
+
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+            setModalVisible(!modalVisible);
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+              <Text style={{fontWeight:"bold"}}>Inviter des amis</Text>
+                <TextInput
+                    style={{
+                      height: 40,
+                      width: 200,
+                      borderWidth: 1,
+                      marginBottom: 10,
+                      marginTop: 10
+                    }}
+                    defaultValue=""
+                />
+
+                  <Button
+                  title="Envoyer l'invation"
+                  buttonStyle={styles.button}
+                  onPress={() => Alert.alert('Invitation envoyée ')}
+                  />  
+
+                  <Pressable
+                    style={styles.buttonRetour}
+                    onPress={() => setModalVisible(!modalVisible)}
+                    >
+                  <Text style={styles.textStyleRetour}>Retour</Text>
+                </Pressable>
+              </View>
+            </View>
+          </Modal>
+
+          <Pressable
+              style={[styles.button]}
+              onPress={() => setModalVisible(true)}
+              >
+              <Text style={styles.textStyle}>Inviter des amis</Text>
+          </Pressable>
         
           </Card>
+        </ScrollView>  
         </View>    
         )
       })
@@ -236,6 +293,11 @@ const styles = StyleSheet.create({
     borderRightColor:"#ED590C",
     borderBottomColor: "#ED590C"
   },
+  map: {
+    width: "100%",
+    borderRadius: 10,
+    height:250
+  },
   titreVille: {
     width:"100%",
     fontSize: 20,
@@ -255,15 +317,67 @@ const styles = StyleSheet.create({
     borderTopColor:"#ffffff",
     borderLeftColor:"#ffffff",
     borderRightColor:"#ED590C",
-    borderBottomColor: "#ED590C"
+    borderBottomColor: "#ED590C",
+    alignContent:"center"
   },
   divider: {
-    borderWidth: 1, 
+    borderWidth: 0.5, 
     borderColor:"#ED590C",
     width:340,
     marginTop:10,
   },
-});
+  button: {
+    borderRadius: 10, 
+    marginTop: "auto", 
+    marginBottom: "auto", 
+    marginLeft:"auto" , 
+    marginRight:"auto" , 
+    backgroundColor: "#ED420C", 
+    width:"auto" 
+  },
+  buttonRetour: {
+    borderRadius: 10, 
+    marginTop: 30,  
+    backgroundColor: "#ED420C", 
+    width:"auto" 
+  },
+  textStyleRetour: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+    fontSize:10,
+    margin:10
+
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+    margin:10
+
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+})
 
 const customPickerStyles = StyleSheet.create({
   inputIOS: {
