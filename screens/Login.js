@@ -18,11 +18,7 @@ function LoginPage(props) {
   
   var handleSubmitSignIn = async () => {
 
-<<<<<<< HEAD
     const data = await fetch('http://192.168.0.13:3000/sign-in', {
-=======
-    const data = await fetch('http://192.168.1.18:3000/sign-in', {
->>>>>>> 7ad6ad8fc2d614d2279a069c6d38acd13a6d22c8
       method: 'POST',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       body: `emailFromFront=${signInEmail}&passwordFromFront=${signInPassword}`
@@ -36,9 +32,10 @@ function LoginPage(props) {
       props.addActivities(body.user.activities)
       props.navigation.navigate('BottomNavigator', {screen: 'Home'})
     }  
-     
-  }
+    
+     console.log(body)
 
+  }
 
 
 

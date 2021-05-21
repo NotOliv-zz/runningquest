@@ -14,8 +14,6 @@ import {connect} from 'react-redux';
 
 
 
-
-
 const dataChallenge = [
   {
     nameChallenge: "Tour de Levallois",
@@ -30,19 +28,55 @@ const dataChallenge = [
 const user= [
   {
     pseudo: "user1",
-    nbrKm: 45
+    nbrKm: 45,
   },
   {
     pseudo: "user2",
-    nbrKm: 30
+    nbrKm: 30,
   },
   {
     pseudo: "user3",
-    nbrKm: 40
-  }
+    nbrKm: 40,
+  },
+  {
+    pseudo: "user4",
+    nbrKm: 15,
+  },
 ]
 
+    var noUser  
+      if (user.length === 0) {
+        noUser = <Text>Pas encore de Challenger !</Text>}
+    
+    /*for(var index=0 ; index<user.length ; index++) {
+      console.log(index+1)    
+      var indexRanking = index+1
+      }*/
+    
 
+    var listRanking = user.map(function(u) {
+      return <View>
+        <Text>{indexRanking} - {u.pseudo} - {u.nbrKm}Km</Text>
+      </View>  
+      })
+
+      /*const [sort, setSort] = useState([])
+      
+      useEffect(() => { 
+        const sortBykm = (map,compareFn) => (a,b) => -compareFn(map(a),map(b));
+        const byValue = (a,b) => a - b;
+        const toKm = e => e.nbrKm;
+        const byKm = sortBykm(toKm,byValue);
+        setSort([...user].sort(byKm));  
+      }, [sort]);*/
+
+     /* const sortBykm = (map,compareFn) => (a,b) => -compareFn(map(a),map(b));
+      const byValue = (a,b) => a - b;
+      const toKm = e => e.nbrKm;
+      const byKm = sortBykm(toKm,byValue);
+      console.log([...user].sort(byKm));  */
+    
+    
 export default function Challenge (props) {
 
   const [open, setOpen] = useState(false);
@@ -52,26 +86,13 @@ export default function Challenge (props) {
     {label: 'Banana', value: 'banana'}
   ]);
    
-    const [modalVisible, setModalVisible] = useState(false);
-    
+    //const [modalVisible, setModalVisible] = useState(false);
 
-    
-    var noUser  
-      if (user.length === 0)
-      {noUser = <Text>Pas encore de Challenger !</Text>}
 
-      var listRanking = user.map(function(u) {
-      return <View>
-        <Text> {u.pseudo} - {u.nbrKm}Km</Text>
-      </View>  
-      })
 
-    const sortBykm = (map,compareFn) => (a,b) => compareFn(map(a),map(b));
-    const byValue = (a,b) => a - b;
-    const toKm = e => e.price;
-    const byKm = sortBykm(toKm,byValue);
 
-    console.log([...listRanking].sort(byKm)); 
+
+
 
   return (
     <View style={styles.container}>
@@ -180,7 +201,7 @@ export default function Challenge (props) {
                           <Text>{u.pseudo}</Text>
                         </View>                                      
                   })}*/}
-                <View>{noUser}{ListRanking}</View>
+                <View>{noUser}{listRanking}</View>
               </View>
             </View>
           </View>

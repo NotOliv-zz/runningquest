@@ -58,7 +58,7 @@ export default function Ranking(props) {
     <Card.Title>Mes challenges</Card.Title>
     <Card.Divider style={styles.divider}/>
     <ScrollView horizontal={true}>
-    <View key={i} style={{ flexDirection: "row"}}>
+    <View  style={{ flexDirection: "row"}}>
       {
         dataChallenge.map((u, i) => {
           return (
@@ -139,7 +139,7 @@ export default function Ranking(props) {
     <Card.Title>Mes trophées</Card.Title>
     <Card.Divider style={styles.divider}/>
     <ScrollView horizontal={true}>
-    <View key={i} style={{ flexDirection: "row"}}>
+    <View style={{ flexDirection: "row"}}>
       {
         dataTrophee.map((u, i) => {
           return (
