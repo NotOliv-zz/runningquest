@@ -148,35 +148,38 @@ export default function Challenge (props) {
         <Card containerStyle={styles.card}>  
         <View style={{alignItems:"center"}}>
           <View  >
-              <View style={styles.view}>
+              <View style={{alignItems:"center"}}>
                 <Text style={{
                   fontWeight: 'bold',
                   color: '#ED590C',
                   fontSize: 15,
+                  marginBottom: 5
                 }}>{u.nameChallenge}</Text>
-                <Text>{u.challengeDate}</Text>
+                <Text style={{marginBottom:10}} >{u.challengeDate}</Text>
               </View>
           </View>
           <View>
-            <View style={styles.view}>
+            <View style={{alignItems:"center"}}>
                 <Text style={{
                 fontWeight: 'bold',
                 color: '#ED590C',
                 fontSize: 15,
+                marginBottom: 5
               }}>Mon avancement</Text>
 
 {/*---------------------- Distance and Accomplishment -----------------------*/}
 
                 <Text style={{alignItems:"center"}}>{u.nbrKm} Km</Text>
-                <Text>{u.totalAccomplishment} %</Text>
+                <Text style={{marginBottom:10}}>{u.totalAccomplishment} %</Text>
             </View>
           </View>
           <View>
-            <View style={styles.view}>
+            <View style={{alignItems:"center"}}>
               <Text style={{
                 fontWeight: 'bold',
                 color: '#ED590C',
                 fontSize: 15,
+                marginBottom: 5
                 }}>Ranking
               </Text>
 
@@ -187,7 +190,7 @@ export default function Challenge (props) {
                           <Text>{u.pseudo}</Text>
                         </View>                                      
                   })}*/}
-                <View>{noUser}{listRanking}</View>
+                <View style={{marginBottom:10}}>{noUser}{listRanking}</View>
               </View>
             </View>
         </View>
