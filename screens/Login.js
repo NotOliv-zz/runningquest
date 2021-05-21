@@ -18,11 +18,7 @@ function LoginPage(props) {
   
   var handleSubmitSignIn = async () => {
 
-<<<<<<< HEAD
     const data = await fetch('http://192.168.1.18:3000/sign-in', {
-=======
-    const data = await fetch('http://192.168.1.23:3000/sign-in', {
->>>>>>> e40b2cc3e13d94f83cf39d95e24df3b7f35dfad9
       method: 'POST',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       body: `emailFromFront=${signInEmail}&passwordFromFront=${signInPassword}`
