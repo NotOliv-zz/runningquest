@@ -7,12 +7,142 @@ import Navheader from "../component/Navheader"
 import RNPickerSelect from 'react-native-picker-select';
 import DropDownPicker from 'react-native-dropdown-picker';
 import MapView, { Polyline } from 'react-native-maps';
+import polyline from '@mapbox/polyline';
 
 import { Ionicons } from '@expo/vector-icons';
 import color from 'color';
 
 import {connect} from 'react-redux';
 
+function Ranking(props) {
+  
+  const [currentMessage, setCurrentMessage] = useState('Levallois-Perret');
+  const [latitude, setLatitude] = useState(48.893217);
+  const [longitude, setLongitude] = useState(2.287864);
+  const [coordslist, setCoordslist] = useState([]);
+  const [initialreg,setInitialreg] = useState();
+
+  const [nameCity, setnameCity] =useState('Levallois-Perret')
+  const [lastOuting, setLastOuting] = useState("19/05/2021");
+  const [nombreKm, setNombreKm] = useState(142);
+  const [nombreExploration, setNombreExploration] = useState(34);
+  
+  const [rankingAmis1, setRankingAmis1] = useState('Olivier')
+  const [rankingAmis2, setRankingAmis2] = useState('Jean-Luc')
+  const [rankingAmis3, setRankingAmis3] = useState('Florent')
+  const [rankingAmis4, setRankingAmis4] = useState('Adeline')
+
+  const [kmAmis1, setKmAmis1] = useState(142)
+  const [kmAmis2, setKmAmis2] = useState(23)
+  const [kmAmis3, setKmAmis3] = useState(18)
+  const [kmAmis4, setKmAmis4] = useState(15)
+
+  const [rankingVille1, setRankingVille1] = useState('Alexis')
+  const [rankingVille2, setRankingVille2] = useState('Viviane')
+  const [rankingVille3, setRankingVille3] = useState('Laura')
+  const [rankingVille4, setRankingVille4] = useState('...')
+  const [rankingVille5, setRankingVille5] = useState('Olivier')
+
+  const [kmVille1, setKmVille1] = useState(57)
+  const [kmVille2, setKmVille2] = useState(54)
+  const [kmVille3, setKmVille3] = useState(51)
+  const [kmVille4, setKmVille4] = useState()
+  const [kmVille5, setKmVille5] = useState(142)
+
+  const [modalVisible, setModalVisible] = useState(false);
+  
+  // const [open, setOpen] = useState(false);
+  // const [value, setValue] = useState(null);
+  // const [items, setItems] = useState([
+  //   {label: 'Apple', value: 'apple'},
+  //   {label: 'Banana', value: 'banana'}
+  // ]);
+
+
+useEffect(() => {
+
+  //Je décode mes polyline
+  var polylineEncode=[]
+  for (var i=0;i<props.Activites.length;i++){
+    polylineEncode.push(props.Activites[i].polyline.replace(/\\\\/g,'\\'))
+  }
+    
+    var coords=polylineEncode.map((act,i)=>{
+       
+      var polyDecode=polyline.decode(act)
+  
+      var coords2= polyDecode.map((poly,i)=>{
+  
+        return ({latitude : poly[0], longitude : poly[1]})
+                        
+     })
+     
+     return (<Polyline key={i} coordinates={coords2} strokeColor="red" strokeWidth={2}  />)
+   })
+   setCoordslist(coords)
+
+
+},[])
+
+useEffect(() => {
+  if (currentMessage=='Reims'){
+    setLatitude(49.258329)
+    setLongitude(4.031696)
+    setnameCity('Reims')
+    setLastOuting("08/05/2021")
+    setNombreKm(212)
+    setNombreExploration(41)
+    setRankingAmis1('Jean-Luc')
+    setRankingAmis2('Olivier')
+    setRankingAmis3('Adeline')
+    setRankingAmis4('Florent')
+    setKmAmis1(234)
+    setKmAmis2(212)
+    setKmAmis3(167)
+    setKmAmis4(139)
+    setRankingVille1('1: Mickaël - ')
+    setRankingVille2('2: Jean-Luc - ')
+    setRankingVille3('3: Oliver - ')
+    setRankingVille4('...')
+    setRankingVille5()
+    setKmVille1(243)
+    setKmVille2(234)
+    setKmVille3(212)
+    setKmVille4()
+    setKmVille5()
+  
+  }else { 
+    if (currentMessage=='Levallois-Perret'){
+    setLatitude(48.893217)
+    setLongitude(	2.287864)
+    setnameCity('Levallois-Perret')
+    setLastOuting("19/05/2021")
+    setNombreKm(142)
+    setNombreExploration(56)
+    setRankingAmis1('Olivier')
+    setRankingAmis2('Jean-Luc')
+    setRankingAmis3('Florent')
+    setRankingAmis4('Adeline')
+    setKmAmis1(142)
+    setKmAmis2(110)
+    setKmAmis3(84)
+    setKmAmis4(53)
+    setRankingVille1('1: Alexis - ')
+    setRankingVille2('2: Viviane - ')
+    setRankingVille3('3: Laura - ')
+    setRankingVille4('...')
+    setRankingVille5('6: Olivier - ')
+    setKmVille1('259 km')
+    setKmVille2('256 km')
+    setKmVille3('248 km')
+    setKmVille4()
+    setKmVille5('142 km')
+  }}
+  console.log(longitude)
+  console.log(latitude)
+
+
+},[currentMessage])
 
 
 const dataChallenge = [
@@ -66,7 +196,7 @@ const user = [
     
 
     var listRanking = user.map(function(u) {
-      return <View>
+      return <View {/*key={i}*/}>
         <Text>{indexRanking} - {u.pseudo} - {u.nbrKm}Km</Text>
       </View>  
       })
@@ -113,11 +243,12 @@ function Ranking (props) {
             Style={styles.customPickerStyles}
             placeholder={{color:"#ED590C", label: "Selectionnez une ville", value: null}}
             useNativeAndroidPickerStyle={false} 
-            onValueChange={(value) => console.log(value)}
+            onValueChange={(value) => setCurrentMessage(value)}
             items={[
-                { label: "Levallois-Perret", value: "Levallois-Peret" },
+                { label: "Levallois-Perret", value: "Levallois-Perret" },
                 { label: "Reims", value: "Reims" },
             ]}
+            value={currentMessage}
           />
         </View>
       </View>
@@ -143,68 +274,81 @@ function Ranking (props) {
                 <MapView
                 style={styles.map} 
                 provider="google"
-                initialRegion={{
-                  latitude: u.lat,
-                  longitude: u.lon,
+                region={{
+                  latitude: latitude,
+                  longitude: longitude,
                   latitudeDelta: 0.0322,
                   longitudeDelta: 0.0221,
                 }}>
+                   {coordslist}
                 </MapView>  
             </View>
           </View>
 
-{/* ---------------------- Challenge Name + Date -----------------------*/}
-        <ScrollView>
+{/* ---------------------- LastOuting + Date -----------------------*/}
+      <ScrollView>
         <Card containerStyle={styles.card}>  
-        <View style={{alignItems:"center"}}>
-          <View  >
-              <View style={{alignItems:"center"}}>
-                <Text style={{
-                  fontWeight: 'bold',
-                  color: '#ED590C',
-                  fontSize: 15,
-                  marginBottom: 5
-                }}>{u.run_name}</Text>
-                <Text style={{marginBottom:10}} >{u.date}</Text>
-              </View>
-          </View>
+        
+        <View style={{justifyContent:"center", flexDirection: "row"}}>
+
+        <View style={{paddingLeft:15, paddingRight:15}}>
           <View>
             <View style={{alignItems:"center"}}>
-                <Text style={{
-                fontWeight: 'bold',
-                color: '#ED590C',
-                fontSize: 15,
-                marginBottom: 5
-              }}>Mon avancement</Text>
-
-{/*---------------------- Distance and Accomplishment -----------------------*/}
-
-                <Text style={{alignItems:"center"}}>{u.distance} Km</Text>
-                <Text style={{marginBottom:10}}>{u.totalAccomplishment} %</Text>
+              <Text style={styles.titreText}>Dernière sortie</Text>
+              <Text>{u.date}</Text>
+              <Text style={{marginBottom:10}} ></Text>
             </View>
           </View>
-          <View>
+
+{/*---------------------- Friends ranking -----------------------*/}
+
             <View style={{alignItems:"center"}}>
-              <Text style={{
-                fontWeight: 'bold',
-                color: '#ED590C',
-                fontSize: 15,
-                marginBottom: 5
-                }}>Ranking
-              </Text>
-
-{/*---------------------- Map ranking user and sort -----------------------*/}
-
+              <Text style={styles.titreText}>Ranking amis</Text>
                 {/*{user.map((u, i) => {
                       return <View key = {i}>
                           <Text>{u.pseudo}</Text>
                         </View>                                      
                   })}*/}
-                <View style={{marginBottom:10}}>{noUser}{listRanking}</View>
-              </View>
+                <Text style={{marginBottom:2}}>1: {rankingAmis1} - {kmAmis1} km</Text>
+                <Text style={{marginBottom:2}}>2: {rankingAmis2} - {kmAmis2} km</Text>
+                <Text style={{marginBottom:2}}>3: {rankingAmis3} - {kmAmis3} km</Text>
+                <Text style={{marginBottom:2}}>4: {rankingAmis4} - {kmAmis4} km</Text>
             </View>
+         
         </View>
 
+{/*---------------------- Exploration + km -----------------------*/}
+
+          <View style={{paddingLeft:15, paddingRight:15}}>
+          
+            
+              <View style={{alignItems:"center"}}>
+                <Text style={styles.titreText}>Mon avancement</Text>
+                <Text>{u.distance} Km</Text>
+                <Text style={{marginBottom:10}}>{nombreExploration} %</Text>
+              </View>
+            
+
+{/*---------------------- City ranking -----------------------*/}
+
+            <View style={{alignItems:"center"}}>
+              <Text style={styles.titreText}>Ranking ville</Text>
+                {/*{user.map((u, i) => {
+                      return <View key = {i}>
+                          <Text>{u.pseudo}</Text>
+                        </View>                                      
+                  })}*/}
+              <Text style={{marginBottom:2}}>{rankingVille1}{kmVille1}</Text>
+              <Text style={{marginBottom:2}}>{rankingVille2}{kmVille2}</Text>
+              <Text style={{marginBottom:2}}>{rankingVille3}{kmVille3}</Text>
+              <Text style={{marginBottom:2}}>{rankingVille4}</Text>
+              <Text style={{marginBottom:2}}>{rankingVille5}{kmVille5}</Text>
+            </View>
+
+          </View>
+
+        </View>
+        
 {/*---------------------- Modal -----------------------*/}
 
           <Modal
@@ -245,16 +389,18 @@ function Ranking (props) {
               </View>
             </View>
           </Modal>
-
+          
+          <View style={{marginTop:15}}>
           <Pressable
               style={[styles.button]}
               onPress={() => setModalVisible(true)}
               >
               <Text style={styles.textStyle}>Inviter des amis</Text>
           </Pressable>
-        
+          </View>
+          
           </Card>
-        </ScrollView>  
+          </ScrollView>
         </View>    
         )
       })
@@ -297,7 +443,7 @@ const styles = StyleSheet.create({
   map: {
     width: "100%",
     borderRadius: 10,
-    height:250
+    height:240
   },
   titreVille: {
     width:"100%",
@@ -355,8 +501,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     margin:10
-
   },
+  titreText: {
+    fontWeight: 'bold',
+    color: '#ED590C',
+    fontSize: 15,
+    marginBottom: 5
+  },
+
   centeredView: {
     flex: 1,
     justifyContent: "center",
@@ -402,3 +554,10 @@ const customPickerStyles = StyleSheet.create({
     paddingRight: 30, // to ensure the text is never behind the icon
   },
 });
+
+function mapStateToProps(state) {
+
+  return {Activites:state.ActivitiesList}
+ }
+
+export default connect(mapStateToProps,null)(Ranking)

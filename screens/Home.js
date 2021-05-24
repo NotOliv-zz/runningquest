@@ -16,13 +16,16 @@ function Home(props) {
   const [longitude, setLongitude] = useState(2.287864);
   const [coordslist, setCoordslist] = useState([]);
   const [initialreg,setInitialreg] = useState()
+  const [dataExploration, setDataExploration] = useState(142);
+  const [dataTarget, setDataTarget] = useState(34);
+  const [dataSpeed, setDataSpeed] = useState(11);
+  const [dataRanking, setDataRanking] = useState(6);
 
 
-console.log(currentMessage)
-console.log(longitude)
-console.log(latitude)
+
 
 useEffect(() => {
+ 
 
   //Je décode mes polyline
   var polylineEncode=[]
@@ -40,29 +43,55 @@ useEffect(() => {
                         
      })
      
-     return (<Polyline key={i} coordinates={coords2} strokeColor="red" strokeWidth={2}  />)
+     return (<Polyline key={i} coordinates={coords2} strokeColor={"red"} strokeWidth={2}  />)
    })
    setCoordslist(coords)
 
 
 },[])
 
+//j'applique le useefffect si je change de ville
 useEffect(() => {
   if (currentMessage=='Reims'){
     setLatitude(49.258329)
     setLongitude(4.031696)
+    setDataExploration(212);
+    setDataTarget(41);
+    setDataSpeed(9);
+    setDataRanking(3);
   }else { 
     if (currentMessage=='Levallois Perret'){
     setLatitude(48.893217)
     setLongitude(	2.287864)
+    setDataExploration(142);
+    setDataTarget(34);
+    setDataSpeed(11);
+    setDataRanking(6);
   }}
-  console.log(longitude)
-  console.log(latitude)
+
+
+  
+
 
 
 },[currentMessage])
 
 
+
+// var changeCity = (city) =>{
+//   setCurrentMessage(city)
+//   if (city=='Reims'){
+//         setLatitude(49.258329)
+//         setLongitude(4.031696)
+//       }else { 
+//         if (city=='Levallois Perret'){
+//         setLatitude(48.893217)
+//         setLongitude(	2.287864)
+//       }}
+//       console.log(longitude)
+//       console.log(latitude)
+    
+// }
 
 
   return (
@@ -75,11 +104,13 @@ useEffect(() => {
       <View style={{flexDirection:"row", justifyContent:"center", marginTop:10}}>
         <Icon size={20} color= "#ED590C" type= 'font-awesome' name= 'search'/>
         <View style={{marginLeft:10, marginTop:5, width:300}}>
+          
           <RNPickerSelect
             Style={styles.customPickerStyles}
             placeholder={{color:"#ED590C", label: "Selectionnez une ville"}}
             useNativeAndroidPickerStyle={false} 
-            onValueChange={(value) => setCurrentMessage(value)}
+             onValueChange={(value) => setCurrentMessage(value)}
+            //onValueChange={(value) => changeCity(value)}
             items={[
                 
                 { label: "Reims", value: "Reims" },
@@ -93,7 +124,7 @@ useEffect(() => {
       </View>
       <Divider style={styles.divider}/>
     </View>
-
+   
       <ScrollView>
         <View style={styles.container}>
         
@@ -121,7 +152,7 @@ useEffect(() => {
                 <View style={styles.box}>
                       <Text style={{fontSize:13, marginBottom:5}}>Exploration</Text>
                       <View style={{flexDirection:"row", alignItems:"center"}}>
-                        <Text style={{fontWeight:"bold", color:"#ED590C" }}>142</Text>
+                        <Text style={{fontWeight:"bold", color:"#ED590C" }}>{dataExploration}</Text>
                         <Text style={{fontWeight:"bold"}}> km</Text>
                       </View>
                 </View>
@@ -129,7 +160,7 @@ useEffect(() => {
                 <View style={styles.box}>
                       <Text style={{fontSize:13, marginBottom:5}}>Objectif</Text>
                       <View style={{flexDirection:"row", alignItems:"center"}}>
-                        <Text style={{fontWeight:"bold", color:"#ED590C" }}>34</Text>
+                        <Text style={{fontWeight:"bold", color:"#ED590C" }}>{dataTarget}</Text>
                         <Text style={{fontWeight:"bold"}}> %</Text>
                       </View>
                 
@@ -138,7 +169,7 @@ useEffect(() => {
                 <View style={styles.box}>
                       <Text style={{fontSize:13, marginBottom:5}}>Vitesse</Text>
                       <View style={{flexDirection:"row", alignItems:"center"}}>
-                        <Text style={{fontSize:13,fontWeight:"bold", color:"#ED590C" }}>9</Text>
+                        <Text style={{fontSize:13,fontWeight:"bold", color:"#ED590C" }}>{dataSpeed}</Text>
                         <Text style={{fontSize:13,fontWeight:"bold"}}> km/h</Text>
                       </View>
                 </View>
@@ -146,7 +177,7 @@ useEffect(() => {
                 <View style={styles.box}>
                       <Text style={{fontSize:13, marginBottom:5}}>Rang Ville</Text>
                       <View style={{flexDirection:"row", alignItems:"center"}}>
-                        <Text style={{fontWeight:"bold", color:"#ED590C" }}>6</Text>
+                        <Text style={{fontWeight:"bold", color:"#ED590C" }}>{dataRanking}</Text>
                         <Text style={{fontWeight:"bold"}}> ème</Text>
                       </View>
                 </View>
@@ -252,6 +283,12 @@ const styles = StyleSheet.create({
     borderLeftColor:"#ffffff",
     borderRightColor:"#ED590C",
     borderBottomColor: "#ED590C"
+  },
+  divider: {
+    borderWidth: 0.5, 
+    borderColor:"#ED590C",
+    width:340,
+    marginTop:10,
   },
 });
 
