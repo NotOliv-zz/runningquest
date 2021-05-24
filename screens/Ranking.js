@@ -51,11 +51,13 @@ function Ranking(props) {
 
   const [modalVisible, setModalVisible] = useState(false);
   
+  // const [open, setOpen] = useState(false);
+  // const [value, setValue] = useState(null);
+  // const [items, setItems] = useState([
+  //   {label: 'Apple', value: 'apple'},
+  //   {label: 'Banana', value: 'banana'}
+  // ]);
 
-
-console.log(currentMessage)
-console.log(longitude)
-console.log(latitude)
 
 useEffect(() => {
 
