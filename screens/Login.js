@@ -26,14 +26,13 @@ function LoginPage(props) {
     })
 
     const body = await data.json()
-
     console.log(body)
-
     if(body.result == true){
       props.addToken(body.token)
       props.addActivities(body.user.activities)
       props.addProfil(body.user.profilpicfromstrava)
-      props.addChallenges(body.user.challenge)
+      props.addChallenge(body.user.challenge)
+      props.addTrophy(body.user.trophy)
       props.navigation.navigate('BottomNavigator', {screen: 'Activity'})
     }  
     
@@ -82,8 +81,11 @@ function mapDispatchToProps(dispatch){
     addProfil: function(profil){
       dispatch({type: 'addProfil', profil})
     },
-    addChallenges: function(challenges){
-      dispatch({type: 'addChallenges', challenges})
+    addChallenge: function(challenge){
+      dispatch({type: 'addChallenge', challenge:challenge})
+    },
+    addTrophy: function(trophy){
+      dispatch({type: 'addTrophy', trophy:trophy})
     }
   }
   }
