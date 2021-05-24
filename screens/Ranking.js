@@ -16,14 +16,45 @@ import {connect} from 'react-redux';
 
 function Ranking(props) {
   
-  const [currentMessage, setCurrentMessage] = useState('Levallois Perret');
+  const [currentMessage, setCurrentMessage] = useState('Levallois-Perret');
   const [latitude, setLatitude] = useState(48.893217);
   const [longitude, setLongitude] = useState(2.287864);
   const [coordslist, setCoordslist] = useState([]);
   const [initialreg,setInitialreg] = useState();
+
+  const [nameCity, setnameCity] =useState('Levallois-Perret')
+  const [lastOuting, setLastOuting] = useState("19/05/2021");
+  const [nombreKm, setNombreKm] = useState(142);
+  const [nombreExploration, setNombreExploration] = useState(34);
+  
+  const [rankingAmis1, setRankingAmis1] = useState('Olivier')
+  const [rankingAmis2, setRankingAmis2] = useState('Jean-Luc')
+  const [rankingAmis3, setRankingAmis3] = useState('Florent')
+  const [rankingAmis4, setRankingAmis4] = useState('Adeline')
+
+  const [kmAmis1, setKmAmis1] = useState(142)
+  const [kmAmis2, setKmAmis2] = useState(23)
+  const [kmAmis3, setKmAmis3] = useState(18)
+  const [kmAmis4, setKmAmis4] = useState(15)
+
+  const [rankingVille1, setRankingVille1] = useState('Alexis')
+  const [rankingVille2, setRankingVille2] = useState('Viviane')
+  const [rankingVille3, setRankingVille3] = useState('Laura')
+  const [rankingVille4, setRankingVille4] = useState('Olivier')
+
+  const [kmVille1, setKmVille1] = useState(57)
+  const [kmVille2, setKmVille2] = useState(54)
+  const [kmVille3, setKmVille3] = useState(51)
+  const [kmVille4, setKmVille4] = useState(142)
+
   const [modalVisible, setModalVisible] = useState(false);
   
-
+  // const [open, setOpen] = useState(false);
+  // const [value, setValue] = useState(null);
+  // const [items, setItems] = useState([
+  //   {label: 'Apple', value: 'apple'},
+  //   {label: 'Banana', value: 'banana'}
+  // ]);
 
 console.log(currentMessage)
 console.log(longitude)
@@ -58,10 +89,51 @@ useEffect(() => {
   if (currentMessage=='Reims'){
     setLatitude(49.258329)
     setLongitude(4.031696)
+    setnameCity('Reims')
+    setLastOuting("08/05/2021")
+    setNombreKm(212)
+    setNombreExploration(41)
+    setRankingAmis1('Jean-Luc')
+    setRankingAmis2('Olivier')
+    setRankingAmis3('Adeline')
+    setRankingAmis4('Florent')
+    setKmAmis1(234)
+    setKmAmis2(212)
+    setKmAmis3(167)
+    setKmAmis4(139)
+    setRankingVille1('Mickaël')
+    setRankingVille2('Jean-Luc')
+    setRankingVille3('Oliver')
+    setRankingVille4('Aurélie')
+    setKmVille1(243)
+    setKmVille2(234)
+    setKmVille3(212)
+    setKmVille4(210)
+  
   }else { 
-    if (currentMessage=='Levallois Perret'){
+    if (currentMessage=='Levallois-Perret'){
     setLatitude(48.893217)
     setLongitude(	2.287864)
+    setnameCity('Levallois-Perret')
+    setLastOuting("19/05/2021")
+    setNombreKm(142)
+    setNombreExploration(56)
+    setRankingAmis1('Olivier')
+    setRankingAmis2('Jean-Luc')
+    setRankingAmis3('Florent')
+    setRankingAmis4('Adeline')
+    setKmAmis1(142)
+    setKmAmis2(110)
+    setKmAmis3(84)
+    setKmAmis4(53)
+    setRankingVille1('Alexis')
+    setRankingVille2('Viviane')
+    setRankingVille3('Laura')
+    setRankingVille4('Olivier')
+    setKmVille1(259)
+    setKmVille2(256)
+    setKmVille3(248)
+    setKmVille4(142)
   }}
   console.log(longitude)
   console.log(latitude)
@@ -120,8 +192,8 @@ const user= [
       }*/
     
 
-    var listRanking = user.map(function(u) {
-      return <View>
+    var listRanking = user.map(function(u,i) {
+      return <View key={i}>
         <Text>{/*{indexRanking} - */}{u.pseudo} - {u.nbrKm}Km</Text>
       </View>  
       })
@@ -172,7 +244,7 @@ const user= [
             useNativeAndroidPickerStyle={false} 
             onValueChange={(value) => setCurrentMessage(value)}
             items={[
-                { label: "Levallois-Perret", value: "Levallois-Peret" },
+                { label: "Levallois-Perret", value: "Levallois-Perret" },
                 { label: "Reims", value: "Reims" },
             ]}
             value={currentMessage}
@@ -197,7 +269,7 @@ const user= [
 
           <View style={styles.cardMap}>
               <View style={{alignItems:"center"}}>
-                <Text style={styles.titreVille} >{u.ciytLocation}</Text>
+                <Text style={styles.titreVille} >{nameCity}</Text>
                 <MapView
                 style={styles.map} 
                 provider="google"
@@ -216,6 +288,7 @@ const user= [
         <ScrollView>
         <Card containerStyle={styles.card}>  
         <View style={{alignItems:"center"}}>
+
           <View  >
               <View style={{alignItems:"center"}}>
                 <Text style={{
@@ -223,10 +296,11 @@ const user= [
                   color: '#ED590C',
                   fontSize: 15,
                   marginBottom: 5
-                }}>{u.nameChallenge}</Text>
-                <Text style={{marginBottom:10}} >{u.challengeDate}</Text>
+                }}>Dernière sortie</Text>
+                <Text style={{marginBottom:5}} >{lastOuting}</Text>
               </View>
           </View>
+
           <View>
             <View style={{alignItems:"center"}}>
                 <Text style={{
@@ -238,30 +312,56 @@ const user= [
 
 {/*---------------------- Distance and Accomplishment -----------------------*/}
 
-                <Text style={{alignItems:"center"}}>{u.nbrKm} Km</Text>
-                <Text style={{marginBottom:10}}>{u.totalAccomplishment} %</Text>
+                <Text style={{alignItems:"center"}}>{nombreKm} Km</Text>
+                <Text style={{marginBottom:5}}>{nombreExploration} %</Text>
             </View>
           </View>
-          <View>
-            <View style={{alignItems:"center"}}>
+
+{/*---------------------- Map ranking user and sort -----------------------*/}
+
+          <View style={{flexDirection:"row", marginBottom:5}}>
+
+            <View style={{alignItems:"center", marginLeft:10, marginRight:10}}>
               <Text style={{
                 fontWeight: 'bold',
                 color: '#ED590C',
                 fontSize: 15,
                 marginBottom: 5
-                }}>Ranking
+                }}>Ranking amis
               </Text>
-
-{/*---------------------- Map ranking user and sort -----------------------*/}
-
                 {/*{user.map((u, i) => {
                       return <View key = {i}>
                           <Text>{u.pseudo}</Text>
                         </View>                                      
                   })}*/}
-                <View style={{marginBottom:10}}>{noUser}{listRanking}</View>
-              </View>
+              <Text style={{marginBottom:2}}>1: {rankingAmis1} - {kmAmis1} km</Text>
+              <Text style={{marginBottom:2}}>2: {rankingAmis2} - {kmAmis2} km</Text>
+              <Text style={{marginBottom:2}}>3: {rankingAmis3} - {kmAmis3} km</Text>
+              <Text style={{marginBottom:2}}>4: {rankingAmis4} - {kmAmis4} km</Text>
             </View>
+          
+
+            <View style={{alignItems:"center", marginLeft:10, marginRight:10}}>
+              <Text style={{
+                fontWeight: 'bold',
+                color: '#ED590C',
+                fontSize: 15,
+                marginBottom: 5
+                }}>Ranking ville
+              </Text>
+                {/*{user.map((u, i) => {
+                      return <View key = {i}>
+                          <Text>{u.pseudo}</Text>
+                        </View>                                      
+                  })}*/}
+              <Text style={{marginBottom:2}}>1: {rankingVille1} - {kmVille1} km</Text>
+              <Text style={{marginBottom:2}}>2: {rankingVille2} - {kmVille2} km</Text>
+              <Text style={{marginBottom:2}}>3: {rankingVille3} - {kmVille3} km</Text>
+              <Text style={{marginBottom:2}}>4: {rankingVille4} - {kmVille4} km</Text>
+            </View>
+
+          </View>
+
         </View>
 
 {/*---------------------- Modal -----------------------*/}
@@ -304,14 +404,15 @@ const user= [
               </View>
             </View>
           </Modal>
-
+          
           <Pressable
               style={[styles.button]}
               onPress={() => setModalVisible(true)}
               >
               <Text style={styles.textStyle}>Inviter des amis</Text>
           </Pressable>
-        
+
+
           </Card>
         </ScrollView>  
         </View>    
@@ -345,7 +446,7 @@ const styles = StyleSheet.create({
   map: {
     width: "100%",
     borderRadius: 10,
-    height:250
+    height:240
   },
   titreVille: {
     width:"100%",
