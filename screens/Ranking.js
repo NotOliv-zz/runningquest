@@ -40,12 +40,14 @@ function Ranking(props) {
   const [rankingVille1, setRankingVille1] = useState('Alexis')
   const [rankingVille2, setRankingVille2] = useState('Viviane')
   const [rankingVille3, setRankingVille3] = useState('Laura')
-  const [rankingVille4, setRankingVille4] = useState('Olivier')
+  const [rankingVille4, setRankingVille4] = useState('...')
+  const [rankingVille5, setRankingVille5] = useState('Olivier')
 
   const [kmVille1, setKmVille1] = useState(57)
   const [kmVille2, setKmVille2] = useState(54)
   const [kmVille3, setKmVille3] = useState(51)
-  const [kmVille4, setKmVille4] = useState(142)
+  const [kmVille4, setKmVille4] = useState()
+  const [kmVille5, setKmVille5] = useState(142)
 
   const [modalVisible, setModalVisible] = useState(false);
   
@@ -96,14 +98,16 @@ useEffect(() => {
     setKmAmis2(212)
     setKmAmis3(167)
     setKmAmis4(139)
-    setRankingVille1('Mickaël')
-    setRankingVille2('Jean-Luc')
-    setRankingVille3('Oliver')
-    setRankingVille4('Aurélie')
+    setRankingVille1('1: Mickaël - ')
+    setRankingVille2('2: Jean-Luc - ')
+    setRankingVille3('3: Oliver - ')
+    setRankingVille4('...')
+    setRankingVille5()
     setKmVille1(243)
     setKmVille2(234)
     setKmVille3(212)
-    setKmVille4(210)
+    setKmVille4()
+    setKmVille5()
   
   }else { 
     if (currentMessage=='Levallois-Perret'){
@@ -121,14 +125,16 @@ useEffect(() => {
     setKmAmis2(110)
     setKmAmis3(84)
     setKmAmis4(53)
-    setRankingVille1('Alexis')
-    setRankingVille2('Viviane')
-    setRankingVille3('Laura')
-    setRankingVille4('Olivier')
-    setKmVille1(259)
-    setKmVille2(256)
-    setKmVille3(248)
-    setKmVille4(142)
+    setRankingVille1('1: Alexis - ')
+    setRankingVille2('2: Viviane - ')
+    setRankingVille3('3: Laura - ')
+    setRankingVille4('...')
+    setRankingVille5('6: Olivier - ')
+    setKmVille1('259 km')
+    setKmVille2('256 km')
+    setKmVille3('248 km')
+    setKmVille4()
+    setKmVille5('142 km')
   }}
   console.log(longitude)
   console.log(latitude)
@@ -279,86 +285,70 @@ const user= [
             </View>
           </View>
 
-{/* ---------------------- Challenge Name + Date -----------------------*/}
-        <ScrollView>
+{/* ---------------------- LastOuting + Date -----------------------*/}
+      <ScrollView>
         <Card containerStyle={styles.card}>  
-        <View style={{alignItems:"center"}}>
+        
+        <View style={{justifyContent:"center", flexDirection: "row"}}>
 
-          <View  >
-              <View style={{alignItems:"center"}}>
-                <Text style={{
-                  fontWeight: 'bold',
-                  color: '#ED590C',
-                  fontSize: 15,
-                  marginBottom: 5
-                }}>Dernière sortie</Text>
-                <Text style={{marginBottom:5}} >{lastOuting}</Text>
-              </View>
-          </View>
-
+        <View style={{paddingLeft:15, paddingRight:15}}>
           <View>
             <View style={{alignItems:"center"}}>
-                <Text style={{
-                fontWeight: 'bold',
-                color: '#ED590C',
-                fontSize: 15,
-                marginBottom: 5
-              }}>Mon avancement</Text>
-
-{/*---------------------- Distance and Accomplishment -----------------------*/}
-
-                <Text style={{alignItems:"center"}}>{nombreKm} Km</Text>
-                <Text style={{marginBottom:5}}>{nombreExploration} %</Text>
+              <Text style={styles.titreText}>Dernière sortie</Text>
+              <Text>{lastOuting}</Text>
+              <Text style={{marginBottom:10}} ></Text>
             </View>
           </View>
 
-{/*---------------------- Map ranking user and sort -----------------------*/}
+{/*---------------------- Friends ranking -----------------------*/}
 
-          <View style={{flexDirection:"row", marginBottom:5}}>
-
-            <View style={{alignItems:"center", marginLeft:10, marginRight:10}}>
-              <Text style={{
-                fontWeight: 'bold',
-                color: '#ED590C',
-                fontSize: 15,
-                marginBottom: 5
-                }}>Ranking amis
-              </Text>
+            <View style={{alignItems:"center"}}>
+              <Text style={styles.titreText}>Ranking amis</Text>
                 {/*{user.map((u, i) => {
                       return <View key = {i}>
                           <Text>{u.pseudo}</Text>
                         </View>                                      
                   })}*/}
-              <Text style={{marginBottom:2}}>1: {rankingAmis1} - {kmAmis1} km</Text>
-              <Text style={{marginBottom:2}}>2: {rankingAmis2} - {kmAmis2} km</Text>
-              <Text style={{marginBottom:2}}>3: {rankingAmis3} - {kmAmis3} km</Text>
-              <Text style={{marginBottom:2}}>4: {rankingAmis4} - {kmAmis4} km</Text>
+                <Text style={{marginBottom:2}}>1: {rankingAmis1} - {kmAmis1} km</Text>
+                <Text style={{marginBottom:2}}>2: {rankingAmis2} - {kmAmis2} km</Text>
+                <Text style={{marginBottom:2}}>3: {rankingAmis3} - {kmAmis3} km</Text>
+                <Text style={{marginBottom:2}}>4: {rankingAmis4} - {kmAmis4} km</Text>
             </View>
-          
+         
+        </View>
 
-            <View style={{alignItems:"center", marginLeft:10, marginRight:10}}>
-              <Text style={{
-                fontWeight: 'bold',
-                color: '#ED590C',
-                fontSize: 15,
-                marginBottom: 5
-                }}>Ranking ville
-              </Text>
+{/*---------------------- Exploration + km -----------------------*/}
+
+          <View style={{paddingLeft:15, paddingRight:15}}>
+          
+            
+              <View style={{alignItems:"center"}}>
+                <Text style={styles.titreText}>Mon avancement</Text>
+                <Text>{nombreKm} Km</Text>
+                <Text style={{marginBottom:10}}>{nombreExploration} %</Text>
+              </View>
+            
+
+{/*---------------------- City ranking -----------------------*/}
+
+            <View style={{alignItems:"center"}}>
+              <Text style={styles.titreText}>Ranking ville</Text>
                 {/*{user.map((u, i) => {
                       return <View key = {i}>
                           <Text>{u.pseudo}</Text>
                         </View>                                      
                   })}*/}
-              <Text style={{marginBottom:2}}>1: {rankingVille1} - {kmVille1} km</Text>
-              <Text style={{marginBottom:2}}>2: {rankingVille2} - {kmVille2} km</Text>
-              <Text style={{marginBottom:2}}>3: {rankingVille3} - {kmVille3} km</Text>
-              <Text style={{marginBottom:2}}>4: {rankingVille4} - {kmVille4} km</Text>
+              <Text style={{marginBottom:2}}>{rankingVille1}{kmVille1}</Text>
+              <Text style={{marginBottom:2}}>{rankingVille2}{kmVille2}</Text>
+              <Text style={{marginBottom:2}}>{rankingVille3}{kmVille3}</Text>
+              <Text style={{marginBottom:2}}>{rankingVille4}</Text>
+              <Text style={{marginBottom:2}}>{rankingVille5}{kmVille5}</Text>
             </View>
 
           </View>
 
         </View>
-
+        
 {/*---------------------- Modal -----------------------*/}
 
           <Modal
@@ -400,16 +390,17 @@ const user= [
             </View>
           </Modal>
           
+          <View style={{marginTop:15}}>
           <Pressable
               style={[styles.button]}
               onPress={() => setModalVisible(true)}
               >
               <Text style={styles.textStyle}>Inviter des amis</Text>
           </Pressable>
-
-
+          </View>
+          
           </Card>
-        </ScrollView>  
+          </ScrollView>
         </View>    
         )
       })
@@ -499,8 +490,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     margin:10
-
   },
+  titreText: {
+    fontWeight: 'bold',
+    color: '#ED590C',
+    fontSize: 15,
+    marginBottom: 5
+  },
+
   centeredView: {
     flex: 1,
     justifyContent: "center",
