@@ -196,7 +196,7 @@ const user = [
     
 
     var listRanking = user.map(function(u) {
-      return <View {/*key={i}*/}>
+      return <View >
         <Text>{indexRanking} - {u.pseudo} - {u.nbrKm}Km</Text>
       </View>  
       })
