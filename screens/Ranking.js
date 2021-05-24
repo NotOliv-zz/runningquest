@@ -36,7 +36,7 @@ const dataChallenge = [
   // },
 ]
 
-const user= [
+const user = [
   {
     pseudo: "user1",
     nbrKm: 45,
@@ -59,44 +59,34 @@ const user= [
       if (user.length === 0) {
         noUser = <Text>Pas encore de Challenger !</Text>}
     
-    /*for(var index=0 ; index<user.length ; index++) {
+    for(var index=0 ; index<user.length ; index++) {
       console.log(index+1)    
       var indexRanking = index+1
-      }*/
+      }
     
 
     var listRanking = user.map(function(u) {
       return <View>
-        <Text>{/*{indexRanking} - */}{u.pseudo} - {u.nbrKm}Km</Text>
+        <Text>{indexRanking} - {u.pseudo} - {u.nbrKm}Km</Text>
       </View>  
       })
 
-      /*const [sort, setSort] = useState([])
-      
-      useEffect(() => { 
+        function Count () {
+        const [sort, setSort] = useState()
+
+    
         const sortBykm = (map,compareFn) => (a,b) => -compareFn(map(a),map(b));
         const byValue = (a,b) => a - b;
         const toKm = e => e.nbrKm;
         const byKm = sortBykm(toKm,byValue);
-        setSort([...user].sort(byKm));  
-      }, [sort]);*/
+        setSort([...pseudo].sort(byKm));  }
 
-     /* const sortBykm = (map,compareFn) => (a,b) => -compareFn(map(a),map(b));
-      const byValue = (a,b) => a - b;
-      const toKm = e => e.nbrKm;
-      const byKm = sortBykm(toKm,byValue);
-      console.log([...user].sort(byKm));  */
+   
     
-    
-export default function Challenge (props) {
+function Ranking (props) {
 
     const [modalVisible, setModalVisible] = useState(false);
     
-
-
-
-
-
   return (
     <View style={styles.container}>
       <Navheader attribut = {props.navigation.navigate} />
@@ -140,7 +130,7 @@ export default function Challenge (props) {
         > </Input>    */}
             
     {
-      dataChallenge.map((u,i)=> {
+       props.Activites.map((u,i)=> {
         return (
         <View key={i}>
           
@@ -149,7 +139,7 @@ export default function Challenge (props) {
 
           <View style={styles.cardMap}>
               <View style={{alignItems:"center"}}>
-                <Text style={styles.titreVille} >{u.ciytLocation}</Text>
+                <Text style={styles.titreVille} >{u.city}</Text>
                 <MapView
                 style={styles.map} 
                 provider="google"
@@ -174,8 +164,8 @@ export default function Challenge (props) {
                   color: '#ED590C',
                   fontSize: 15,
                   marginBottom: 5
-                }}>{u.nameChallenge}</Text>
-                <Text style={{marginBottom:10}} >{u.challengeDate}</Text>
+                }}>{u.run_name}</Text>
+                <Text style={{marginBottom:10}} >{u.date}</Text>
               </View>
           </View>
           <View>
@@ -189,7 +179,7 @@ export default function Challenge (props) {
 
 {/*---------------------- Distance and Accomplishment -----------------------*/}
 
-                <Text style={{alignItems:"center"}}>{u.nbrKm} Km</Text>
+                <Text style={{alignItems:"center"}}>{u.distance} Km</Text>
                 <Text style={{marginBottom:10}}>{u.totalAccomplishment} %</Text>
             </View>
           </View>
@@ -274,6 +264,17 @@ export default function Challenge (props) {
 
   );
 }
+
+function mapStateToProps(state) {
+
+  return {Activites:state.ActivitiesList}
+ }
+
+export default connect(
+  mapStateToProps,
+  null
+ )(Ranking);
+
 
 const styles = StyleSheet.create({
   container: {
