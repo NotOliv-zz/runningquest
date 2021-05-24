@@ -14,7 +14,9 @@ import color from 'color';
 
 import {connect} from 'react-redux';
 
-function Ranking(props) {
+     
+function Ranking (props) {
+
   
   const [currentMessage, setCurrentMessage] = useState('Levallois-Perret');
   const [latitude, setLatitude] = useState(48.893217);
@@ -50,7 +52,11 @@ function Ranking(props) {
   const [kmVille5, setKmVille5] = useState(142)
 
   const [modalVisible, setModalVisible] = useState(false);
-  
+
+  const [sort, setSort] = useState([])
+
+
+
   // const [open, setOpen] = useState(false);
   // const [value, setValue] = useState(null);
   // const [items, setItems] = useState([
@@ -195,27 +201,22 @@ const user = [
       }
     
 
-    var listRanking = user.map(function(u) {
-      return <View {/*key={i}*/}>
+    var listRanking = sort.map(function(u) {
+      return <View /*key={i}*/>
         <Text>{indexRanking} - {u.pseudo} - {u.nbrKm}Km</Text>
       </View>  
       })
 
-        function Count () {
-        const [sort, setSort] = useState()
 
-    
+        useEffect(() => {
+        console.log("App is loaded");    
         const sortBykm = (map,compareFn) => (a,b) => -compareFn(map(a),map(b));
         const byValue = (a,b) => a - b;
         const toKm = e => e.nbrKm;
         const byKm = sortBykm(toKm,byValue);
-        setSort([...pseudo].sort(byKm));  }
-
-   
-    
-function Ranking (props) {
-
-    const [modalVisible, setModalVisible] = useState(false);
+        setSort([...user].sort(byKm));  
+        }, []);
+ console.log(sort)
     
   return (
     <View style={styles.container}>
@@ -309,10 +310,7 @@ function Ranking (props) {
                           <Text>{u.pseudo}</Text>
                         </View>                                      
                   })}*/}
-                <Text style={{marginBottom:2}}>1: {rankingAmis1} - {kmAmis1} km</Text>
-                <Text style={{marginBottom:2}}>2: {rankingAmis2} - {kmAmis2} km</Text>
-                <Text style={{marginBottom:2}}>3: {rankingAmis3} - {kmAmis3} km</Text>
-                <Text style={{marginBottom:2}}>4: {rankingAmis4} - {kmAmis4} km</Text>
+              {listRanking}
             </View>
          
         </View>
@@ -555,9 +553,9 @@ const customPickerStyles = StyleSheet.create({
   },
 });
 
-function mapStateToProps(state) {
+/*function mapStateToProps(state) {
 
   return {Activites:state.ActivitiesList}
  }
 
-export default connect(mapStateToProps,null)(Ranking)
+export default connect(mapStateToProps,null)(Ranking)*/
