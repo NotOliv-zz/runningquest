@@ -27,7 +27,7 @@ function Activity(props) {
     <Image 
        style={{marginLeft:82, width: 150, height: 30}}
        source={require("../assets/poweredstrava.png")}></Image>
-    <Card.Title style={{fontSize:13, fontWeight:"light"}}>Dernier import le 21.05.2021</Card.Title>
+    <Card.Title style={{fontSize:13}}>Dernier import le 21.05.2021</Card.Title>
     <Card.Divider style={styles.divider}/>
     <ScrollView>
     <View style={{justifyContent: "center",}}>
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     display: "flex",
     borderRadius: 10,
     marginTop: 30,
-    paddingBottom:60,
+    paddingBottom:120,
     height: "85%",
     borderBottomWidth: 2,
     borderRightWidth: 2,
