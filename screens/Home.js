@@ -68,8 +68,7 @@ useEffect(() => {
     setDataSpeed(11);
     setDataRanking(6);
   }}
-  console.log(longitude)
-  console.log(latitude)
+
 
   
 

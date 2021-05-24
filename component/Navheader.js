@@ -60,7 +60,6 @@ function Navheader(props) {
 }
 
 function mapStateToProps(state) {
-  console.log(state.ProfilStrava)
   return {photo : state.ProfilStrava}
  }
 

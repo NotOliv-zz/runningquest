@@ -1,7 +1,7 @@
-export default function(challengeList = [], action){
-    if(action.type == 'addchallengeList'){
-        return action.challengeList
+export default function(challengesList = [], action){
+    if(action.type == 'addChallenges'){
+        return action.challengesList
     } else {
-        return challengeList
+        return challengesList
     }
 }

@@ -18,7 +18,7 @@ function LoginPage(props) {
   
   var handleSubmitSignIn = async () => {
 
-    const data = await fetch('https://runningquest1.herokuapp.com/sign-in', {
+    const data = await fetch('http://192.168.1.23:3000/sign-in', {
       method: 'POST',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       body: `emailFromFront=${signInEmail}&passwordFromFront=${signInPassword}`
@@ -26,15 +26,17 @@ function LoginPage(props) {
 
     const body = await data.json()
 
+    console.log(body)
 
     if(body.result == true){
       props.addToken(body.token)
       props.addActivities(body.user.activities)
       props.addProfil(body.user.profilpicfromstrava)
+      props.addChallenges(body.user.challenge)
       props.navigation.navigate('BottomNavigator', {screen: 'Activity'})
     }  
     
-     console.log(body)
+
 
   }
 
@@ -78,6 +80,9 @@ function mapDispatchToProps(dispatch){
     },
     addProfil: function(profil){
       dispatch({type: 'addProfil', profil})
+    },
+    addChallenges: function(challenges){
+      dispatch({type: 'addChallenges', challenges})
     }
   }
   }

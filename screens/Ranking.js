@@ -56,9 +56,6 @@ function Ranking(props) {
   //   {label: 'Banana', value: 'banana'}
   // ]);
 
-console.log(currentMessage)
-console.log(longitude)
-console.log(latitude)
 
 useEffect(() => {
 
