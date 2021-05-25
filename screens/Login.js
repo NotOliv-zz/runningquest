@@ -18,11 +18,8 @@ function LoginPage(props) {
   
   var handleSubmitSignIn = async () => {
 
-<<<<<<< HEAD
-    //const data = await fetch('http://192.168.1.30:3000/sign-in', {
-=======
->>>>>>> 3b77e0879224056513a614632c6441155eb6b355
-    const data = await fetch('https://runningquest1.herokuapp.com/sign-in', {
+    //const data = await fetch('https://runningquest1.herokuapp.com/sign-in', {
+      const data = await fetch('http://192.168.1.30:3000/sign-in', {
       method: 'POST',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       body: `emailFromFront=${signInEmail}&passwordFromFront=${signInPassword}`
@@ -32,9 +29,11 @@ function LoginPage(props) {
 
 
     if(body.result == true){
-      props.addToken(body.token)
+      props.addToken(body.user.token)
       props.addActivities(body.user.activities)
       props.addProfil(body.user.profilpicfromstrava)
+    
+      props.addRanking(body.dataRanking)
       props.navigation.navigate('BottomNavigator', {screen: 'Activity'})
     }  
     
@@ -82,7 +81,10 @@ function mapDispatchToProps(dispatch){
     },
     addProfil: function(profil){
       dispatch({type: 'addProfil', profil})
-    }
+    },
+    addRanking: function(ranking){
+      dispatch({type: 'addRanking', ranking})
+    },
   }
   }
 
