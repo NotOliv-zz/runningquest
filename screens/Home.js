@@ -1,11 +1,9 @@
 import React, { useLayoutEffectn, useState,useEffect } from 'react';
-import { StyleSheet, Text, View, Image, Picker, ScrollView, SafeAreaView,TextInput, Dimensions} from 'react-native';
+import { StyleSheet, Text, View, Image, Picker, ScrollView} from 'react-native';
 import {Card,CardItem, SearchBar, Input, LinearProgress,Icon, Divider} from 'react-native-elements'
 import Navheader from "../component/Navheader";
-//import Icon from 'react-native-vector-icons/FontAwesome';
 import MapView, { Polyline } from 'react-native-maps';
 import polyline from '@mapbox/polyline';
-import { LinearGradient } from 'expo-linear-gradient';
 import {connect} from 'react-redux';
 import RNPickerSelect from 'react-native-picker-select';
 
@@ -15,9 +13,7 @@ function Home(props) {
   const [latitude, setLatitude] = useState(48.893217);
   const [longitude, setLongitude] = useState(2.287864);
   const [coordslist, setCoordslist] = useState([]);
-  const [initialreg,setInitialreg] = useState()
   const [dataExploration, setDataExploration] = useState('--');
-  const [dataTarget, setDataTarget] = useState(34);
   const [dataSpeed, setDataSpeed] = useState('--');
   const [dataRanking, setDataRanking] = useState('--');
   const [myTrophee, setmyTrophee] = useState([]);
@@ -84,7 +80,8 @@ useEffect(() => {
 
 },[])
 
-var tropheeLib="--" 
+var tropheeLib="" 
+console.log(myTrophee)
 if (myTrophee.length>0){
     tropheeLib="Mes derniers trophées"
 }

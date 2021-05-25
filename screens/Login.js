@@ -30,7 +30,7 @@ function LoginPage(props) {
 
     if(body.result == true){
       props.navigation.navigate('BottomNavigator', {screen: 'Activity'})
-      props.addToken(body.user.token)
+      props.addToken(body.token)
       props.addActivities(body.user.activities)
       props.addProfil(body.user.profilpicfromstrava)
       props.addRanking(body.dataRanking)
