@@ -6,6 +6,9 @@ import {Avatar,Card, ListItem, Button, Icon, Header} from 'react-native-elements
 import {connect} from 'react-redux';
 
 function Navheader(props) {
+
+  console.log("photo",props.photo)
+
   return (
 
     <View style={{
@@ -23,11 +26,12 @@ function Navheader(props) {
               rounded
               size="medium"
               title="Avatar"
-              source={{ uri:props.photo }}
+              source={{ uri:props.photo === "" ? "https://image.shutterstock.com/image-vector/man-icon-vector-260nw-1040084344.jpg":props.photo}}
               containerStyle={{marginTop: 5, marginLeft: 10}}
               onPress={() => props.attribut("Profil")}
             />
           }
+        
     
           centerComponent={
             <Image
