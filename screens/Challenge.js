@@ -27,32 +27,41 @@ import {connect} from 'react-redux';
 // ]
 
 
-const dataTrophee = [
-  {
-    name: "Et de 15 !",
-    picto: require("../assets/Badge/15km.jpg"),
-  },
-  {
-    name: "30 de plus !",
-    picto: require("../assets/Badge/30km.jpg"),
-  },
-  {
-    name: " être connecté",
-    picto: require("../assets/Badge/Connect.jpg"),
-  },
-  {
-    name: " Contre la montre",
-    picto: require("../assets/Badge/Time.jpg"),
-  },
-]
+// const dataTrophee = [
+//   {
+//     name: "Et de 15 !",
+//     picto: require("../assets/Badge/15km.jpg"),
+//   },
+//   {
+//     name: "30 de plus !",
+//     picto: require("../assets/Badge/30km.jpg"),
+//   },
+//   {
+//     name: " être connecté",
+//     picto: require("../assets/Badge/Connect.jpg"),
+//   },
+//   {
+//     name: " Contre la montre",
+//     picto: require("../assets/Badge/Time.jpg"),
+//   },
+// ]
 
 function Challenge(props) {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [isSelected, setSelection] = useState(false);
   const [currentMessage, setCurrentMessage] = useState("Km");
+  const [newChallengeName, setNewChallengeName] = useState("");
+  const [newChallengeNumber,setNewChallengeNumber] = useState("");
+ 
+  console.log("liste trophée",props.dataChallenge)
 
-  
+  var handleSubmitChallenge = async (name, number) => {
+    props.addNewChallenge(name, "https://res.cloudinary.com/dcyuyphdt/image/upload/v1621947674/rq/Challenge_tgzwms.png" )
+    setModalVisible(!modalVisible)
+
+  }
+
   return (
     
 <View style={styles.container}>
@@ -79,7 +88,8 @@ function Challenge(props) {
 
                 <Image style={styles.image} source={({uri : u.Trophee})} />
                 <Text>{u.Nom}</Text>
-              
+        
+
               </View>
               
             </View>
@@ -112,6 +122,7 @@ function Challenge(props) {
               marginBottom: 10,
               marginTop: 10
             }}
+            onChangeText={(newChallengeName) => setNewChallengeName(newChallengeName)}
             defaultValue=""
         />
          <Text>Nombre de killomètre</Text>
@@ -125,6 +136,7 @@ function Challenge(props) {
               marginBottom: 10,
               marginTop: 10
             }}
+            onChangeText={(newChallengeNumber) => setNewChallengeNumber(newChallengeNumber)}
             defaultValue=""
           />
           <View style={styles.customPickerStyles}>
@@ -154,20 +166,17 @@ function Challenge(props) {
             defaultValue=""
         />
 
-      {/* <Button
+      <Button
         title="Créer un challenge"
         buttonStyle={styles.button}
         onPress={() => {
-          if (this.state.newChallengeName.length == 0 || this.state.newChallengeNumber.length == 0) {
-            alert ("Vous devez entrer un nom de challenge et un nombre de kilomètre ou de poucentage d'exploration")
+          if (newChallengeName.length == 0 || newChallengeNumber.length == 0) {
+            alert ("Vous devez entrer un nom de challenge et un nombre de kilomètre ou de pourcentage d'exploration")
           return;
-        }
-        const newChallenge = {
-          source: require("../assets/Badge/15km.jpg"),
-          name: this.state.newChallengeName,
-          number: this.state.newChallengeNumber
-        }
-      }}/>                             */}
+        } else {handleSubmitChallenge(newChallengeName, newChallengeNumber)}
+        
+      }}/>
+      
       <Pressable
         style={styles.buttonRetour}
         onPress={() => setModalVisible(!modalVisible)}
@@ -193,8 +202,7 @@ function Challenge(props) {
     <Card.Divider style={styles.divider}/>
     <ScrollView horizontal={true}>
     <View style={{ flexDirection: "row"}}>
-      
-      {
+      { 
         props.dataTrophee.map((u, i) => {
           console.log(props.dataTrophee)
           return (
@@ -318,14 +326,22 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(state) {
-  console.log(state)
+
   return {
     dataChallenge:state.UserChallenge,
     dataTrophee:state.trophy
   }
  }
 
+ function mapDispatchToProps(dispatch){
+  return {
+    addNewChallenge: function(Nom, Trophee){
+      dispatch({type: 'addNewChallenge', Nom, Trophee})
+    },
+  }
+  }
+
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
  )(Challenge);
