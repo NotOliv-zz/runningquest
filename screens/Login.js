@@ -19,7 +19,7 @@ function LoginPage(props) {
   var handleSubmitSignIn = async () => {
 
     //const data = await fetch('https://runningquest1.herokuapp.com/sign-in', {
-    const data = await fetch('http://192.168.1.25:3000/sign-in', {
+    const data = await fetch('http://192.168.1.23:3000/sign-in', {
       method: 'POST',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       body: `emailFromFront=${signInEmail}&passwordFromFront=${signInPassword}`
@@ -46,7 +46,7 @@ function LoginPage(props) {
 
 
   var tabErrorsSignin = listErrorsSignin.map((error,i) => {
-    return(<Text>{error}</Text>)
+    return(<Text key={i}>{error}</Text>)
   })
 
 

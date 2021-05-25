@@ -35,7 +35,6 @@ function Profil(props) {
           activeOpacity={0}
           source={{ uri:props.photo }}
           containerStyle={{marginTop:100, marginBottom:20}}
-          onPress={() => props.attribut("Profil")}
         />
         
       <Text style={styles.text} >Olivier Bouvet</Text>
