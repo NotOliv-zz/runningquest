@@ -1,9 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, ScrollView, Image, Modal, TextInput, Pressable, Alert } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image, Modal, TextInput, Pressable, Alert, CheckBox } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {Button, Card} from 'react-native-elements'
+import {Button, Card } from 'react-native-elements'
 import Navheader from "../component/Navheader"
+import RNPickerSelect from 'react-native-picker-select';
 
 const dataChallenge = [
   {
@@ -46,6 +47,8 @@ const dataTrophee = [
 export default function Ranking(props) {
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [isSelected, setSelection] = useState(false);
+  const [currentMessage, setCurrentMessage] = useState("Km");
 
   return (
     
@@ -54,6 +57,8 @@ export default function Ranking(props) {
   <Navheader attribut = {props.navigation.navigate}/>
 
   <View>
+
+{/*---------------------- Card avec "Mes challenges" -----------------------*/}
 
   <Card containerStyle={styles.card}>
     <Card.Title>Mes challenges</Card.Title>
@@ -68,8 +73,9 @@ export default function Ranking(props) {
 
               <View style={{ alignItems: "center", marginTop: 15, marginRight: 10, marginBottom: 16}}>
 
-                <Image style={styles.image} source={u.picto}/>
-                <Text>{u.name}</Text>
+                
+                <Text>{NewChallenge.name}</Text>
+                <Text>{NewChallenge.number}</Text>
               
               </View>
               
@@ -80,6 +86,8 @@ export default function Ranking(props) {
     </View>
     </ScrollView>
   </Card>
+
+{/*---------------------- Modal -----------------------*/}
 
   <Modal 
       animationType="slide"
@@ -103,6 +111,34 @@ export default function Ranking(props) {
             }}
             defaultValue=""
         />
+         <Text>Nombre de killomètre</Text>
+         <Text>ou pourcentage d'exploration</Text>
+        <View style={{flexDirection:"row", alignSjuself:"center"}}>
+          <TextInput
+            style={{
+              height: 40,
+              width: 140,
+              borderWidth: 1,
+              marginBottom: 10,
+              marginTop: 10
+            }}
+            defaultValue=""
+          />
+          <View style={styles.customPickerStyles}>
+          <RNPickerSelect
+          style={{fontWeight: "bold", color: "#fff"}}
+            placeholder={{}}
+            useNativeAndroidPickerStyle={false} 
+            onValueChange={(value) => setCurrentMessage(value)}
+            items={[
+                { label: "Km", value: "Km" },
+                { label: "%", value: "%" },
+            ]}
+            value={currentMessage}
+          />
+          </View>
+        </View>
+
         <Text>Inviter des amis</Text>
         <TextInput
             style={{
@@ -118,23 +154,36 @@ export default function Ranking(props) {
       <Button
         title="Créer un challenge"
         buttonStyle={styles.button}
-        onPress={() => Alert.alert('Création du challenge')}
-      />                            
+        onPress={() => {
+          if (this.state.newChallengeName.length == 0 || this.state.newChallengeNumber.length == 0) {
+            alert ("Vous devez entrer un nom de challenge et un nombre de kilomètre ou de poucentage d'exploration")
+          return;
+        }
+        const newChallenge = {
+          source: require("../assets/Badge/15km.jpg"),
+          name: this.state.newChallengeName,
+          number: this.state.newChallengeNumber
+        }
+      }}/>                            
       <Pressable
         style={styles.buttonRetour}
         onPress={() => setModalVisible(!modalVisible)}
         >
         <Text style={styles.textStyleRetour}>Retour</Text>
-        </Pressable>
+      </Pressable>
     </View>
     </View>
 </Modal>
+
+{/*---------------------- Button "créer un challenge" -----------------------*/}
 
 <Pressable 
   style={[styles.button]}
   onPress={() => setModalVisible(true)}>
   <Text style={styles.textStyle}>Créer un challenge !</Text>
 </Pressable>
+
+{/*---------------------- Card avec "Mes trophées" -----------------------*/}
 
   <Card containerStyle={styles.card}>
     <Card.Title>Mes trophées</Card.Title>
@@ -247,5 +296,18 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5
   },
-
+  customPickerStyles: {
+    borderColor: "#ED420C",
+    borderWidth: 2,
+    borderRadius:10,
+    height: 40,
+    width: 40,
+    justifyContent: "center",
+    alignContent:"center",
+    marginBottom: 10,
+    marginTop: 10,
+    marginLeft: 20,
+    paddingLeft: 8
+  
+  }
 })
