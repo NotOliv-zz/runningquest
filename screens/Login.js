@@ -12,7 +12,7 @@ function LoginPage(props) {
 
   const [signInEmail, setSignInEmail] = useState('')
   const [signInPassword, setSignInPassword] = useState('')
-  const [setUserExists, userExists] = useState('')
+  const [listErrorsSignin, setErrorsSignin] = useState([])
 
   //____________________________________ FONCTION SIGN IN ________________________________________//
   
@@ -26,22 +26,28 @@ function LoginPage(props) {
     })
 
     const body = await data.json()
-    console.log(body)
+ 
+
     if(body.result == true){
+      props.navigation.navigate('BottomNavigator', {screen: 'Activity'})
       props.addToken(body.user.token)
       props.addActivities(body.user.activities)
       props.addProfil(body.user.profilpicfromstrava)
-    
       props.addRanking(body.dataRanking)
       props.addChallenge(body.user.challenge)
       props.addTrophy(body.user.trophy)
-      props.navigation.navigate('BottomNavigator', {screen: 'Activity'})
-    }  
+      
+    }  else {
+      setErrorsSignin(body.error)
+    }
     
-
-
   }
 
+
+
+  var tabErrorsSignin = listErrorsSignin.map((error,i) => {
+    return(<Text>{error}</Text>)
+  })
 
 
   //____________________________________ DEBUT RETURN ________________________________________//
@@ -52,6 +58,7 @@ function LoginPage(props) {
       <View style={styles.Input}>
         <Input onChangeText={(value) => setSignInEmail(value)} value={signInEmail} placeholder='Email' leftIcon={<Icon name='at' type='font-awesome' size={24} color='black'/>}/>
         <Input onChangeText={(value) => setSignInPassword(value)} value={signInPassword} placeholder='Password' secureTextEntry={true} leftIcon={<Icon name='unlock-alt' type='font-awesome' size={24} color='black'/>}/>
+        {tabErrorsSignin}
       </View>
         <Button title="Connexion" type="solid" buttonStyle={{backgroundColor: "#ED590C"}} onPress={() =>handleSubmitSignIn() } />    
       </View>
