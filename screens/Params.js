@@ -38,7 +38,7 @@ export default function Params(props) {
       </ListItem>
     ))
   }
-  <View style={{alignItems: 'center'}}>
+  <View style={{alignItems: 'center',}}>
     <Button 
       buttonStyle={{
         marginTop:20,
@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    marginTop:150
   },
   profilheader: {
     alignItems: 'center',

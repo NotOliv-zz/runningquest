@@ -16,21 +16,32 @@ function Home(props) {
   const [longitude, setLongitude] = useState(2.287864);
   const [coordslist, setCoordslist] = useState([]);
   const [initialreg,setInitialreg] = useState()
-  const [dataExploration, setDataExploration] = useState(142);
+  const [dataExploration, setDataExploration] = useState('--');
   const [dataTarget, setDataTarget] = useState(34);
-  const [dataSpeed, setDataSpeed] = useState(11);
-  const [dataRanking, setDataRanking] = useState(6);
-
-
+  const [dataSpeed, setDataSpeed] = useState('--');
+  const [dataRanking, setDataRanking] = useState('--');
 
 
 useEffect(() => {
  
 
+//Classement
+  for (var p=0;p<props.Rankings.length;p++){
+    if (props.Rankings[p]._id.token==props.Token && props.Rankings[p]._id.city==currentMessage){
+      setDataExploration(props.Rankings[p].totalDistance);
+      setDataRanking(p)
+      setDataSpeed(props.Rankings[p].averageSpeed.toFixed(2))
+      break;
+    }
+  }
   //Je décode mes polyline
   var polylineEncode=[]
+
   for (var i=0;i<props.Activites.length;i++){
-    polylineEncode.push(props.Activites[i].polyline.replace(/\\\\/g,'\\'))
+    console.log(currentMessage,"-----")
+    
+      polylineEncode.push(props.Activites[i].polyline.replace(/\\\\/g,'\\'))
+       
   }
     
     var coords=polylineEncode.map((act,i)=>{
@@ -52,21 +63,40 @@ useEffect(() => {
 
 //j'applique le useefffect si je change de ville
 useEffect(() => {
+
+//Classement
+var rank=0
+setDataExploration('--');
+setDataSpeed('--')
+setDataRanking('--');
+  for (var p=0;p<props.Rankings.length;p++){
+
+
+    if (props.Rankings[p]._id.city==currentMessage){
+        rank++
+      if (props.Rankings[p]._id.token==props.Token){
+        setDataExploration(props.Rankings[p].totalDistance);
+        setDataSpeed(props.Rankings[p].averageSpeed.toFixed(2))
+        setDataRanking(rank);
+        break;
+      } 
+
+    }
+  }
+
+
   if (currentMessage=='Reims'){
     setLatitude(49.258329)
     setLongitude(4.031696)
-    setDataExploration(212);
-    setDataTarget(41);
-    setDataSpeed(9);
-    setDataRanking(3);
+    //setDataTarget(41);
+    
+
   }else { 
     if (currentMessage=='Levallois Perret'){
     setLatitude(48.893217)
     setLongitude(	2.287864)
-    setDataExploration(142);
-    setDataTarget(34);
-    setDataSpeed(11);
-    setDataRanking(6);
+    //setDataExploration(142);
+
   }}
 
 
@@ -319,7 +349,7 @@ const customPickerStyles = StyleSheet.create({
 
 function mapStateToProps(state) {
 
-  return {Activites:state.ActivitiesList}
+  return {Activites:state.ActivitiesList,Rankings:state.RankingList,Token:state.token}
  }
 
 export default connect(mapStateToProps,null)(Home)

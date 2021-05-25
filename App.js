@@ -21,10 +21,13 @@ import { Ionicons } from '@expo/vector-icons';
 
 import token from './reducers/token';
 import ActivitiesList from './reducers/activities';
+import trophy from './reducers/trophy';
+import UserChallenge from './reducers/challenge';
 import ProfilStrava from './reducers/profil';
+import RankingList from './reducers/rankings';
 import {Provider} from 'react-redux'
 import {createStore, combineReducers} from 'redux'
-const store = createStore(combineReducers({token, ActivitiesList, ProfilStrava}))
+const store = createStore(combineReducers({token, ActivitiesList, ProfilStrava, RankingList, UserChallenge, trophy}))
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();

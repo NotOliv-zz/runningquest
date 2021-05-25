@@ -554,8 +554,6 @@ const customPickerStyles = StyleSheet.create({
 });
 
 /*function mapStateToProps(state) {
-
   return {Activites:state.ActivitiesList}
  }
-
 export default connect(mapStateToProps,null)(Ranking)*/
