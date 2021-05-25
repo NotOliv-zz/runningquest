@@ -20,6 +20,7 @@ function Inscription(props) {
 
 var handleSubmitSignUp = async () => {
       
+  //const data = await fetch('https://runningquest1.herokuapp.com/sign-up', {
   const data = await fetch('http://192.168.1.23:3000/sign-up', {
     method: 'POST',
     headers: {'Content-Type': 'application/x-www-form-urlencoded'},

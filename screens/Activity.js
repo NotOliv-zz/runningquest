@@ -54,7 +54,7 @@ function Activity(props) {
                 <View style={{flexDirection:"row"}}>
                   <View style={{marginRight:10}}>
                     <Text h1 style={{marginBottom:5, fontWeight:"bold" }}>{u.run_name}</Text>
-                    <Text>Ville {u.city}</Text>
+                    <Text>Ville : {u.city}</Text>
                     <Text>Distance : {u.distance} km</Text>
                     <Text>Date : {u.date}</Text>
                     <Text></Text>

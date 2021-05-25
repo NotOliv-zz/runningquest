@@ -1,28 +1,30 @@
 import { StatusBar } from 'expo-status-bar';
-import React, {useState} from 'react';
+import React, {useState, useef} from 'react';
 import { StyleSheet, Text, View, ScrollView, Image, Modal, TextInput, Pressable, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Button, Card} from 'react-native-elements'
 import Navheader from "../component/Navheader"
+import {connect} from 'react-redux';
 
-const dataChallenge = [
-  {
-    name: "Et de 15 !",
-    picto: require("../assets/Badge/15km.jpg"),
-  },
-  {
-    name: "30 de plus !",
-    picto: require("../assets/Badge/30km.jpg"),
-  },
-  {
-    name: " être connecté",
-    picto: require("../assets/Badge/Connect.jpg"),
-  },
-  {
-    name: " Contre la montre",
-    picto: require("../assets/Badge/Time.jpg"),
-  },
-]
+// const picto = [
+//   {
+//     name: "Et de 15 !",
+//     picto: require("../assets/Badge/15km.jpg"),
+//   },
+//   {
+//     name: "30 de plus !",
+//     picto: require("../assets/Badge/30km.jpg"),
+//   },
+//   {
+//     name: " être connecté",
+//     picto: require("../assets/Badge/Connect.jpg"),
+//   },
+//   {
+//     name: " Contre la montre",
+//     picto: require("../assets/Badge/Time.jpg"),
+//   },
+// ]
+
 
 const dataTrophee = [
   {
@@ -43,10 +45,10 @@ const dataTrophee = [
   },
 ]
 
-export default function Ranking(props) {
+function Challenge(props) {
 
   const [modalVisible, setModalVisible] = useState(false);
-
+  console.log(props.dataChallenge)
   return (
     
 <View style={styles.container}>
@@ -56,20 +58,21 @@ export default function Ranking(props) {
   <View>
 
   <Card containerStyle={styles.card}>
-    <Card.Title>Mes challenges</Card.Title>
+    <Card.Title>Mes challenges en cours</Card.Title>
     <Card.Divider style={styles.divider}/>
     <ScrollView horizontal={true}>
     <View style={{ flexDirection: "row"}}>
       {
-        dataChallenge.map((u, i) => {
+      
+        props.dataChallenge.map((u, i) => {
           return (
 
             <View key={i}>
 
               <View style={{ alignItems: "center", marginTop: 15, marginRight: 10, marginBottom: 16}}>
 
-                <Image style={styles.image} source={u.picto}/>
-                <Text>{u.name}</Text>
+                <Image style={styles.image} source={({uri : u.Trophee})} />
+                <Text>{u.Nom}</Text>
               
               </View>
               
@@ -137,20 +140,20 @@ export default function Ranking(props) {
 </Pressable>
 
   <Card containerStyle={styles.card}>
-    <Card.Title>Mes trophées</Card.Title>
+    <Card.Title>Mes trophées gagnés</Card.Title>
     <Card.Divider style={styles.divider}/>
     <ScrollView horizontal={true}>
     <View style={{ flexDirection: "row"}}>
       {
-        dataTrophee.map((u, i) => {
+        props.dataTrophee.map((u, i) => {
           return (
 
             <View key={i}>
 
               <View style={{ alignItems: "center", justifyContent:"center", marginTop: 15, marginRight: 10, marginBottom: 16}}>
 
-                <Image style={styles.image} source={u.picto}/>
-                <Text>{u.name}</Text>
+                <Image style={styles.image} source={{uri:u.Trophee}}/>
+                <Text>{u.Nom}</Text>
               
               </View>
               
@@ -249,3 +252,16 @@ const styles = StyleSheet.create({
   },
 
 })
+
+function mapStateToProps(state) {
+  console.log(state)
+  return {
+    dataChallenge:state.UserChallenge,
+    dataTrophee:state.trophy
+  }
+ }
+
+export default connect(
+  mapStateToProps,
+  null
+ )(Challenge);

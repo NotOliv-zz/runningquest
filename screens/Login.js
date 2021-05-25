@@ -19,25 +19,26 @@ function LoginPage(props) {
   var handleSubmitSignIn = async () => {
 
     //const data = await fetch('https://runningquest1.herokuapp.com/sign-in', {
-      const data = await fetch('http://192.168.1.30:3000/sign-in', {
+    const data = await fetch('http://192.168.1.23:3000/sign-in', {
       method: 'POST',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       body: `emailFromFront=${signInEmail}&passwordFromFront=${signInPassword}`
     })
 
     const body = await data.json()
-
-
+    console.log(body)
     if(body.result == true){
       props.addToken(body.user.token)
       props.addActivities(body.user.activities)
       props.addProfil(body.user.profilpicfromstrava)
     
       props.addRanking(body.dataRanking)
+      props.addChallenge(body.user.challenge)
+      props.addTrophy(body.user.trophy)
       props.navigation.navigate('BottomNavigator', {screen: 'Activity'})
     }  
     
-     console.log(body)
+
 
   }
 
@@ -85,6 +86,12 @@ function mapDispatchToProps(dispatch){
     addRanking: function(ranking){
       dispatch({type: 'addRanking', ranking})
     },
+    addChallenge: function(challenge){
+      dispatch({type: 'addChallenge', challenge:challenge})
+    },
+    addTrophy: function(trophy){
+      dispatch({type: 'addTrophy', trophy:trophy})
+    }
   }
   }
 

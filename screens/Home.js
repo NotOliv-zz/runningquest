@@ -98,8 +98,7 @@ setDataRanking('--');
     //setDataExploration(142);
 
   }}
-  console.log(longitude)
-  console.log(latitude)
+
 
   
 
