@@ -27,7 +27,11 @@ import ProfilStrava from './reducers/profil';
 import RankingList from './reducers/rankings';
 import {Provider} from 'react-redux'
 import {createStore, combineReducers} from 'redux'
+<<<<<<< HEAD
 const store = createStore(combineReducers({token, ActivitiesList, ProfilStrava, UserChallenge, RankingList, trophy}))
+=======
+const store = createStore(combineReducers({token, ActivitiesList, ProfilStrava, RankingList, UserChallenge, trophy}))
+>>>>>>> a687159cda00082e6cf1c3e71f42186765848ec0
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
