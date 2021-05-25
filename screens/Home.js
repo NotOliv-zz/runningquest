@@ -20,20 +20,27 @@ function Home(props) {
   const [dataTarget, setDataTarget] = useState(34);
   const [dataSpeed, setDataSpeed] = useState('--');
   const [dataRanking, setDataRanking] = useState('--');
-
+  const [myTrophee, setmyTrophee] = useState([]);
 
 useEffect(() => {
  
 
 //Classement
+  var rank=0
   for (var p=0;p<props.Rankings.length;p++){
-    if (props.Rankings[p]._id.token==props.Token && props.Rankings[p]._id.city==currentMessage){
-      setDataExploration(props.Rankings[p].totalDistance);
-      setDataRanking(p)
-      setDataSpeed(props.Rankings[p].averageSpeed.toFixed(2))
-      break;
+    if (props.Rankings[p]._id.city==currentMessage){
+        rank++
+      if (props.Rankings[p]._id.token==props.Token){
+        setDataExploration(props.Rankings[p].totalDistance);
+        setDataSpeed(props.Rankings[p].averageSpeed.toFixed(2))
+        setDataRanking(rank);
+        break;
+      } 
+
     }
   }
+
+
   //Je décode mes polyline
   var polylineEncode=[]
 
@@ -58,8 +65,34 @@ useEffect(() => {
    })
    setCoordslist(coords)
 
+   //////Trophee
+   var dataTropheeReverse=props.dataTrophee.reverse()
+   console.log(dataTropheeReverse)
+   var myTroph=dataTropheeReverse.map((u, i) => {
+     if (i<3){
+      return (
+      
+        <Image key={i} style={{ width: 40, height: 40, marginLeft:"auto", marginRight:"auto"}}
+        source={{uri : u.Trophee}}
+      />
+
+      );
+     }
+    
+  })
+  setmyTrophee(myTroph)
 
 },[])
+
+var tropheeLib="--" 
+if (myTrophee.length>0){
+    tropheeLib="Mes derniers trophées"
+}
+
+var explorationLib="--" 
+if (dataExploration>0){
+  explorationLib=((dataExploration/500)*100).toFixed(0)
+}
 
 //j'applique le useefffect si je change de ville
 useEffect(() => {
@@ -70,8 +103,6 @@ setDataExploration('--');
 setDataSpeed('--')
 setDataRanking('--');
   for (var p=0;p<props.Rankings.length;p++){
-
-
     if (props.Rankings[p]._id.city==currentMessage){
         rank++
       if (props.Rankings[p]._id.token==props.Token){
@@ -84,7 +115,7 @@ setDataRanking('--');
     }
   }
 
-
+//Placement de la carte
   if (currentMessage=='Reims'){
     setLatitude(49.258329)
     setLongitude(4.031696)
@@ -100,28 +131,7 @@ setDataRanking('--');
   }}
 
 
-  
-
-
-
 },[currentMessage])
-
-
-
-// var changeCity = (city) =>{
-//   setCurrentMessage(city)
-//   if (city=='Reims'){
-//         setLatitude(49.258329)
-//         setLongitude(4.031696)
-//       }else { 
-//         if (city=='Levallois Perret'){
-//         setLatitude(48.893217)
-//         setLongitude(	2.287864)
-//       }}
-//       console.log(longitude)
-//       console.log(latitude)
-    
-// }
 
 
   return (
@@ -190,7 +200,7 @@ setDataRanking('--');
                 <View style={styles.box}>
                       <Text style={{fontSize:13, marginBottom:5}}>Objectif</Text>
                       <View style={{flexDirection:"row", alignItems:"center"}}>
-                        <Text style={{fontWeight:"bold", color:"#ED590C" }}>{dataTarget}</Text>
+                        <Text style={{fontWeight:"bold", color:"#ED590C" }}>{explorationLib}</Text>
                         <Text style={{fontWeight:"bold"}}> %</Text>
                       </View>
                 
@@ -234,17 +244,10 @@ setDataRanking('--');
                     <LinearProgress style={{height:20, width:215, borderRadius:10}} variant="determinate" value={0.9} color="#ED590C"/>
                   </View>
                 </View>
-                <Card.Title>Mes derniers trophées</Card.Title>
+               
+                <Card.Title>{tropheeLib}</Card.Title>
                 <View style={{flexDirection:"row", justifyContent:"center"}}>
-                  <Image style={{ width: 40, height: 40, marginLeft:"auto", marginRight:"auto"}}
-                      source={require("../assets/Badge/Connect.jpg")}
-                    />
-                  <Image style={{ width: 40, height: 40, marginLeft:"auto", marginRight:"auto"}}
-                    source={require("../assets/Badge/Time.jpg")}
-                  />
-                  <Image style={{ width: 40, height: 40, marginLeft:"auto", marginRight:"auto"}}
-                    source={require("../assets/Badge/15km.jpg")}
-                  /> 
+                {myTrophee}
                 </View>
                 
               </Card>
@@ -349,7 +352,7 @@ const customPickerStyles = StyleSheet.create({
 
 function mapStateToProps(state) {
 
-  return {Activites:state.ActivitiesList,Rankings:state.RankingList,Token:state.token}
+  return {Activites:state.ActivitiesList,Rankings:state.RankingList,Token:state.token, dataTrophee:state.trophy}
  }
 
 export default connect(mapStateToProps,null)(Home)

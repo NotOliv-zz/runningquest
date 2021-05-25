@@ -70,7 +70,7 @@ function Challenge(props) {
             <View key={i}>
 
               <View style={{ alignItems: "center", marginTop: 15, marginRight: 10, marginBottom: 16}}>
-
+                
                 <Image style={styles.image} source={({uri : u.Trophee})} />
                 <Text>{u.Nom}</Text>
               
