@@ -26,29 +26,30 @@ import {connect} from 'react-redux';
 // ]
 
 
-const dataTrophee = [
-  {
-    name: "Et de 15 !",
-    picto: require("../assets/Badge/15km.jpg"),
-  },
-  {
-    name: "30 de plus !",
-    picto: require("../assets/Badge/30km.jpg"),
-  },
-  {
-    name: " être connecté",
-    picto: require("../assets/Badge/Connect.jpg"),
-  },
-  {
-    name: " Contre la montre",
-    picto: require("../assets/Badge/Time.jpg"),
-  },
-]
+// const dataTrophee = [
+//   {
+//     name: "Et de 15 !",
+//     picto: require("../assets/Badge/15km.jpg"),
+//   },
+//   {
+//     name: "30 de plus !",
+//     picto: require("../assets/Badge/30km.jpg"),
+//   },
+//   {
+//     name: " être connecté",
+//     picto: require("../assets/Badge/Connect.jpg"),
+//   },
+//   {
+//     name: " Contre la montre",
+//     picto: require("../assets/Badge/Time.jpg"),
+//   },
+// ]
 
 function Challenge(props) {
 
   const [modalVisible, setModalVisible] = useState(false);
-  console.log(props.dataChallenge)
+  console.log("liste trophée",props.dataTrophee)
+
   return (
     
 <View style={styles.container}>
@@ -144,7 +145,7 @@ function Challenge(props) {
     <Card.Divider style={styles.divider}/>
     <ScrollView horizontal={true}>
     <View style={{ flexDirection: "row"}}>
-      {
+      { 
         props.dataTrophee.map((u, i) => {
           return (
 
@@ -254,7 +255,7 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(state) {
-  console.log(state)
+
   return {
     dataChallenge:state.UserChallenge,
     dataTrophee:state.trophy
