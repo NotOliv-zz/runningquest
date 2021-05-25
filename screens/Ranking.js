@@ -55,6 +55,7 @@ function Ranking (props) {
 
   const [sort, setSort] = useState([])
 
+  const [count, setCount] = useState([])
 
 
   // const [open, setOpen] = useState(false);
@@ -195,10 +196,13 @@ const user = [
       if (user.length === 0) {
         noUser = <Text>Pas encore de Challenger !</Text>}
     
-    for(var index=0 ; index<user.length ; index++) {
+        useEffect(() => {
+      for(var index=0 ; index<user.length ; index++) {
       console.log(index+1)    
       var indexRanking = index+1
       }
+    }, [])
+    
     
 
     var listRanking = sort.map(function(u) {
@@ -207,6 +211,7 @@ const user = [
       </View>  
       })
 
+{/* ---------------------- Ranking calculation ----------------------- */}
 
         useEffect(() => {
         console.log("App is loaded");    
@@ -305,11 +310,6 @@ const user = [
 
             <View style={{alignItems:"center"}}>
               <Text style={styles.titreText}>Ranking amis</Text>
-                {/*{user.map((u, i) => {
-                      return <View key = {i}>
-                          <Text>{u.pseudo}</Text>
-                        </View>                                      
-                  })}*/}
               {listRanking}
             </View>
          
