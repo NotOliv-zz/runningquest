@@ -6,7 +6,7 @@ import {Button, Card} from 'react-native-elements'
 import Navheader from "../component/Navheader"
 import {connect} from 'react-redux';
 
-// const dataChallenge = [
+// const picto = [
 //   {
 //     name: "Et de 15 !",
 //     picto: require("../assets/Badge/15km.jpg"),
@@ -24,6 +24,7 @@ import {connect} from 'react-redux';
 //     picto: require("../assets/Badge/Time.jpg"),
 //   },
 // ]
+
 
 const dataTrophee = [
   {
@@ -70,7 +71,7 @@ function Challenge(props) {
 
               <View style={{ alignItems: "center", marginTop: 15, marginRight: 10, marginBottom: 16}}>
 
-                <Image style={styles.image} source={require(`../assets/Badge/15km.jpg`)} />
+                <Image style={styles.image} source={({uri : u.Trophee})} />
                 <Text>{u.Nom}</Text>
               
               </View>
@@ -144,15 +145,15 @@ function Challenge(props) {
     <ScrollView horizontal={true}>
     <View style={{ flexDirection: "row"}}>
       {
-        dataTrophee.map((u, i) => {
+        props.dataTrophee.map((u, i) => {
           return (
 
             <View key={i}>
 
               <View style={{ alignItems: "center", justifyContent:"center", marginTop: 15, marginRight: 10, marginBottom: 16}}>
 
-                <Image style={styles.image} source={u.picto}/>
-                <Text>{u.name}</Text>
+                <Image style={styles.image} source={{uri:u.Trophee}}/>
+                <Text>{u.Nom}</Text>
               
               </View>
               
@@ -256,7 +257,7 @@ function mapStateToProps(state) {
   console.log(state)
   return {
     dataChallenge:state.UserChallenge,
-    trophy:state.trophy
+    dataTrophee:state.trophy
   }
  }
 
