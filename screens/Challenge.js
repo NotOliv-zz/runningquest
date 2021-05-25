@@ -52,7 +52,7 @@ function Challenge(props) {
   const [isSelected, setSelection] = useState(false);
   const [currentMessage, setCurrentMessage] = useState("Km");
 
-  console.log(props.dataChallenge)
+  
   return (
     
 <View style={styles.container}>
@@ -193,8 +193,10 @@ function Challenge(props) {
     <Card.Divider style={styles.divider}/>
     <ScrollView horizontal={true}>
     <View style={{ flexDirection: "row"}}>
+      
       {
         props.dataTrophee.map((u, i) => {
+          console.log(props.dataTrophee)
           return (
 
             <View key={i}>
