@@ -14,7 +14,9 @@ import color from 'color';
 
 import {connect} from 'react-redux';
 
-function Ranking(props) {
+     
+function Ranking (props) {
+
   
   const [currentMessage, setCurrentMessage] = useState('Levallois-Perret');
   const [latitude, setLatitude] = useState(48.893217);
@@ -50,7 +52,11 @@ function Ranking(props) {
   const [kmVille5, setKmVille5] = useState(142)
 
   const [modalVisible, setModalVisible] = useState(false);
-  
+
+  const [sort, setSort] = useState([])
+
+
+
   // const [open, setOpen] = useState(false);
   // const [value, setValue] = useState(null);
   // const [items, setItems] = useState([
@@ -166,7 +172,7 @@ const dataChallenge = [
   // },
 ]
 
-const user= [
+const user = [
   {
     pseudo: "user1",
     nbrKm: 45,
@@ -189,36 +195,29 @@ const user= [
       if (user.length === 0) {
         noUser = <Text>Pas encore de Challenger !</Text>}
     
-    /*for(var index=0 ; index<user.length ; index++) {
+    for(var index=0 ; index<user.length ; index++) {
       console.log(index+1)    
       var indexRanking = index+1
-      }*/
+      }
     
 
-    var listRanking = user.map(function(u,i) {
-      return <View key={i}>
-        <Text>{/*{indexRanking} - */}{u.pseudo} - {u.nbrKm}Km</Text>
+    var listRanking = sort.map(function(u) {
+      return <View /*key={i}*/>
+        <Text>{indexRanking} - {u.pseudo} - {u.nbrKm}Km</Text>
       </View>  
       })
 
-      /*const [sort, setSort] = useState([])
-      
-      useEffect(() => { 
+
+        useEffect(() => {
+        console.log("App is loaded");    
         const sortBykm = (map,compareFn) => (a,b) => -compareFn(map(a),map(b));
         const byValue = (a,b) => a - b;
         const toKm = e => e.nbrKm;
         const byKm = sortBykm(toKm,byValue);
         setSort([...user].sort(byKm));  
-      }, [sort]);*/
-
-     /* const sortBykm = (map,compareFn) => (a,b) => -compareFn(map(a),map(b));
-      const byValue = (a,b) => a - b;
-      const toKm = e => e.nbrKm;
-      const byKm = sortBykm(toKm,byValue);
-      console.log([...user].sort(byKm));  */
+        }, []);
+ console.log(sort)
     
- 
-
   return (
     <View style={styles.container}>
       <Navheader attribut = {props.navigation.navigate} />
@@ -263,7 +262,7 @@ const user= [
         > </Input>    */}
             
     {
-      dataChallenge.map((u,i)=> {
+       props.Activites.map((u,i)=> {
         return (
         <View key={i}>
           
@@ -272,7 +271,7 @@ const user= [
 
           <View style={styles.cardMap}>
               <View style={{alignItems:"center"}}>
-                <Text style={styles.titreVille} >{nameCity}</Text>
+                <Text style={styles.titreVille} >{u.city}</Text>
                 <MapView
                 style={styles.map} 
                 provider="google"
@@ -297,7 +296,7 @@ const user= [
           <View>
             <View style={{alignItems:"center"}}>
               <Text style={styles.titreText}>Dernière sortie</Text>
-              <Text>{lastOuting}</Text>
+              <Text>{u.date}</Text>
               <Text style={{marginBottom:10}} ></Text>
             </View>
           </View>
@@ -311,10 +310,7 @@ const user= [
                           <Text>{u.pseudo}</Text>
                         </View>                                      
                   })}*/}
-                <Text style={{marginBottom:2}}>1: {rankingAmis1} - {kmAmis1} km</Text>
-                <Text style={{marginBottom:2}}>2: {rankingAmis2} - {kmAmis2} km</Text>
-                <Text style={{marginBottom:2}}>3: {rankingAmis3} - {kmAmis3} km</Text>
-                <Text style={{marginBottom:2}}>4: {rankingAmis4} - {kmAmis4} km</Text>
+              {listRanking}
             </View>
          
         </View>
@@ -326,7 +322,7 @@ const user= [
             
               <View style={{alignItems:"center"}}>
                 <Text style={styles.titreText}>Mon avancement</Text>
-                <Text>{nombreKm} Km</Text>
+                <Text>{u.distance} Km</Text>
                 <Text style={{marginBottom:10}}>{nombreExploration} %</Text>
               </View>
             
@@ -412,6 +408,17 @@ const user= [
 
   );
 }
+
+function mapStateToProps(state) {
+
+  return {Activites:state.ActivitiesList}
+ }
+
+export default connect(
+  mapStateToProps,
+  null
+ )(Ranking);
+
 
 const styles = StyleSheet.create({
   container: {
@@ -546,9 +553,7 @@ const customPickerStyles = StyleSheet.create({
   },
 });
 
-function mapStateToProps(state) {
-
+/*function mapStateToProps(state) {
   return {Activites:state.ActivitiesList}
  }
-
-export default connect(mapStateToProps,null)(Ranking)
+export default connect(mapStateToProps,null)(Ranking)*/
