@@ -18,13 +18,13 @@ import {connect} from 'react-redux';
 function Ranking (props) {
 
   
-  const [currentMessage, setCurrentMessage] = useState('Levallois-Perret');
+  const [currentMessage, setCurrentMessage] = useState('Levallois Perret');
   const [latitude, setLatitude] = useState(48.893217);
   const [longitude, setLongitude] = useState(2.287864);
   const [coordslist, setCoordslist] = useState([]);
   const [initialreg,setInitialreg] = useState();
 
-  const [nameCity, setnameCity] =useState('Levallois-Perret')
+  const [nameCity, setnameCity] =useState('Levallois Perret')
   const [lastOuting, setLastOuting] = useState("19/05/2021");
   const [nombreKm, setNombreKm] = useState(142);
   const [nombreExploration, setNombreExploration] = useState(34);
@@ -53,7 +53,8 @@ function Ranking (props) {
 
   const [modalVisible, setModalVisible] = useState(false);
 
-  const [sort, setSort] = useState([])
+  const [sortFriends, setSortFriends] = useState([])
+  const [sortCity, setSortCity] = useState([])
 
 
 
@@ -118,10 +119,10 @@ useEffect(() => {
     setKmVille5()
   
   }else { 
-    if (currentMessage=='Levallois-Perret'){
+    if (currentMessage=='Levallois Perret'){
     setLatitude(48.893217)
     setLongitude(	2.287864)
-    setnameCity('Levallois-Perret')
+    setnameCity('Levallois Perret')
     setLastOuting("19/05/2021")
     setNombreKm(142)
     setNombreExploration(56)
@@ -151,26 +152,7 @@ useEffect(() => {
 },[currentMessage])
 
 
-const dataChallenge = [
-  {
-    nameChallenge: "Dernière sortie",
-    lat: 48.893217,
-    lon: 2.287864,
-    ciytLocation: 'Levallois-Perret',
-    challengeDate: '19/05/2021',
-    nbrKm: 25,
-    totalAccomplishment: 56,
-  },
-  // {
-  //   nameChallenge: "Tour de Levallois",
-  //   lat: 49.23536,
-  //   lon: 4.04214,
-  //   ciytLocation: 'Reims',
-  //   challengeDate: '11/03/2021',
-  //   nbrKm: 31,
-  //   totalAccomplishment: 49,
-  // },
-]
+
 
 const user = [
   {
@@ -191,33 +173,47 @@ const user = [
   },
 ]
 
-    var noUser  
-      if (user.length === 0) {
-        noUser = <Text>Pas encore de Challenger !</Text>}
-    
-    for(var index=0 ; index<user.length ; index++) {
-      console.log(index+1)    
-      var indexRanking = index+1
-      }
-    
+{/* ---------------------- List Ranking Friends ----------------------- */}
 
-    var listRanking = sort.map(function(u) {
-      return <View>
-        <Text>{indexRanking} - {u.pseudo} - {u.nbrKm}Km</Text>
+    var noFriendUser  
+      if (user.length === 0) {
+        noFriendUser = <Text>Pas encore de Challenger !</Text>}
+
+    var listRankingFriends = sortFriends.map(function(u, i) {
+
+      return <View key={i}>
+        <Text>{i+1}: {u.pseudo} - {u.nbrKm}Km</Text>
       </View>  
       })
 
-
+{/* ---------------------- Friends Ranking calculation ----------------------- */}
+        
         useEffect(() => {
-        console.log("App is loaded");    
         const sortBykm = (map,compareFn) => (a,b) => -compareFn(map(a),map(b));
         const byValue = (a,b) => a - b;
         const toKm = e => e.nbrKm;
         const byKm = sortBykm(toKm,byValue);
-        setSort([...user].sort(byKm));  
+        setSortFriends([...user].sort(byKm));  
         }, []);
- console.log(sort)
-    
+
+
+{/* ---------------------- City Ranking calculation ----------------------- */}
+
+        var noCityUser  
+        if (user.length === 0) {
+          noCityUser = <Text>Pas encore de Challenger dans votre ville !</Text>}
+   
+          
+          var rankingCityUser = props.ranking.map ((u, i) => {
+            if (u._id.city == currentMessage) {
+              console.log(u._id.city, 'City')
+              return (<View key={i}>
+              <Text>{i+1}: {u._id.pseudo} - {u.totalDistance} Km</Text>
+            </View>)
+            }
+        });
+
+
   return (
     <View style={styles.container}>
       <Navheader attribut = {props.navigation.navigate} />
@@ -246,7 +242,7 @@ const user = [
             useNativeAndroidPickerStyle={false} 
             onValueChange={(value) => setCurrentMessage(value)}
             items={[
-                { label: "Levallois-Perret", value: "Levallois-Perret" },
+                { label: "Levallois Perret", value: "Levallois Perret" },
                 { label: "Reims", value: "Reims" },
             ]}
             value={currentMessage}
@@ -256,10 +252,6 @@ const user = [
       <Divider style={styles.divider}/>
     </View>
 
-      {/* <Input
-          placeholder='Ville'
-          leftIcon={{ color: "#ED590C", type: 'font-awesome', name: 'search' }}
-        > </Input>    */}
             
     {
        props.Activites.map((u,i)=> {
@@ -305,12 +297,7 @@ const user = [
 
             <View style={{alignItems:"center"}}>
               <Text style={styles.titreText}>Ranking amis</Text>
-                {/*{user.map((u, i) => {
-                      return <View key = {i}>
-                          <Text>{u.pseudo}</Text>
-                        </View>                                      
-                  })}*/}
-              {listRanking}
+              {listRankingFriends}
             </View>
          
         </View>
@@ -331,16 +318,9 @@ const user = [
 
             <View style={{alignItems:"center"}}>
               <Text style={styles.titreText}>Ranking ville</Text>
-                {/*{user.map((u, i) => {
-                      return <View key = {i}>
-                          <Text>{u.pseudo}</Text>
-                        </View>                                      
-                  })}*/}
-              <Text style={{marginBottom:2}}>{rankingVille1}{kmVille1}</Text>
-              <Text style={{marginBottom:2}}>{rankingVille2}{kmVille2}</Text>
-              <Text style={{marginBottom:2}}>{rankingVille3}{kmVille3}</Text>
-              <Text style={{marginBottom:2}}>{rankingVille4}</Text>
-              <Text style={{marginBottom:2}}>{rankingVille5}{kmVille5}</Text>
+
+              {rankingCityUser}
+
             </View>
 
           </View>
@@ -411,7 +391,7 @@ const user = [
 
 function mapStateToProps(state) {
 
-  return {Activites:state.ActivitiesList}
+  return {Activites:state.ActivitiesList, ranking: state.RankingList }
  }
 
 export default connect(
