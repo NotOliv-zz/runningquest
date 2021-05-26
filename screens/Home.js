@@ -81,7 +81,6 @@ useEffect(() => {
 },[])
 
 var tropheeLib="" 
-console.log(myTrophee)
 if (myTrophee.length>0){
     tropheeLib="Mes derniers trophées"
 }
