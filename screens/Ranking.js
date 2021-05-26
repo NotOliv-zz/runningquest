@@ -149,7 +149,6 @@ const user = [
           
           var rankingCityUser = props.ranking.map ((u, i) => {
             if (u._id.city == currentMessage) {
-              console.log(u._id.city, 'City',i)
               return (<View key={i}>
               <Text>{rank++}: {u._id.pseudo} - {u.totalDistance} Km</Text>
             </View>)
@@ -196,10 +195,8 @@ const user = [
     </View>
 
             
-    {
-       props.Activites.map((u,i)=> {
-        return (
-        <View key={i}>
+    
+        <View >
           
 
 {/* ---------------------- Map + Citylocation ----------------------- */}
@@ -231,7 +228,7 @@ const user = [
           <View>
             <View style={{alignItems:"center"}}>
               <Text style={styles.titreText}>Dernière sortie</Text>
-              <Text>{u.date}</Text>
+              <Text>{lastOuting}</Text>
               <Text style={{marginBottom:10}} ></Text>
             </View>
           </View>
@@ -252,7 +249,7 @@ const user = [
             
               <View style={{alignItems:"center"}}>
                 <Text style={styles.titreText}>Mon avancement</Text>
-                <Text>{u.distance} Km</Text>
+                <Text>{nombreKm} Km</Text>
                 <Text style={{marginBottom:10}}>{nombreExploration} %</Text>
               </View>
             
@@ -323,9 +320,8 @@ const user = [
           </Card>
           </ScrollView>
         </View>    
-        )
-      })
-    }
+ 
+
     </View>
 
 
@@ -379,7 +375,6 @@ const styles = StyleSheet.create({
     display: "flex",
     borderRadius: 10,
     marginTop: 13,
-    marginBottom: 60,
     borderBottomWidth: 2,
     borderRightWidth: 2,
     borderTopColor:"#ffffff",
