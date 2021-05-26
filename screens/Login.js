@@ -20,10 +20,14 @@ function LoginPage(props) {
 
     //const data = await fetch('https://runningquest1.herokuapp.com/sign-in', {
 <<<<<<< HEAD
+<<<<<<< HEAD
     const data = await fetch('http://192.168.1.25:3000/sign-in', {
 =======
     const data = await fetch('http://192.168.1.23:3000/sign-in', {
 >>>>>>> b97b69585c8c8321b8a8def64aecff1835f29d34
+=======
+    const data = await fetch('http://192.168.0.13:3000/sign-in', {
+>>>>>>> a1562e21548a3a13ca020d9e187c5492929043c4
       method: 'POST',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       body: `emailFromFront=${signInEmail}&passwordFromFront=${signInPassword}`
