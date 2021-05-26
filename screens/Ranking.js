@@ -180,12 +180,12 @@ const user = [
         if (user.length === 0) {
           noCityUser = <Text>Pas encore de Challenger dans votre ville !</Text>}
    
-          
+          var rank=1
           var rankingCityUser = props.ranking.map ((u, i) => {
             if (u._id.city == currentMessage) {
-              console.log(u._id.city, 'City')
+              console.log(u._id.city, 'City',i)
               return (<View key={i}>
-              <Text>{i+1}: {u._id.pseudo} - {u.totalDistance} Km</Text>
+              <Text>{rank++}: {u._id.pseudo} - {u.totalDistance} Km</Text>
             </View>)
             }
         });
