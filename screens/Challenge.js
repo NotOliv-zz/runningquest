@@ -84,7 +84,7 @@ function Challenge(props) {
 
             <View key={i}>
 
-              <View style={{ alignItems: "center", marginTop: 15, marginRight: 10, marginBottom: 16}}>
+              <View style={{ alignItems: "center", justifyContent:"center"}}>
                 
                 <Image style={styles.image} source={({uri : u.Trophee})} />
                 <Text>{u.Nom}</Text>
@@ -209,7 +209,7 @@ function Challenge(props) {
 
             <View key={i}>
 
-              <View style={{ alignItems: "center", justifyContent:"center", marginTop: 15, marginRight: 10, marginBottom: 16}}>
+              <View style={{ alignItems: "center", justifyContent:"center"}}>
 
                 <Image style={styles.image} source={{uri:u.Trophee}}/>
                 <Text>{u.Nom}</Text>
@@ -268,9 +268,9 @@ const styles = StyleSheet.create({
     borderBottomColor: "#ED590C"
   },
   image: {
-    width: 100, 
-    height: 100, 
-    marginBottom: 5
+    width: 95, 
+    height: 95, 
+    margin:5
   },
   textStyle: {
     color: "white",
