@@ -93,6 +93,7 @@ useEffect(() => {
 
 useEffect(() => {
   if (currentMessage=='Reims'){
+    setCurrentMessage("Reims")
     setLatitude(49.258329)
     setLongitude(4.031696)
     setnameCity('Reims')
@@ -120,6 +121,7 @@ useEffect(() => {
   
   }else { 
     if (currentMessage=='Levallois Perret'){
+    setCurrentMessage("Levallois Perret")
     setLatitude(48.893217)
     setLongitude(	2.287864)
     setnameCity('Levallois Perret')
@@ -263,7 +265,7 @@ const user = [
 
           <View style={styles.cardMap}>
               <View style={{alignItems:"center"}}>
-                <Text style={styles.titreVille} >{u.city}</Text>
+                <Text style={styles.titreVille} >{(currentMessage)}</Text>
                 <MapView
                 style={styles.map} 
                 provider="google"
@@ -436,7 +438,7 @@ const styles = StyleSheet.create({
     display: "flex",
     borderRadius: 10,
     marginTop: 13,
-    marginBottom: 30,
+    marginBottom: 60,
     borderBottomWidth: 2,
     borderRightWidth: 2,
     borderTopColor:"#ffffff",
