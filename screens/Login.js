@@ -19,7 +19,7 @@ function LoginPage(props) {
   var handleSubmitSignIn = async () => {
 
     //const data = await fetch('https://runningquest1.herokuapp.com/sign-in', {
-    const data = await fetch('http://192.168.1.29:3000/sign-in', {
+    const data = await fetch('http://192.168.0.13:3000/sign-in', {
       method: 'POST',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       body: `emailFromFront=${signInEmail}&passwordFromFront=${signInPassword}`
