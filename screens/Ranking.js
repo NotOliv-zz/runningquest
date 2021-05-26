@@ -145,8 +145,7 @@ useEffect(() => {
     setKmVille4()
     setKmVille5('142 km')
   }}
-  console.log(longitude)
-  console.log(latitude)
+
 
 
 },[currentMessage])

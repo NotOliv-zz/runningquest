@@ -7,8 +7,6 @@ import {connect} from 'react-redux';
 
 function Navheader(props) {
 
-  console.log("photo",props.photo)
-
   return (
 
     <View style={{

@@ -7,44 +7,6 @@ import Navheader from "../component/Navheader"
 import RNPickerSelect from 'react-native-picker-select';
 import {connect} from 'react-redux';
 
-// const picto = [
-//   {
-//     name: "Et de 15 !",
-//     picto: require("../assets/Badge/15km.jpg"),
-//   },
-//   {
-//     name: "30 de plus !",
-//     picto: require("../assets/Badge/30km.jpg"),
-//   },
-//   {
-//     name: " être connecté",
-//     picto: require("../assets/Badge/Connect.jpg"),
-//   },
-//   {
-//     name: " Contre la montre",
-//     picto: require("../assets/Badge/Time.jpg"),
-//   },
-// ]
-
-
-// const dataTrophee = [
-//   {
-//     name: "Et de 15 !",
-//     picto: require("../assets/Badge/15km.jpg"),
-//   },
-//   {
-//     name: "30 de plus !",
-//     picto: require("../assets/Badge/30km.jpg"),
-//   },
-//   {
-//     name: " être connecté",
-//     picto: require("../assets/Badge/Connect.jpg"),
-//   },
-//   {
-//     name: " Contre la montre",
-//     picto: require("../assets/Badge/Time.jpg"),
-//   },
-// ]
 
 function Challenge(props) {
 

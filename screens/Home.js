@@ -41,7 +41,6 @@ useEffect(() => {
   var polylineEncode=[]
 
   for (var i=0;i<props.Activites.length;i++){
-    console.log(currentMessage,"-----")
     
       polylineEncode.push(props.Activites[i].polyline.replace(/\\\\/g,'\\'))
        
@@ -63,7 +62,6 @@ useEffect(() => {
 
    //////Trophee
    var dataTropheeReverse=props.dataTrophee.reverse()
-   console.log(dataTropheeReverse)
    var myTroph=dataTropheeReverse.map((u, i) => {
      if (i<3){
       return (
