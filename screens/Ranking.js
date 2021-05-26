@@ -29,32 +29,9 @@ function Ranking (props) {
   const [nombreKm, setNombreKm] = useState(142);
   const [nombreExploration, setNombreExploration] = useState(34);
   
-  const [rankingAmis1, setRankingAmis1] = useState('Olivier')
-  const [rankingAmis2, setRankingAmis2] = useState('Jean-Luc')
-  const [rankingAmis3, setRankingAmis3] = useState('Florent')
-  const [rankingAmis4, setRankingAmis4] = useState('Adeline')
-
-  const [kmAmis1, setKmAmis1] = useState(142)
-  const [kmAmis2, setKmAmis2] = useState(23)
-  const [kmAmis3, setKmAmis3] = useState(18)
-  const [kmAmis4, setKmAmis4] = useState(15)
-
-  const [rankingVille1, setRankingVille1] = useState('Alexis')
-  const [rankingVille2, setRankingVille2] = useState('Viviane')
-  const [rankingVille3, setRankingVille3] = useState('Laura')
-  const [rankingVille4, setRankingVille4] = useState('...')
-  const [rankingVille5, setRankingVille5] = useState('Olivier')
-
-  const [kmVille1, setKmVille1] = useState(57)
-  const [kmVille2, setKmVille2] = useState(54)
-  const [kmVille3, setKmVille3] = useState(51)
-  const [kmVille4, setKmVille4] = useState()
-  const [kmVille5, setKmVille5] = useState(142)
-
   const [modalVisible, setModalVisible] = useState(false);
 
   const [sortFriends, setSortFriends] = useState([])
-  const [sortCity, setSortCity] = useState([])
 
 
 
@@ -93,6 +70,7 @@ useEffect(() => {
 
 useEffect(() => {
   if (currentMessage=='Reims'){
+    setCurrentMessage("Reims")
     setLatitude(49.258329)
     setLongitude(4.031696)
     setnameCity('Reims')
@@ -120,6 +98,7 @@ useEffect(() => {
   
   }else { 
     if (currentMessage=='Levallois Perret'){
+    setCurrentMessage("Levallois Perret")
     setLatitude(48.893217)
     setLongitude(	2.287864)
     setnameCity('Levallois Perret')
@@ -155,19 +134,19 @@ useEffect(() => {
 
 const user = [
   {
-    pseudo: "user1",
+    pseudo: "Eric",
     nbrKm: 45,
   },
   {
-    pseudo: "user2",
+    pseudo: "Marie",
     nbrKm: 30,
   },
   {
-    pseudo: "user3",
+    pseudo: "Sarah",
     nbrKm: 40,
   },
   {
-    pseudo: "user4",
+    pseudo: "Hector",
     nbrKm: 15,
   },
 ]
@@ -262,7 +241,7 @@ const user = [
 
           <View style={styles.cardMap}>
               <View style={{alignItems:"center"}}>
-                <Text style={styles.titreVille} >{u.city}</Text>
+                <Text style={styles.titreVille} >{(currentMessage)}</Text>
                 <MapView
                 style={styles.map} 
                 provider="google"
@@ -435,7 +414,7 @@ const styles = StyleSheet.create({
     display: "flex",
     borderRadius: 10,
     marginTop: 13,
-    marginBottom: 30,
+    marginBottom: 60,
     borderBottomWidth: 2,
     borderRightWidth: 2,
     borderTopColor:"#ffffff",
