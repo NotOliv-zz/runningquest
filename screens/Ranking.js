@@ -146,7 +146,7 @@ const user = [
           noCityUser = <Text>Pas encore de Challenger dans votre ville !</Text>}
    
           var rank=1
-          
+
           var rankingCityUser = props.ranking.map ((u, i) => {
             if (u._id.city == currentMessage) {
               return (<View key={i}>
