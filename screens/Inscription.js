@@ -11,6 +11,7 @@ function Inscription(props) {
   const [signUpPseudo, setSignUpPseudo] = useState('')
   const [signUpEmail, setSignUpEmail] = useState('')
   const [signUpPassword, setSignUpPassword] = useState('')
+  const [listErrorsSignup, setErrorsSignup] = useState([])
   
 
   const [userExists, setUserExists] = useState(false)
@@ -33,10 +34,14 @@ var handleSubmitSignUp = async () => {
     if(body.saveUser) {
     props.addToken(body.saveUser.token)
     props.navigation.navigate('API')
-  } 
+  } else {
+    setErrorsSignup(body.error)
+  }
 }
 
-
+var tabErrorsSignup = listErrorsSignup.map((error,i) => {
+  return(<Text key={i}>{error}</Text>)
+})
 
 //____________________________________ DEBUT RETURN ________________________________________//
   return (
@@ -48,6 +53,7 @@ var handleSubmitSignUp = async () => {
         <Input onChangeText={(value) => setSignUpPseudo(value)} value={signUpPseudo} placeholder='Pseudo' leftIcon={<Icon name='user' type='font-awesome' size={24} color='black' />}/>
         <Input onChangeText={(value) => setSignUpEmail(value)} value={signUpEmail} placeholder='Email' leftIcon={<Icon name='at' type='font-awesome' size={24} color='black'/>}/>
         <Input onChangeText={(value) => setSignUpPassword(value)} value={signUpPassword} placeholder='Password' secureTextEntry={true} leftIcon={<Icon name='unlock-alt' type='font-awesome' size={24} color='black'/>}/>
+        {tabErrorsSignup}
       </View>
         <Button title="Inscription" type="solid" buttonStyle={{backgroundColor: "#ED590C"}} onPress={() => handleSubmitSignUp()} />    
       </View>
