@@ -1,11 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-
 import {Button, Input, Icon} from 'react-native-elements'
-
 import {connect} from 'react-redux';
-
 
 
 function LoginPage(props) {
@@ -20,7 +16,7 @@ function LoginPage(props) {
 
     //const data = await fetch('https://runningquest1.herokuapp.com/sign-in', {
 
-    const data = await fetch('http://192.168.1.23:3000/sign-in', {
+    const data = await fetch('http://192.168.1.29:3000/sign-in', {
 
       method: 'POST',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -32,7 +28,7 @@ function LoginPage(props) {
 
     if(body.result == true){
       props.navigation.navigate('BottomNavigator', {screen: 'Activity'})
-      props.addToken(body.token)
+      props.addToken(body.user.token)
       props.addActivities(body.user.activities)
       props.addProfil(body.user.profilpicfromstrava)
       props.addRanking(body.dataRanking)
@@ -46,7 +42,7 @@ function LoginPage(props) {
   }
 
 
-
+ //____________________________________ MESSAGE D'ERREUR ________________________________________//
   var tabErrorsSignin = listErrorsSignin.map((error,i) => {
     return(<Text key={i}>{error}</Text>)
   })
@@ -80,7 +76,7 @@ const styles = StyleSheet.create({
 });
 
 
-
+  //____________________________________ REDUCERS ________________________________________//
 function mapDispatchToProps(dispatch){
   return {
     addToken: function(token){

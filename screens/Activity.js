@@ -1,15 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Image, ScrollView, Pressable } from 'react-native';
-
-import {Avatar,Card, ListItem, Button, Icon, Header, Badge} from 'react-native-elements'
+import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
+import {Card, Badge} from 'react-native-elements'
 import Navheader from "../component/Navheader"
-
 import {connect} from 'react-redux';
 import MapView, { Polyline } from 'react-native-maps';
 import polyline from '@mapbox/polyline';
-
-
 
 
 function Activity(props) {
@@ -18,20 +13,23 @@ function Activity(props) {
   
     <View style={styles.container}>
          
-  <Navheader attribut = {props.navigation.navigate}/>
+    <Navheader attribut = {props.navigation.navigate}/>
 
-  <View>
+    <View>
 
-  <Card containerStyle={styles.card}>
-    <Card.Title>Mes dernières activitées</Card.Title>
-    <Image 
-       style={{marginLeft:82, width: 150, height: 30}}
-       source={require("../assets/poweredstrava.png")}></Image>
-    <Card.Title style={{fontSize:13}}>Dernier import le 21.05.2021</Card.Title>
-    <Card.Divider style={styles.divider}/>
-    <ScrollView>
-    <View style={{justifyContent: "center",}}>
- 
+    <Card containerStyle={styles.card}>
+      <Card.Title>Mes dernières activitées</Card.Title>
+      <Image 
+        style={{marginLeft:82, width: 150, height: 30}}
+        source={require("../assets/poweredstrava.png")}>
+      </Image>
+
+      <Card.Title style={{fontSize:13}}>Dernier import le 21.05.2021</Card.Title>
+      <Card.Divider style={styles.divider}/>
+      <ScrollView>
+      <View style={{justifyContent: "center",}}>
+    
+    {/* --------------------------AFFICHAGE DU TRACE SUR LA MAP---------------------------- */}
           {
           props.Activites.map((u, i) => {
           
@@ -48,7 +46,7 @@ function Activity(props) {
               let latitude = coordstab[0]
               let longitude = u.start_long
 
-            return (
+              return (
               
               <Card key={i} containerStyle={styles.miniCard} >
                 <View style={{flexDirection:"row"}}>
@@ -63,11 +61,11 @@ function Activity(props) {
                       <Badge 
                         badgeStyle={styles.badge}
                         value={<Text style={{color:"#ffffff"}}>+{u.newkm} new km</Text>}
-                      />
-                
+                      />                
                     </View>
-                    </View>
-                    <View>
+                  </View>
+
+                  <View>
                       <MapView
                           style={styles.map} 
                           provider="google"
@@ -85,27 +83,24 @@ function Activity(props) {
                           
                           strokeWidth={2}
                           />
-                            </MapView> 
-                    </View>
+                      </MapView> 
+                  </View>
                   
                 </View>
  
               </Card>
               
-
-
-
                 );
               })
             }
          
 
-    </View>
-    </ScrollView>
-  </Card>
+        </View>
+        </ScrollView>
+      </Card>
 
-  </View>
-</View>
+      </View>
+    </View>
 
   )}
 

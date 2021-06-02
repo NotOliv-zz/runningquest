@@ -1,6 +1,6 @@
-import React, { useLayoutEffectn, useState,useEffect } from 'react';
-import { StyleSheet, Text, View, Image, Picker, ScrollView} from 'react-native';
-import {Card,CardItem, SearchBar, Input, LinearProgress,Icon, Divider} from 'react-native-elements'
+import React, { useState,useEffect } from 'react';
+import { StyleSheet, Text, View, Image, ScrollView} from 'react-native';
+import {Card,LinearProgress,Icon, Divider} from 'react-native-elements'
 import Navheader from "../component/Navheader";
 import MapView, { Polyline } from 'react-native-maps';
 import polyline from '@mapbox/polyline';
@@ -18,10 +18,9 @@ function Home(props) {
   const [dataRanking, setDataRanking] = useState('--');
   const [myTrophee, setmyTrophee] = useState([]);
 
-useEffect(() => {
- 
 
-//Classement
+useEffect(() => {
+ //-----------------------------RECUPERATION DU CLASSEMENT-----------------------------------------------
   var rank=0
   for (var p=0;p<props.Rankings.length;p++){
     if (props.Rankings[p]._id.city==currentMessage){
@@ -32,24 +31,19 @@ useEffect(() => {
         setDataRanking(rank);
         break;
       } 
-
     }
   }
 
-
-  //Je décode mes polyline
+  //--------------------------------RECUPERATION DES POLYLINES------------------------------------
   var polylineEncode=[]
 
   for (var i=0;i<props.Activites.length;i++){
-    
       polylineEncode.push(props.Activites[i].polyline.replace(/\\\\/g,'\\'))
-       
   }
     
     var coords=polylineEncode.map((act,i)=>{
        
       var polyDecode=polyline.decode(act)
-  
       var coords2= polyDecode.map((poly,i)=>{
   
         return ({latitude : poly[0], longitude : poly[1]})
@@ -60,19 +54,16 @@ useEffect(() => {
    })
    setCoordslist(coords)
 
-   //////Trophee
+   //--------------------------RECUPERATION DES TROPHEES--------------------------------------------
    var dataTropheeReverse=props.dataTrophee.reverse()
    var myTroph=dataTropheeReverse.map((u, i) => {
      if (i<3){
       return (
-      
         <Image key={i} style={{ width: 40, height: 40, marginLeft:"auto", marginRight:"auto"}}
         source={{uri : u.Trophee}}
-      />
-
+       />
       );
-     }
-    
+     }    
   })
   setmyTrophee(myTroph)
 
@@ -88,10 +79,9 @@ if (dataExploration>0){
   explorationLib=((dataExploration/500)*100).toFixed(0)
 }
 
-//j'applique le useefffect si je change de ville
+//------------------------------USEEFFECT CHANGEMENT DE VILLE-----------------------------
 useEffect(() => {
 
-//Classement
 var rank=0
 setDataExploration('--');
 setDataSpeed('--')
@@ -108,167 +98,151 @@ setDataRanking('--');
 
     }
   }
+      //----------CENTRER LA CARTE EN FONCTION DE LA VILLE----------
 
-//Placement de la carte
-  if (currentMessage=='Reims'){
+  if (currentMessage =='Reims'){
     setLatitude(49.258329)
     setLongitude(4.031696)
-    //setDataTarget(41);
-    
-
-  }else { 
-    if (currentMessage=='Levallois Perret'){
+       
+  }else if (currentMessage =='Levallois Perret') { 
     setLatitude(48.893217)
     setLongitude(	2.287864)
-    //setDataExploration(142);
-
-  }}
-
+  }
 
 },[currentMessage])
 
+//--------------------------------------AFFICHAGE--------------------------------
 
   return (
         
-    <View style={styles.container}>
+      <View style={styles.container}>
 
-      <Navheader attribut = {props.navigation.navigate}/>
+        <Navheader attribut = {props.navigation.navigate}/>
 
-      <View style={{alignItems:"center"}}>
-      <View style={{flexDirection:"row", justifyContent:"center", marginTop:10}}>
-        <Icon size={20} color= "#ED590C" type= 'font-awesome' name= 'search'/>
-        <View style={{marginLeft:10, marginTop:5, width:300}}>
-          
-          <RNPickerSelect
-            Style={styles.customPickerStyles}
-            placeholder={{color:"#ED590C", label: "Selectionnez une ville"}}
-            useNativeAndroidPickerStyle={false} 
-             onValueChange={(value) => setCurrentMessage(value)}
-            //onValueChange={(value) => changeCity(value)}
-            items={[
-                
-                { label: "Reims", value: "Reims" },
-                { label: "Levallois Perret", value: "Levallois Perret" },
+        {/* -------------CHAMPS RECHERCHE DE LA VILLE------------------- */}
 
-            ]}
-            value={currentMessage}
-           
-          />
+        <View style={{alignItems:"center"}}>
+        <View style={{flexDirection:"row", justifyContent:"center", marginTop:10}}>
+          <Icon size={20} color= "#ED590C" type= 'font-awesome' name= 'search'/>
+          <View style={{marginLeft:10, marginTop:5, width:300}}>
+            
+            <RNPickerSelect
+              placeholder={{color:"#ED590C", label: "Selectionnez une ville"}}
+              useNativeAndroidPickerStyle={false} 
+              onValueChange={(value) => setCurrentMessage(value)}
+              items={[
+                  
+                  { label: "Reims", value: "Reims" },
+                  { label: "Levallois Perret", value: "Levallois Perret" },
+              ]}
+              value={currentMessage}
+            />
+          </View>
         </View>
+        <Divider style={styles.divider}/>
       </View>
-      <Divider style={styles.divider}/>
-    </View>
    
       <ScrollView>
+
+        {/* -----------------------AFFICHAGE DE LA MAP------------------------ */}
+
         <View style={styles.container}>
-        
           <Card containerStyle={styles.cardMap}>
-          
-              {/* <Image style={styles.img}
-                  source={require('../assets/Map-Levallois.jpg')}
-              /> */}
-              <MapView
-                style={styles.map} 
-                provider="google"
-                region={{
-                  latitude: latitude,
-                  longitude: longitude,
-                  latitudeDelta: 0.0322,
-                  longitudeDelta: 0.0221,
-                }}>
+            <MapView
+              style={styles.map}
+              provider="google"
+              region={{
+                latitude: latitude,
+                longitude: longitude,
+                latitudeDelta: 0.0322,
+                longitudeDelta: 0.0221,
+              }}>
 
-                  {coordslist}
-                  
-
-              </MapView>      
-
-              <View style={{flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
-                <View style={styles.box}>
-                      <Text style={{fontSize:13, marginBottom:5}}>Exploration</Text>
-                      <View style={{flexDirection:"row", alignItems:"center"}}>
-                        <Text style={{fontWeight:"bold", color:"#ED590C" }}>{dataExploration}</Text>
-                        <Text style={{fontWeight:"bold"}}> km</Text>
-                      </View>
-                </View>
-          
-                <View style={styles.box}>
-                      <Text style={{fontSize:13, marginBottom:5}}>Objectif</Text>
-                      <View style={{flexDirection:"row", alignItems:"center"}}>
-                        <Text style={{fontWeight:"bold", color:"#ED590C" }}>{explorationLib}</Text>
-                        <Text style={{fontWeight:"bold"}}> %</Text>
-                      </View>
-                
-                </View>
-                
-                <View style={styles.box}>
-                      <Text style={{fontSize:13, marginBottom:5}}>Vitesse</Text>
-                      <View style={{flexDirection:"row", alignItems:"center"}}>
-                        <Text style={{fontSize:13,fontWeight:"bold", color:"#ED590C" }}>{dataSpeed}</Text>
-                        <Text style={{fontSize:13,fontWeight:"bold"}}> km/h</Text>
-                      </View>
-                </View>
-
-                <View style={styles.box}>
-                      <Text style={{fontSize:13, marginBottom:5}}>Rang Ville</Text>
-                      <View style={{flexDirection:"row", alignItems:"center"}}>
-                        <Text style={{fontWeight:"bold", color:"#ED590C" }}>{dataRanking}</Text>
-                        <Text style={{fontWeight:"bold"}}> ème</Text>
-                      </View>
-                </View>
+              {coordslist}
+            </MapView>
             
+            {/* -------------------AFFICHAGE DES STATISTIQUES------------------- */}
+
+            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+              <View style={styles.box}>
+                <Text style={{ fontSize: 13, marginBottom: 5 }}>Explor.</Text>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <Text style={{ fontWeight: "bold", color: "#ED590C" }}>{dataExploration}</Text>
+                  <Text style={{ fontWeight: "bold" }}> km</Text>
+                </View>
               </View>
 
-              </Card>
-              
-              <Card containerStyle={styles.card}>
-                <Card.Title>Mes challenges</Card.Title>
-                <View style={{flexDirection:"row", alignItems:"center", justifyContent:"center", marginBottom:10}}>
-                  <Image style={{ width: 70, height: 70, marginRight:15}}
-                    source={require('../assets/Badge/30km.jpg')}
-                  />
-                  <View>
-                    <View>
-                      <Text style={{fontWeight:"bold"}}>Explorez 30 nouveaux km</Text>
-                      <View style={{flexDirection:"row", marginBottom:15}}>
-                        <Text>Il reste </Text>
-                        <Text style={{fontWeight:"bold", color:"#ED590C" }}>3 </Text>
-                        <Text>jours </Text>
-                      </View>
-                    </View>
-                    <LinearProgress style={{height:20, width:215, borderRadius:10}} variant="determinate" value={0.9} color="#ED590C"/>
+              <View style={styles.box}>
+                <Text style={{ fontSize: 13, marginBottom: 5 }}>Objectif</Text>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <Text style={{ fontWeight: "bold", color: "#ED590C" }}>{explorationLib}</Text>
+                  <Text style={{ fontWeight: "bold" }}> %</Text>
+                </View>
+              </View>
+
+              <View style={styles.box}>
+                <Text style={{ fontSize: 13, marginBottom: 5 }}>Vitesse</Text>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <Text style={{ fontSize: 13, fontWeight: "bold", color: "#ED590C" }}>{dataSpeed}</Text>
+                  <Text style={{ fontSize: 13, fontWeight: "bold" }}> km/h</Text>
+                </View>
+              </View>
+
+              <View style={styles.box}>
+                <Text style={{ fontSize: 13, marginBottom: 5 }}>Rang Ville</Text>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <Text style={{ fontWeight: "bold", color: "#ED590C" }}>{dataRanking}</Text>
+                  <Text style={{ fontWeight: "bold" }}> ème</Text>
+                </View>
+              </View>
+
+            </View>
+
+          </Card>
+          
+           {/* -------------------AFFICHAGE DES CHALLENGES ET TROPHEES------------------- */}
+
+          <Card containerStyle={styles.card}>
+            <Card.Title>Mes challenges</Card.Title>
+            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", marginBottom: 10 }}>
+              <Image style={{ width: 70, height: 70, marginRight: 15 }}
+                source={require('../assets/Badge/30km.jpg')}
+              />
+              <View>
+                <View>
+                  <Text style={{ fontWeight: "bold" }}>Explorez 30 nouveaux km</Text>
+                  <View style={{ flexDirection: "row", marginBottom: 15 }}>
+                    <Text>Il reste </Text>
+                    <Text style={{ fontWeight: "bold", color: "#ED590C" }}>3 </Text>
+                    <Text>jours </Text>
                   </View>
                 </View>
-               
-                <Card.Title>{tropheeLib}</Card.Title>
-                <View style={{flexDirection:"row", justifyContent:"center"}}>
-                {myTrophee}
-                </View>
-                
-              </Card>
-                            
+                <LinearProgress style={{ height: 20, width: 215, borderRadius: 10 }} variant="determinate" value={0.9} color="#ED590C" />
+              </View>
+            </View>
+
+            <Card.Title>{tropheeLib}</Card.Title>
+            <View style={{ flexDirection: "row", justifyContent: "center" }}>
+              {myTrophee}
+            </View>
+
+          </Card>
+
         </View>
-        </ScrollView>
+      </ScrollView>
         
     </View>
    
     
   );
 }
-
           
-
+//-------------------------CSS--------------------------------
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F9F9F9',
-  },
-  img: {
-    borderColor: '#f0f0f0',
-    borderWidth: 1,
-    width: '100%', 
-    height: 200,
-    marginBottom: 2,
   },
   box:{
     borderWidth: 1,
@@ -319,30 +293,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const customPickerStyles = StyleSheet.create({
-  inputIOS: {
-    fontSize: 14,
-    paddingVertical: 10,
-    paddingHorizontal: 12,
-    borderWidth: 1,
-    borderColor: "#ED590C",
-    borderRadius: 10,
-    color: 'black',
-    paddingRight: 30, // to ensure the text is never behind the icon
-  },
-  inputAndroid: {
-    fontSize: 14,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    borderWidth: 1,
-    borderColor: "#ED590C",
-    borderRadius: 8,
-    color: 'black',
-    paddingRight: 30, // to ensure the text is never behind the icon
-  },
-});
-
-
+//-------------------------REDUCERS--------------------------------
 
 function mapStateToProps(state) {
 
