@@ -1,55 +1,13 @@
-import { StatusBar } from 'expo-status-bar';
-import React, {useState, useef} from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, Text, View, ScrollView, Image, Modal, TextInput, Pressable, Alert } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import {Button, Card } from 'react-native-elements'
 import Navheader from "../component/Navheader"
 import RNPickerSelect from 'react-native-picker-select';
 import {connect} from 'react-redux';
 
-// const picto = [
-//   {
-//     name: "Et de 15 !",
-//     picto: require("../assets/Badge/15km.jpg"),
-//   },
-//   {
-//     name: "30 de plus !",
-//     picto: require("../assets/Badge/30km.jpg"),
-//   },
-//   {
-//     name: " être connecté",
-//     picto: require("../assets/Badge/Connect.jpg"),
-//   },
-//   {
-//     name: " Contre la montre",
-//     picto: require("../assets/Badge/Time.jpg"),
-//   },
-// ]
-
-
-// const dataTrophee = [
-//   {
-//     name: "Et de 15 !",
-//     picto: require("../assets/Badge/15km.jpg"),
-//   },
-//   {
-//     name: "30 de plus !",
-//     picto: require("../assets/Badge/30km.jpg"),
-//   },
-//   {
-//     name: " être connecté",
-//     picto: require("../assets/Badge/Connect.jpg"),
-//   },
-//   {
-//     name: " Contre la montre",
-//     picto: require("../assets/Badge/Time.jpg"),
-//   },
-// ]
-
 function Challenge(props) {
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [isSelected, setSelection] = useState(false);
   const [currentMessage, setCurrentMessage] = useState("Km");
   const [newChallengeName, setNewChallengeName] = useState("");
   const [newChallengeNumber,setNewChallengeNumber] = useState("");
@@ -70,7 +28,7 @@ function Challenge(props) {
 
   <View>
 
-{/*---------------------- Card avec "Mes challenges" -----------------------*/}
+{/*---------------------- LISTE DES CHALLENGES -----------------------*/}
 
   <Card containerStyle={styles.card}>
     <Card.Title>Mes challenges en cours</Card.Title>
@@ -100,7 +58,7 @@ function Challenge(props) {
     </ScrollView>
   </Card>
 
-{/*---------------------- Modal -----------------------*/}
+{/*---------------------- MODAL POUR CREER UN CHALLENGE -----------------------*/}
 
   <Modal 
       animationType="slide"
@@ -185,9 +143,9 @@ function Challenge(props) {
       </Pressable>
     </View>
     </View>
-</Modal>
+ </Modal>
 
-{/*---------------------- Button "créer un challenge" -----------------------*/}
+{/*---------------------- BOUTTON POUR CREER UN CHALLENGE -----------------------*/}
 
 <Pressable 
   style={[styles.button]}
@@ -195,7 +153,7 @@ function Challenge(props) {
   <Text style={styles.textStyle}>Créer un challenge !</Text>
 </Pressable>
 
-{/*---------------------- Card avec "Mes trophées" -----------------------*/}
+{/*---------------------- LISTE DES TROPHEES -----------------------*/}
 
   <Card containerStyle={styles.card}>
     <Card.Title>Mes trophées gagnés</Card.Title>
@@ -324,6 +282,8 @@ const styles = StyleSheet.create({
   
   }
 })
+
+/*---------------------- REDUCERS -----------------------*/
 
 function mapStateToProps(state) {
 
