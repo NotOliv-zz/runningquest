@@ -1,16 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, Text, View, Image, Pressable, Modal, Alert, TextInput, ScrollView,  } from 'react-native';
+import { StyleSheet, Text, View, Pressable, Modal, Alert, TextInput, ScrollView,  } from 'react-native';
 
-import {Card, Button, Input, Icon, Divider} from 'react-native-elements'
+import {Card, Button, Icon, Divider} from 'react-native-elements'
 import Navheader from "../component/Navheader"
 import RNPickerSelect from 'react-native-picker-select';
-import DropDownPicker from 'react-native-dropdown-picker';
 import MapView, { Polyline } from 'react-native-maps';
 import polyline from '@mapbox/polyline';
-
-import { Ionicons } from '@expo/vector-icons';
-import color from 'color';
 
 import {connect} from 'react-redux';
 
@@ -34,14 +29,7 @@ function Ranking (props) {
   const [sortFriends, setSortFriends] = useState([])
 
 
-
-  // const [open, setOpen] = useState(false);
-  // const [value, setValue] = useState(null);
-  // const [items, setItems] = useState([
-  //   {label: 'Apple', value: 'apple'},
-  //   {label: 'Banana', value: 'banana'}
-  // ]);
-
+{/* ---------------------- RECUPERATION DES POLYLINES ----------------------- */}
 
 useEffect(() => {
 
@@ -68,6 +56,8 @@ useEffect(() => {
 
 },[])
 
+{/* ---------------------- cENTRER LA VILLE PAR RAPPORT A LA VILLE ----------------------- */}
+
 useEffect(() => {
   if (currentMessage=='Reims'){
     setLatitude(49.258329)
@@ -76,24 +66,7 @@ useEffect(() => {
     setLastOuting("08/05/2021")
     setNombreKm(212)
     setNombreExploration(41)
-    setRankingAmis1('Jean-Luc')
-    setRankingAmis2('Olivier')
-    setRankingAmis3('Adeline')
-    setRankingAmis4('Florent')
-    setKmAmis1(234)
-    setKmAmis2(212)
-    setKmAmis3(167)
-    setKmAmis4(139)
-    setRankingVille1('1: Mickaël - ')
-    setRankingVille2('2: Jean-Luc - ')
-    setRankingVille3('3: Oliver - ')
-    setRankingVille4('...')
-    setRankingVille5()
-    setKmVille1(243)
-    setKmVille2(234)
-    setKmVille3(212)
-    setKmVille4()
-    setKmVille5()
+    
   
   }else { 
     if (currentMessage=='Levallois Perret'){
@@ -103,24 +76,7 @@ useEffect(() => {
     setLastOuting("19/05/2021")
     setNombreKm(142)
     setNombreExploration(56)
-    setRankingAmis1('Olivier')
-    setRankingAmis2('Jean-Luc')
-    setRankingAmis3('Florent')
-    setRankingAmis4('Adeline')
-    setKmAmis1(142)
-    setKmAmis2(110)
-    setKmAmis3(84)
-    setKmAmis4(53)
-    setRankingVille1('1: Alexis - ')
-    setRankingVille2('2: Viviane - ')
-    setRankingVille3('3: Laura - ')
-    setRankingVille4('...')
-    setRankingVille5('6: Olivier - ')
-    setKmVille1('259 km')
-    setKmVille2('256 km')
-    setKmVille3('248 km')
-    setKmVille4()
-    setKmVille5('142 km')
+    
   }}
   console.log(longitude)
   console.log(latitude)
@@ -146,11 +102,11 @@ const user = [
   },
   {
     pseudo: "Hector",
-    nbrKm: 15,
+    nbrKm: 50,
   },
 ]
 
-{/* ---------------------- List Ranking Friends ----------------------- */}
+{/* ---------------------- AFFICHAGE DU CLASSEMENT AMIS ----------------------- */}
 
     var noFriendUser  
       if (user.length === 0) {
@@ -163,7 +119,7 @@ const user = [
       </View>  
       })
 
-{/* ---------------------- Friends Ranking calculation ----------------------- */}
+{/* ---------------------- CALCUL DU CLASSEMENT AMIS ----------------------- */}
         
         useEffect(() => {
         const sortBykm = (map,compareFn) => (a,b) => -compareFn(map(a),map(b));
@@ -174,7 +130,7 @@ const user = [
         }, []);
 
 
-{/* ---------------------- City Ranking calculation ----------------------- */}
+{/* ---------------------- CALCUL DU CLASSEMENT GLOBAL ----------------------- */}
 
         var noCityUser  
         if (user.length === 0) {
@@ -194,20 +150,6 @@ const user = [
   return (
     <View style={styles.container}>
       <Navheader attribut = {props.navigation.navigate} />
-
-      {/* Autre style de barre à voir peut-êtr epour plus tard */}
-     {/* <DropDownPicker
-        open={open}
-        value={value}
-        items={items}
-        setOpen={setOpen}
-        setValue={setValue}
-        setItems={setItems}
-        searchable={true}
-        searchPlaceholder="Rechercher..."
-        containerStyle={{marginLeft:15, marginTop:10, width: 345, height: 50,}}
-        placeholder="ville"
-      /> */}
 
     <View style={{alignItems:"center"}}>
       <View style={{flexDirection:"row", justifyContent:"center", marginTop:10}}>
@@ -236,7 +178,7 @@ const user = [
         <View key={i}>
           
 
-{/* ---------------------- Map + Citylocation ----------------------- */}
+{/* ---------------------- CARTE + LOCALISATION VILLE ----------------------- */}
 
           <View style={styles.cardMap}>
               <View style={{alignItems:"center"}}>
@@ -255,7 +197,7 @@ const user = [
             </View>
           </View>
 
-{/* ---------------------- LastOuting + Date -----------------------*/}
+{/* ---------------------- DERNIERE SORTIE + DATE -----------------------*/}
       <ScrollView>
         <Card containerStyle={styles.card}>  
         
@@ -270,7 +212,7 @@ const user = [
             </View>
           </View>
 
-{/*---------------------- Friends ranking -----------------------*/}
+{/*---------------------- CLASSEMENT AMIS -----------------------*/}
 
             <View style={{alignItems:"center"}}>
               <Text style={styles.titreText}>Ranking amis</Text>
@@ -279,7 +221,7 @@ const user = [
          
         </View>
 
-{/*---------------------- Exploration + km -----------------------*/}
+{/*---------------------- EXPLORATION ET NOMBRE DE KM -----------------------*/}
 
           <View style={{paddingLeft:15, paddingRight:15}}>
           
@@ -291,7 +233,7 @@ const user = [
               </View>
             
 
-{/*---------------------- City ranking -----------------------*/}
+{/*---------------------- CLASSEMENT VILLE -----------------------*/}
 
             <View style={{alignItems:"center"}}>
               <Text style={styles.titreText}>Ranking ville</Text>
@@ -304,7 +246,7 @@ const user = [
 
         </View>
         
-{/*---------------------- Modal -----------------------*/}
+{/*---------------------- MODAL AJOUT D'AMIS -----------------------*/}
 
           <Modal
             animationType="slide"
@@ -365,6 +307,8 @@ const user = [
 
   );
 }
+
+{/*---------------------- REDUCERS -----------------------*/}
 
 function mapStateToProps(state) {
 
@@ -510,7 +454,3 @@ const customPickerStyles = StyleSheet.create({
   },
 });
 
-/*function mapStateToProps(state) {
-  return {Activites:state.ActivitiesList}
- }
-export default connect(mapStateToProps,null)(Ranking)*/
