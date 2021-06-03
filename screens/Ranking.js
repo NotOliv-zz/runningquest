@@ -1,30 +1,20 @@
-import { StatusBar } from 'expo-status-bar';
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, Text, View, Image, Pressable, Modal, Alert, TextInput, ScrollView,  } from 'react-native';
+import { StyleSheet, Text, View, Pressable, Modal, Alert, TextInput, ScrollView,  } from 'react-native';
 
-import {Card, Button, Input, Icon, Divider} from 'react-native-elements'
+import {Card, Button, Icon, Divider} from 'react-native-elements'
 import Navheader from "../component/Navheader"
 import RNPickerSelect from 'react-native-picker-select';
-import DropDownPicker from 'react-native-dropdown-picker';
 import MapView, { Polyline } from 'react-native-maps';
 import polyline from '@mapbox/polyline';
-
-import { Ionicons } from '@expo/vector-icons';
-import color from 'color';
-
 import {connect} from 'react-redux';
 
      
 function Ranking (props) {
 
-  
   const [currentMessage, setCurrentMessage] = useState('Levallois Perret');
   const [latitude, setLatitude] = useState(48.893217);
   const [longitude, setLongitude] = useState(2.287864);
   const [coordslist, setCoordslist] = useState([]);
-  const [initialreg,setInitialreg] = useState();
-
-  const [nameCity, setnameCity] =useState('Levallois Perret')
   const [lastOuting, setLastOuting] = useState("19/05/2021");
   const [nombreKm, setNombreKm] = useState(142);
   const [nombreExploration, setNombreExploration] = useState(34);
@@ -34,18 +24,11 @@ function Ranking (props) {
   const [sortFriends, setSortFriends] = useState([])
 
 
-
-  // const [open, setOpen] = useState(false);
-  // const [value, setValue] = useState(null);
-  // const [items, setItems] = useState([
-  //   {label: 'Apple', value: 'apple'},
-  //   {label: 'Banana', value: 'banana'}
-  // ]);
-
+{/* ---------------------- RECUPERATION DES POLYLINES ----------------------- */}
 
 useEffect(() => {
 
-  //Je décode mes polyline
+/*---------------------- TRACEE DES PARCOURS SUR LA CARTE -----------------------*/
   var polylineEncode=[]
   for (var i=0;i<props.Activites.length;i++){
     polylineEncode.push(props.Activites[i].polyline.replace(/\\\\/g,'\\'))
@@ -68,32 +51,32 @@ useEffect(() => {
 
 },[])
 
+/*---------------------- AFFICHAGE DES INFORMATIONS ET DE LA CARTE EN FONCTION DU SELECTEUR -----------------------*/
+
 useEffect(() => {
   if (currentMessage=='Reims'){
     setCurrentMessage("Reims")
     setLatitude(49.258329)
     setLongitude(4.031696)
-    setnameCity('Reims')
     setLastOuting("08/05/2021")
     setNombreKm(212)
     setNombreExploration(41)
+    
   
   }else { 
     if (currentMessage=='Levallois Perret'){
     setCurrentMessage("Levallois Perret")
     setLatitude(48.893217)
     setLongitude(	2.287864)
-    setnameCity('Levallois Perret')
     setLastOuting("19/05/2021")
     setNombreKm(142)
     setNombreExploration(56)
+    
   }}
 
 
 
 },[currentMessage])
-
-
 
 
 const user = [
@@ -111,11 +94,11 @@ const user = [
   },
   {
     pseudo: "Hector",
-    nbrKm: 15,
+    nbrKm: 50,
   },
 ]
 
-{/* ---------------------- List Ranking Friends ----------------------- */}
+/* ---------------------- LISTE CLASSEMENT AMIS ----------------------- */
 
     var noFriendUser  
       if (user.length === 0) {
@@ -128,7 +111,7 @@ const user = [
       </View>  
       })
 
-{/* ---------------------- Friends Ranking calculation ----------------------- */}
+/* ---------------------- CALCULATEUR CLASSEMENT AMIS ----------------------- */
         
         useEffect(() => {
         const sortBykm = (map,compareFn) => (a,b) => -compareFn(map(a),map(b));
@@ -139,7 +122,7 @@ const user = [
         }, []);
 
 
-{/* ---------------------- City Ranking calculation ----------------------- */}
+/* ---------------------- CALULATEUR CLASSEMENT VILLE ----------------------- */
 
         var noCityUser  
         if (user.length === 0) {
@@ -160,166 +143,149 @@ const user = [
     <View style={styles.container}>
       <Navheader attribut = {props.navigation.navigate} />
 
-      {/* Autre style de barre à voir peut-êtr epour plus tard */}
-     {/* <DropDownPicker
-        open={open}
-        value={value}
-        items={items}
-        setOpen={setOpen}
-        setValue={setValue}
-        setItems={setItems}
-        searchable={true}
-        searchPlaceholder="Rechercher..."
-        containerStyle={{marginLeft:15, marginTop:10, width: 345, height: 50,}}
-        placeholder="ville"
-      /> */}
+{/*---------------------- SELECTEUR POUR CHOISIR LA VILLE -----------------------*/}
 
-    <View style={{alignItems:"center"}}>
-      <View style={{flexDirection:"row", justifyContent:"center", marginTop:10}}>
-        <Icon size={20} color= "#ED590C" type= 'font-awesome' name= 'search'/>
-        <View style={{marginLeft:10, marginTop:5, width:300}}>
-          <RNPickerSelect
-            Style={styles.customPickerStyles}
-            placeholder={{color:"#ED590C", label: "Selectionnez une ville", value: null}}
-            useNativeAndroidPickerStyle={false} 
-            onValueChange={(value) => setCurrentMessage(value)}
-            items={[
-                { label: "Levallois Perret", value: "Levallois Perret" },
-                { label: "Reims", value: "Reims" },
-            ]}
-            value={currentMessage}
-          />
+      <View style={{alignItems:"center"}}>
+        <View style={{flexDirection:"row", justifyContent:"center", marginTop:10}}>
+          <Icon size={20} color= "#ED590C" type= 'font-awesome' name= 'search'/>
+          <View style={{marginLeft:10, marginTop:5, width:300}}>
+            <RNPickerSelect
+              placeholder={{color:"#ED590C", label: "Selectionnez une ville", value: null}}
+              useNativeAndroidPickerStyle={false} 
+              onValueChange={(value) => setCurrentMessage(value)}
+              items={[
+                  { label: "Levallois Perret", value: "Levallois Perret" },
+                  { label: "Reims", value: "Reims" },
+              ]}
+              value={currentMessage}
+            />
+          </View>
         </View>
+        <Divider style={styles.divider}/>
       </View>
-      <Divider style={styles.divider}/>
-    </View>
+             
+      <View >  
 
-            
-    
-        <View >
-          
+{/* ---------------------- MAP ----------------------- */}
 
-{/* ---------------------- Map + Citylocation ----------------------- */}
-
-          <View style={styles.cardMap}>
-              <View style={{alignItems:"center"}}>
-                <Text style={styles.titreVille} >{(currentMessage)}</Text>
-                <MapView
-                style={styles.map} 
-                provider="google"
-                region={{
-                  latitude: latitude,
-                  longitude: longitude,
-                  latitudeDelta: 0.0322,
-                  longitudeDelta: 0.0221,
-                }}>
-                   {coordslist}
-                </MapView>  
-            </View>
-          </View>
-
-{/* ---------------------- LastOuting + Date -----------------------*/}
-      <ScrollView>
-        <Card containerStyle={styles.card}>  
-        
-        <View style={{justifyContent:"center", flexDirection: "row"}}>
-
-        <View style={{paddingLeft:15, paddingRight:15}}>
-          <View>
+        <View style={styles.cardMap}>
             <View style={{alignItems:"center"}}>
-              <Text style={styles.titreText}>Dernière sortie</Text>
-              <Text>{lastOuting}</Text>
-              <Text style={{marginBottom:10}} ></Text>
-            </View>
+              <Text style={styles.titreVille} >{(currentMessage)}</Text>
+              <MapView
+              style={styles.map} 
+              provider="google"
+              region={{
+                latitude: latitude,
+                longitude: longitude,
+                latitudeDelta: 0.0322,
+                longitudeDelta: 0.0221,
+              }}>
+                  {coordslist}
+              </MapView>  
           </View>
-
-{/*---------------------- Friends ranking -----------------------*/}
-
-            <View style={{alignItems:"center"}}>
-              <Text style={styles.titreText}>Ranking amis</Text>
-              {listRankingFriends}
-            </View>
-         
         </View>
 
-{/*---------------------- Exploration + km -----------------------*/}
-
-          <View style={{paddingLeft:15, paddingRight:15}}>
+{/* ---------------------- DATE DE LA DERNIERE SORTIE -----------------------*/}
+        <ScrollView>
+          <Card containerStyle={styles.card}>  
           
-            
-              <View style={{alignItems:"center"}}>
-                <Text style={styles.titreText}>Mon avancement</Text>
-                <Text>{nombreKm} Km</Text>
-                <Text style={{marginBottom:10}}>{nombreExploration} %</Text>
+            <View style={{justifyContent:"center", flexDirection: "row"}}>
+
+              <View style={{paddingLeft:15, paddingRight:15}}>
+
+                <View>
+                  <View style={{alignItems:"center"}}>
+                    <Text style={styles.titreText}>Dernière sortie</Text>
+                    <Text>{lastOuting}</Text>
+                    <Text style={{marginBottom:10}} ></Text>
+                  </View>
+                </View>
+
+{/*---------------------- CLASSEMENT AMIS -----------------------*/}
+
+                <View style={{alignItems:"center"}}>
+                  <Text style={styles.titreText}>Ranking amis</Text>
+                  {listRankingFriends}
+                </View>
+              
               </View>
+
+{/*---------------------- EXPLORATION DE LA VILLE EN KM ET % -----------------------*/}
+
+              <View style={{paddingLeft:15, paddingRight:15}}>
+
+                <View style={{alignItems:"center"}}>
+                  <Text style={styles.titreText}>Mon avancement</Text>
+                  <Text>{nombreKm} Km</Text>
+                  <Text style={{marginBottom:10}}>{nombreExploration} %</Text>
+                </View>
             
 
-{/*---------------------- City ranking -----------------------*/}
+{/*---------------------- CLASSEMENT VILLE -----------------------*/}
 
-            <View style={{alignItems:"center"}}>
-              <Text style={styles.titreText}>Ranking ville</Text>
-
-              {rankingCityUser}
+                <View style={{alignItems:"center"}}>
+                  <Text style={styles.titreText}>Ranking ville</Text>
+                  {rankingCityUser}
+                </View>
+                
+              </View>
 
             </View>
+      
+{/*---------------------- MODAL POUR INVITER DES AMIS -----------------------*/}
 
-          </View>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={modalVisible}
+              onRequestClose={() => {
+                Alert.alert("Modal has been closed.");
+              setModalVisible(!modalVisible);
+              }}
+            >
+              <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                  <Text style={{fontWeight:"bold"}}>Inviter des amis</Text>
+                    <TextInput
+                        style={{
+                          height: 40,
+                          width: 200,
+                          borderWidth: 1,
+                          marginBottom: 10,
+                          marginTop: 10
+                        }}
+                        defaultValue=""
+                    />
 
-        </View>
+                    <Button
+                    title="Envoyer l'invation"
+                    buttonStyle={styles.button}
+                    onPress={() => Alert.alert('Invitation envoyée ')}
+                    />  
+
+                    <Pressable
+                      style={styles.buttonRetour}
+                      onPress={() => setModalVisible(!modalVisible)}
+                      >
+                    <Text style={styles.textStyleRetour}>Retour</Text>
+                  </Pressable>
+                </View>
+              </View>
+            </Modal>
         
-{/*---------------------- Modal -----------------------*/}
-
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-              Alert.alert("Modal has been closed.");
-            setModalVisible(!modalVisible);
-            }}
-          >
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-              <Text style={{fontWeight:"bold"}}>Inviter des amis</Text>
-                <TextInput
-                    style={{
-                      height: 40,
-                      width: 200,
-                      borderWidth: 1,
-                      marginBottom: 10,
-                      marginTop: 10
-                    }}
-                    defaultValue=""
-                />
-
-                  <Button
-                  title="Envoyer l'invitation"
-                  buttonStyle={styles.button}
-                  onPress={() => Alert.alert('Invitation envoyée ')}
-                  />  
-
-                  <Pressable
-                    style={styles.buttonRetour}
-                    onPress={() => setModalVisible(!modalVisible)}
-                    >
-                  <Text style={styles.textStyleRetour}>Retour</Text>
-                </Pressable>
-              </View>
+{/*---------------------- BOUTTON POUR INVITER DES AMIS -----------------------*/}
+            <View style={{marginTop:15}}>
+              <Pressable
+                style={[styles.button]}
+                onPress={() => setModalVisible(true)}
+                >
+                <Text style={styles.textStyle}>Inviter des amis</Text>
+              </Pressable>
             </View>
-          </Modal>
-          
-          <View style={{marginTop:15}}>
-          <Pressable
-              style={[styles.button]}
-              onPress={() => setModalVisible(true)}
-              >
-              <Text style={styles.textStyle}>Inviter des amis</Text>
-          </Pressable>
-          </View>
-          
+        
           </Card>
-          </ScrollView>
-        </View>    
+        </ScrollView>
+      </View>    
  
 
     </View>
@@ -327,6 +293,8 @@ const user = [
 
   );
 }
+
+/*---------------------- REDUCERS -----------------------*/
 
 function mapStateToProps(state) {
 
@@ -448,30 +416,3 @@ const styles = StyleSheet.create({
   },
 })
 
-const customPickerStyles = StyleSheet.create({
-  inputIOS: {
-    fontSize: 14,
-    paddingVertical: 10,
-    paddingHorizontal: 12,
-    borderWidth: 1,
-    borderColor: "#ED590C",
-    borderRadius: 10,
-    color: 'black',
-    paddingRight: 30, // to ensure the text is never behind the icon
-  },
-  inputAndroid: {
-    fontSize: 14,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    borderWidth: 1,
-    borderColor: "#ED590C",
-    borderRadius: 8,
-    color: 'black',
-    paddingRight: 30, // to ensure the text is never behind the icon
-  },
-});
-
-/*function mapStateToProps(state) {
-  return {Activites:state.ActivitiesList}
- }
-export default connect(mapStateToProps,null)(Ranking)*/
