@@ -1,15 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Image, } from 'react-native';
+import { StyleSheet, Text, View, Image} from 'react-native';
 
 import {Button, Input, LinearProgress, } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+
 export default function Welcome(props) {
   return (
     <View style={styles.Container}>
+
         <View>
             <View style={styles.Swipe}>
+            
               <Text style={{ fontSize : 25}}>Bienvenue sur </Text>
               <Image 
                 style={{ width: 165, height: 100}}

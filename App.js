@@ -13,6 +13,7 @@ import Ranking from './screens/Ranking';
 import Welcome from './screens/Welcome';
 import Params from './screens/Params';
 
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';

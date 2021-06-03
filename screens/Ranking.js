@@ -293,7 +293,7 @@ const user = [
                 />
 
                   <Button
-                  title="Envoyer l'invation"
+                  title="Envoyer l'invitation"
                   buttonStyle={styles.button}
                   onPress={() => Alert.alert('Invitation envoyée ')}
                   />  

@@ -16,8 +16,6 @@ function Challenge(props) {
   const [newChallengeName, setNewChallengeName] = useState("");
   const [newChallengeNumber,setNewChallengeNumber] = useState("");
  
-  console.log("liste trophée",props.dataChallenge)
-
   var handleSubmitChallenge = async (name, number) => {
     props.addNewChallenge(name, "https://res.cloudinary.com/dcyuyphdt/image/upload/v1621947674/rq/Challenge_tgzwms.png" )
     setModalVisible(!modalVisible)
@@ -166,7 +164,6 @@ function Challenge(props) {
     <View style={{ flexDirection: "row"}}>
       { 
         props.dataTrophee.map((u, i) => {
-          console.log(props.dataTrophee)
           return (
 
             <View key={i}>
