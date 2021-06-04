@@ -4,7 +4,6 @@ import {Button, Card } from 'react-native-elements'
 import Navheader from "../component/Navheader"
 import RNPickerSelect from 'react-native-picker-select';
 import {connect} from 'react-redux';
-import DateTimePicker from '@react-native-community/datetimepicker';
 
 function Challenge(props) {
 
@@ -12,70 +11,14 @@ function Challenge(props) {
   const [currentMessage, setCurrentMessage] = useState("Km");
   const [newChallengeName, setNewChallengeName] = useState("");
   const [newChallengeNumber,setNewChallengeNumber] = useState("");
-  const [date, setDate] = useState(new Date(Date.now()));
-  const [dateStart, setdateStart] = useState("");
-  const [dateEnd, setdateEnd] = useState("");
-  const [dateStartBis, setdateStartBis] = useState("");
-  const [dateEndBis, setdateEndBis] = useState("");
-  const [mode, setMode] = useState('date');
-  const [show, setShow] = useState(false);
-  const [inputDateStart, SetInputDateStart] = useState(false);
-
+ 
   console.log("liste trophée",props.dataChallenge)
 
   var handleSubmitChallenge = async (name, number) => {
-
-
-    const data = await fetch('http://192.168.1.29:3000/addchallenge', {
-
-      method: 'POST',
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      body: `nameFromFront=${newChallengeName}&kmFromFront=${newChallengeNumber}&dateStartFromFront=${dateStartBis}&dateEndFromFront=${dateEndBis}&tokenFromFront=${props.token}`
-    })
-    const body= await data.json()
-    
     props.addNewChallenge(name, "https://res.cloudinary.com/dcyuyphdt/image/upload/v1621947674/rq/Challenge_tgzwms.png" )
     setModalVisible(!modalVisible)
+
   }
-
-  const onChangeDate = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(false);
-    
-
-    var currentDate2 = ('0' + currentDate.getDate()).slice(-2) + '/'
-    + ('0' + (currentDate.getMonth()+1)).slice(-2) + '/'
-    + currentDate.getFullYear();
-    
-    if (inputDateStart==true){
-      setdateStart(currentDate2);
-      setdateStartBis(currentDate);
-      
-    } else{
-      setdateEnd(currentDate2);
-      setdateEndBis(currentDate);
-    }
-
-    
-  };
-
-
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
-  };
-
-  const showDatepicker = (choice) => {
-    showMode('date');
-    if (choice=="dateS"){
-      SetInputDateStart(true)
-    }else{
-      SetInputDateStart(false)
-    }
-    
-  };
-
- 
 
   return (
     
@@ -181,63 +124,6 @@ function Challenge(props) {
             defaultValue=""
         />
 
-
-      {/* //-------------------DATE DEBUT--------------------- */}
-      <Text>Date départ</Text>
-      <View style={{flexDirection:"row", alignItems: "center", justifyContent:"center", marginTop:10}}>
-      
-        <TextInput
-            style={{
-              height: 40,
-              width: 180,
-              borderWidth: 1,
-              marginBottom: 10,
-              marginRight: 5,
-              textAlign: 'center'
-             
-            }}
-            defaultValue=""
-            value={dateStart.toString()}
-                                 
-        />
-        <Button onPress={()=>{showDatepicker('dateS')}}>start</Button>
-      </View> 
-
-        {show && (<DateTimePicker
-          testID="dateTimePicker"
-          value={date}
-          mode={mode}
-          is24Hour={true}
-          display="default"
-          onChange={onChangeDate}
-        />
-        )}
-
-        {/* //-------------------DATE FIN--------------------- */}  
-        <Text>Date arrivée</Text>
-        <View style={{flexDirection:"row", alignItems: "center", justifyContent:"center", marginTop:10}}>
-        
-        <TextInput
-            style={{
-              height: 40,
-              width: 180,
-              borderWidth: 1,
-              marginBottom: 10,
-              marginRight: 5,
-              textAlign: 'center'
-             
-            }}
-            defaultValue=""
-            value={dateEnd.toString()}
-                                 
-        />
-        <Button onPress={()=>showDatepicker()}>start</Button>
-      </View> 
-
-
-
-
-    
       <Button
         title="Créer un challenge"
         buttonStyle={styles.button}
@@ -403,8 +289,7 @@ function mapStateToProps(state) {
 
   return {
     dataChallenge:state.UserChallenge,
-    dataTrophee:state.trophy,
-    token:state.token
+    dataTrophee:state.trophy
   }
  }
 

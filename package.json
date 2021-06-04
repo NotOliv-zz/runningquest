@@ -26,6 +26,8 @@
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
     "react-native-common-date-picker": "^2.3.4",
+    "react-native-date-picker": "^3.3.1",
+    "react-native-datepicker": "^1.7.2",
     "react-native-dropdown-picker": "^5.1.15",
     "react-native-elements": "^3.4.1",
     "react-native-flatlist-slider": "^1.0.5",
@@ -40,7 +42,8 @@
     "react-native-video": "^5.1.1",
     "react-native-web": "~0.13.12",
     "react-redux": "^7.2.4",
-    "redux": "^4.1.0"
+    "redux": "^4.1.0",
+    "@react-native-community/datetimepicker": "3.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"
