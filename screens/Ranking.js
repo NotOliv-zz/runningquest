@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, Text, View, Image, Pressable, Modal, Alert, TextInput, ScrollView,  } from 'react-native';
+import { StyleSheet, Text, View, Pressable, Modal, Alert, TextInput, ScrollView,  } from 'react-native';
+
 import {Card, Button, Icon, Divider} from 'react-native-elements'
 import Navheader from "../component/Navheader"
 import RNPickerSelect from 'react-native-picker-select';
@@ -21,6 +22,9 @@ function Ranking (props) {
   const [modalVisible, setModalVisible] = useState(false);
 
   const [sortFriends, setSortFriends] = useState([])
+
+
+{/* ---------------------- RECUPERATION DES POLYLINES ----------------------- */}
 
 useEffect(() => {
 
@@ -57,6 +61,7 @@ useEffect(() => {
     setLastOuting("08/05/2021")
     setNombreKm(212)
     setNombreExploration(41)
+    
   
   }else { 
     if (currentMessage=='Levallois Perret'){
@@ -66,6 +71,7 @@ useEffect(() => {
     setLastOuting("19/05/2021")
     setNombreKm(142)
     setNombreExploration(56)
+    
   }}
 
 
@@ -88,7 +94,7 @@ const user = [
   },
   {
     pseudo: "Hector",
-    nbrKm: 15,
+    nbrKm: 50,
   },
 ]
 

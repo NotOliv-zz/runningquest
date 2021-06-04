@@ -2,8 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, Image, } from 'react-native';
 
-import {Button, Input, LinearProgress, } from 'react-native-elements'
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {Button, LinearProgress, } from 'react-native-elements'
 
 export default function Welcome(props) {
   return (
@@ -24,6 +23,7 @@ export default function Welcome(props) {
 
             </View>
         </View>
+{/*---------------------- BOUTON LOGIN -----------------------*/}
 
       <StatusBar style="auto" />
       <View style={styles.Button}>
@@ -33,6 +33,9 @@ export default function Welcome(props) {
             buttonStyle={{backgroundColor: "#ED590C", marginRight:50, width:100}}
             onPress={() => props.navigation.navigate('Login')}
         />    
+
+{/*---------------------- BOUTON INSCRIPTION-----------------------*/}
+        
             <Button 
             title="Inscription"
             type="solid"
