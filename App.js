@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
@@ -24,13 +23,13 @@ import token from './reducers/token';
 import ActivitiesList from './reducers/activities';
 import trophy from './reducers/trophy';
 import UserChallenge from './reducers/challenge';
-import ProfilStrava from './reducers/profil';
+import MyProfil from './reducers/profil';
 import RankingList from './reducers/rankings';
 import {Provider} from 'react-redux'
 import {createStore, combineReducers} from 'redux'
 
 
-const store = createStore(combineReducers({token, ActivitiesList, ProfilStrava, UserChallenge, trophy, RankingList}))
+const store = createStore(combineReducers({token, ActivitiesList, MyProfil, UserChallenge, trophy, RankingList}))
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -60,7 +59,7 @@ const BottomNavigator = () => {
         inactiveTintColor: '#808080',
         style: {
           shadowOpacity: 0.06, //  shadow on iOS
-          height: 70,
+          height: 90,
           padding:15
         }
       }}

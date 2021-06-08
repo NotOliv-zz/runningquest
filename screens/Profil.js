@@ -37,7 +37,7 @@ function Profil(props) {
           containerStyle={{marginTop:100, marginBottom:20}}
         />
         
-      <Text style={styles.text} >Olivier Bouvet</Text>
+      <Text style={styles.text} >{props.pseudo}</Text>
 
       </View>
       {
@@ -82,7 +82,10 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
 
-  return {photo : state.ProfilStrava}
+  return {
+    photo : state.MyProfil.profilpicfromstrava,
+    pseudo : state.MyProfil.pseudo
+  }
  }
 
 export default connect(

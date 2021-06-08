@@ -16,7 +16,7 @@ function LoginPage(props) {
 
     //const data = await fetch('https://runningquest1.herokuapp.com/sign-in', {
 
-    const data = await fetch('http://192.168.1.29:3000/sign-in', {
+    const data = await fetch('http://192.168.1.23:3000/sign-in', {
 
       method: 'POST',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -24,13 +24,12 @@ function LoginPage(props) {
     })
 
     const body = await data.json()
- 
 
     if(body.result == true){
       props.navigation.navigate('BottomNavigator', {screen: 'Activity'})
       props.addToken(body.user.token)
       props.addActivities(body.user.activities)
-      props.addProfil(body.user.profilpicfromstrava)
+      props.addProfil(body.user)
       props.addRanking(body.dataRanking)
       props.addChallenge(body.user.challenge)
       props.addTrophy(body.user.trophy)

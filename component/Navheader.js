@@ -62,7 +62,7 @@ function Navheader(props) {
 }
 
 function mapStateToProps(state) {
-  return {photo : state.ProfilStrava}
+  return {photo : state.MyProfil.profilpicfromstrava}
  }
 
 export default connect(
