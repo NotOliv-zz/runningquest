@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import {Avatar,Button, Input, LinearProgress} from 'react-native-elements'
+import {Avatar,Button} from 'react-native-elements'
 
 export default function Api(props) {
   return (
@@ -9,14 +9,7 @@ export default function Api(props) {
       <Text>Synchronise ton application de running préférée pour importer tes activités</Text>
 
 <View style={{ flexDirection:"row", margin:50}}>
-    <Avatar 
-      rounded
-      size="medium"
-      title="Garmin"
-      activeOpacity={0.7}
-      source={require("../assets/sportsapp/garmin.png")}
-      onPress={() => console.log("Click in Garmin!")}
-    />
+   
     <Avatar
       rounded
       size="medium"
@@ -27,25 +20,6 @@ export default function Api(props) {
       onPress={() => console.log("Click in Strava!")}
     />
     </View >
-    <View style={{ flexDirection:"row"}}>
-    <Avatar
-      rounded
-      size="medium"
-      title="Runtastic"
-      activeOpacity={0.7}
-      source={require("../assets/sportsapp/runtastic.png")}
-      onPress={() => console.log("Click in Runtastic!")}
-    />
-    <Avatar
-      rounded
-      size="medium"
-      title="Nike"
-      onPress={() => console.log("Works!")}
-      activeOpacity={0.7}
-      source={require("../assets/sportsapp/nike2.jpg")}
-      onPress={() => console.log("Click in Nike!")}
-    />
-    </View>
             <Button 
             title="Synchronisation"
             type="solid"

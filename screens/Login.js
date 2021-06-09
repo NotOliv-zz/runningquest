@@ -14,8 +14,6 @@ function LoginPage(props) {
   
   var handleSubmitSignIn = async () => {
 
-    //const data = await fetch('https://runningquest1.herokuapp.com/sign-in', {
-
     const data = await fetch('http://192.168.1.23:3000/sign-in', {
 
       method: 'POST',
