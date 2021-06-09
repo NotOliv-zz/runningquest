@@ -24,17 +24,57 @@ function Challenge(props) {
   var handleSubmitChallenge = async (name, number) => {
 
 
-    const data = await fetch('http://192.168.1.23:3000/addchallenge', {
+    const data = await fetch('http://192.168.1.29:3000/addchallenge', {
 
       method: 'POST',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      body: `nameFromFront=${newChallengeName}&kmFromFront=${newChallengeNumber}&dateStartFromFront=${dateStart}&dateEndFromFront=${dateEnd}&tokenFromFront=${props.token}`
+      body: `nameFromFront=${newChallengeName}&kmFromFront=${newChallengeNumber}&dateStartFromFront=${dateStartBis}&dateEndFromFront=${dateEndBis}&tokenFromFront=${props.token}`
     })
     const body= await data.json()
     
     props.addNewChallenge(name, "https://res.cloudinary.com/dcyuyphdt/image/upload/v1621947674/rq/Challenge_tgzwms.png" )
     setModalVisible(!modalVisible)
   }
+
+  const onChangeDate = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(false);
+    
+
+
+    var currentDate2 = ('0' + currentDate.getDate()).slice(-2) + '/'
+    + ('0' + (currentDate.getMonth()+1)).slice(-2) + '/'
+    + currentDate.getFullYear();
+    
+    if (inputDateStart==true){
+      setdateStart(currentDate2);
+      setdateStartBis(currentDate);
+      
+    } else{
+      setdateEnd(currentDate2);
+      setdateEndBis(currentDate);
+    }
+
+    
+  };
+
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = (choice) => {
+    showMode('date');
+    if (choice=="dateS"){
+      SetInputDateStart(true)
+    }else{
+      SetInputDateStart(false)
+    }
+    
+  };
+
+ 
 
   return (
     
@@ -153,15 +193,24 @@ function Challenge(props) {
               marginBottom: 10,
               marginRight: 5,
               textAlign: 'center'
+             
             }}
-            onChangeText={(dateStart) => setdateStart(dateStart)}
             defaultValue=""
-                
+            value={dateStart.toString()}
+                                 
         />
-
+        <Button onPress={()=>{showDatepicker('dateS')}}>start</Button>
       </View> 
 
-  
+        {show && (<DateTimePicker
+          testID="dateTimePicker"
+          value={date}
+          mode={mode}
+          is24Hour={true}
+          display="default"
+          onChange={onChangeDate}
+        />
+        )}
 
         {/* //-------------------DATE FIN--------------------- */}  
         <Text>Date arrivée</Text>
@@ -177,9 +226,12 @@ function Challenge(props) {
               textAlign: 'center'
              
             }}
-            onChangeText={(dateEnd) => setdateEnd(dateEnd)}
-            defaultValue=""                       
+            defaultValue=""
+            value={dateEnd.toString()}
+           
+                                 
         />
+        <Button onPress={()=>showDatepicker()}>start</Button>
       </View> 
 
 

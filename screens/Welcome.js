@@ -1,8 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View, Image} from 'react-native';
 
-import {Button, LinearProgress, } from 'react-native-elements'
+import {Button, LinearProgress} from 'react-native-elements'
 
 
 export default function Welcome(props) {

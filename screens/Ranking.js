@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, Text, View, Pressable, Modal, Alert, TextInput, ScrollView,  } from 'react-native';
-
+import {StyleSheet, Text, View, Pressable, Modal, Alert, TextInput, ScrollView} from 'react-native';
 import {Card, Button, Icon, Divider} from 'react-native-elements'
 import Navheader from "../component/Navheader"
 import RNPickerSelect from 'react-native-picker-select';

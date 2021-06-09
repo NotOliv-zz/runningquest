@@ -1,8 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import Navheader from "../component/Navheader";
-import {Avatar,Card, ListItem, Button, Icon, Header, Text} from 'react-native-elements'
+import {ListItem, Button, Icon} from 'react-native-elements'
 
 
 const list = [

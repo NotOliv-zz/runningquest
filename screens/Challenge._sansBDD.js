@@ -4,7 +4,6 @@ import {Button, Card } from 'react-native-elements'
 import Navheader from "../component/Navheader"
 import RNPickerSelect from 'react-native-picker-select';
 import {connect} from 'react-redux';
-import DateTimePicker from '@react-native-community/datetimepicker';
 
 function Challenge(props) {
 
@@ -12,28 +11,13 @@ function Challenge(props) {
   const [currentMessage, setCurrentMessage] = useState("Km");
   const [newChallengeName, setNewChallengeName] = useState("");
   const [newChallengeNumber,setNewChallengeNumber] = useState("");
-  const [date, setDate] = useState(new Date(Date.now()));
-  const [dateStart, setdateStart] = useState("");
-  const [dateEnd, setdateEnd] = useState("");
-  const [dateStartBis, setdateStartBis] = useState("");
-  const [dateEndBis, setdateEndBis] = useState("");
-  const [mode, setMode] = useState('date');
-  const [show, setShow] = useState(false);
-  const [inputDateStart, SetInputDateStart] = useState(false);
+ 
+  console.log("liste trophée",props.dataChallenge)
 
   var handleSubmitChallenge = async (name, number) => {
-
-
-    const data = await fetch('http://192.168.1.23:3000/addchallenge', {
-
-      method: 'POST',
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      body: `nameFromFront=${newChallengeName}&kmFromFront=${newChallengeNumber}&dateStartFromFront=${dateStart}&dateEndFromFront=${dateEnd}&tokenFromFront=${props.token}`
-    })
-    const body= await data.json()
-    
     props.addNewChallenge(name, "https://res.cloudinary.com/dcyuyphdt/image/upload/v1621947674/rq/Challenge_tgzwms.png" )
     setModalVisible(!modalVisible)
+
   }
 
   return (
@@ -140,52 +124,6 @@ function Challenge(props) {
             defaultValue=""
         />
 
-
-      {/* //-------------------DATE DEBUT--------------------- */}
-      <Text>Date départ</Text>
-      <View style={{flexDirection:"row", alignItems: "center", justifyContent:"center", marginTop:10}}>
-      
-        <TextInput
-            style={{
-              height: 40,
-              width: 180,
-              borderWidth: 1,
-              marginBottom: 10,
-              marginRight: 5,
-              textAlign: 'center'
-            }}
-            onChangeText={(dateStart) => setdateStart(dateStart)}
-            defaultValue=""
-                
-        />
-
-      </View> 
-
-  
-
-        {/* //-------------------DATE FIN--------------------- */}  
-        <Text>Date arrivée</Text>
-        <View style={{flexDirection:"row", alignItems: "center", justifyContent:"center", marginTop:10}}>
-        
-        <TextInput
-            style={{
-              height: 40,
-              width: 180,
-              borderWidth: 1,
-              marginBottom: 10,
-              marginRight: 5,
-              textAlign: 'center'
-             
-            }}
-            onChangeText={(dateEnd) => setdateEnd(dateEnd)}
-            defaultValue=""                       
-        />
-      </View> 
-
-
-
-
-    
       <Button
         title="Créer un challenge"
         buttonStyle={styles.button}
@@ -224,6 +162,7 @@ function Challenge(props) {
     <View style={{ flexDirection: "row"}}>
       { 
         props.dataTrophee.map((u, i) => {
+          console.log(props.dataTrophee)
           return (
 
             <View key={i}>
@@ -350,8 +289,7 @@ function mapStateToProps(state) {
 
   return {
     dataChallenge:state.UserChallenge,
-    dataTrophee:state.trophy,
-    token:state.token
+    dataTrophee:state.trophy
   }
  }
 

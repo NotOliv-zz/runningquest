@@ -1,8 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
+import {View, Image} from 'react-native';
 
-import {Avatar,Card, ListItem, Button, Icon, Header} from 'react-native-elements'
+import {Avatar, Header} from 'react-native-elements'
 import {connect} from 'react-redux';
 
 function Navheader(props) {
