@@ -11,19 +11,14 @@ function Challenge(props) {
   const [currentMessage, setCurrentMessage] = useState("Km");
   const [newChallengeName, setNewChallengeName] = useState("");
   const [newChallengeNumber,setNewChallengeNumber] = useState("");
-  const [date, setDate] = useState(new Date(Date.now()));
   const [dateStart, setdateStart] = useState("");
   const [dateEnd, setdateEnd] = useState("");
-  const [dateStartBis, setdateStartBis] = useState("");
-  const [dateEndBis, setdateEndBis] = useState("");
-  const [mode, setMode] = useState('date');
-  const [show, setShow] = useState(false);
-  const [inputDateStart, SetInputDateStart] = useState(false);
+
 
   var handleSubmitChallenge = async (name, number) => {
 
 
-    const data = await fetch('http://192.168.1.23:3000/addchallenge', {
+    const data = await fetch('https://intense-tundra-28448.herokuapp.com/addchallenge', {
 
       method: 'POST',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
