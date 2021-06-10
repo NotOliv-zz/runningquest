@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import {Button, Input, Icon} from 'react-native-elements'
@@ -13,8 +12,6 @@ function Inscription(props) {
   const [signUpPassword, setSignUpPassword] = useState('')
   const [listErrorsSignup, setErrorsSignup] = useState([])
   
-
-  const [userExists, setUserExists] = useState(false)
 
 
 //____________________________________ FONCTION SIGN UP ________________________________________//

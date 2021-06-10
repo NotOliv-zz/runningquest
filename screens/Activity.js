@@ -6,7 +6,6 @@ import {connect} from 'react-redux';
 import MapView, { Polyline } from 'react-native-maps';
 import polyline from '@mapbox/polyline';
 
-// DEBUT FONCTION // 
 
 function Activity(props) {
 

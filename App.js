@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet} from 'react-native';
-
 import Activity from './screens/Activity';
 import API from './screens/API'
 import Challenge from './screens/Challenge';
@@ -11,13 +10,14 @@ import Profil from './screens/Profil';
 import Ranking from './screens/Ranking';
 import Welcome from './screens/Welcome';
 import Params from './screens/Params';
+import { Ionicons } from '@expo/vector-icons';
 
-
+// REACT NAVIGATION //
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { Ionicons } from '@expo/vector-icons';
+// REDUX STORE //
 
 import token from './reducers/token';
 import ActivitiesList from './reducers/activities';
@@ -27,7 +27,6 @@ import MyProfil from './reducers/profil';
 import RankingList from './reducers/rankings';
 import {Provider} from 'react-redux'
 import {createStore, combineReducers} from 'redux'
-
 
 const store = createStore(combineReducers({token, ActivitiesList, MyProfil, UserChallenge, trophy, RankingList}))
 const Stack = createStackNavigator();

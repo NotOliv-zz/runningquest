@@ -4,7 +4,6 @@ import {Button, Card } from 'react-native-elements'
 import Navheader from "../component/Navheader"
 import RNPickerSelect from 'react-native-picker-select';
 import {connect} from 'react-redux';
-import DateTimePicker from '@react-native-community/datetimepicker';
 
 function Challenge(props) {
 
